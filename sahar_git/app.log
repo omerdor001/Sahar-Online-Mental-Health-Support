@@ -1,0 +1,96 @@
+2024-07-03 19:56:10,466 - INFO - Start grabber
+2024-07-03 19:56:12,793 - INFO - Start analyze
+2024-07-03 19:56:12,794 - INFO - Start analyzing <AI.ai_adapters.basic_algorithm_adapter.BasicAlgorithmAdapter object at 0x7f3695c78a70>
+2024-07-03 19:56:14,575 - INFO - Start cache update
+2024-07-03 19:56:14,576 - INFO - Finish cache update Successfully
+2024-07-03 19:56:14,576 - INFO - Finish grabbing successfully
+2024-07-03 19:56:16,221 - INFO - End analyzing successfully
+2024-07-03 19:56:29,576 - INFO - Start grabber
+2024-07-03 19:56:31,221 - INFO - Start analyze
+2024-07-03 19:56:31,222 - INFO - Start analyzing <AI.ai_adapters.basic_algorithm_adapter.BasicAlgorithmAdapter object at 0x7f3695c78a70>
+2024-07-03 19:56:31,271 - INFO - Start cache update
+2024-07-03 19:56:31,271 - INFO - Finish cache update Successfully
+2024-07-03 19:56:31,271 - INFO - Finish grabbing successfully
+2024-07-03 19:56:34,447 - INFO - End analyzing successfully
+2024-07-03 19:56:46,272 - INFO - Start grabber
+2024-07-03 19:56:49,447 - INFO - Start analyze
+2024-07-03 19:56:49,448 - INFO - Start analyzing <AI.ai_adapters.basic_algorithm_adapter.BasicAlgorithmAdapter object at 0x7f3695c78a70>
+2024-07-03 19:56:49,608 - INFO - Start cache update
+2024-07-03 19:56:49,608 - INFO - Finish cache update Successfully
+2024-07-03 19:56:49,608 - INFO - Finish grabbing successfully
+2024-07-03 19:56:51,300 - INFO - Start cleaning conversation log
+2024-07-03 19:56:51,379 - INFO - Cleaned conversation logs data successfully
+2024-07-03 19:56:52,786 - INFO - End analyzing successfully
+2024-07-03 19:57:04,609 - INFO - Start grabber
+2024-07-03 19:57:06,164 - INFO - Start cache update
+2024-07-03 19:57:06,165 - INFO - Finish cache update Successfully
+2024-07-03 19:57:06,165 - INFO - Finish grabbing successfully
+2024-07-03 19:57:07,786 - INFO - Start analyze
+2024-07-03 19:57:07,787 - INFO - Start analyzing <AI.ai_adapters.basic_algorithm_adapter.BasicAlgorithmAdapter object at 0x7f3695c78a70>
+2024-07-03 19:57:09,176 - INFO - Start cleaning log data
+2024-07-03 19:57:09,185 - INFO - Cleaned old log data successfully
+2024-07-03 19:57:11,228 - INFO - End analyzing successfully
+2024-07-03 19:57:21,165 - INFO - Start grabber
+2024-07-03 19:57:22,903 - INFO - Start cache update
+2024-07-03 19:57:22,903 - INFO - Finish cache update Successfully
+2024-07-03 19:57:22,903 - INFO - Finish grabbing successfully
+2024-07-03 19:57:26,228 - INFO - Start analyze
+2024-07-03 19:57:26,229 - INFO - Start analyzing <AI.ai_adapters.basic_algorithm_adapter.BasicAlgorithmAdapter object at 0x7f3695c78a70>
+2024-07-03 19:57:29,540 - INFO - End analyzing successfully
+2024-07-03 19:57:37,904 - INFO - Start grabber
+2024-07-03 19:57:40,240 - INFO - Start cache update
+2024-07-03 19:57:40,241 - INFO - Finish cache update Successfully
+2024-07-03 19:57:40,241 - INFO - Finish grabbing successfully
+2024-07-03 19:57:44,540 - INFO - Start analyze
+2024-07-03 19:57:44,541 - INFO - Start analyzing <AI.ai_adapters.basic_algorithm_adapter.BasicAlgorithmAdapter object at 0x7f3695c78a70>
+2024-07-03 19:57:47,729 - INFO - End analyzing successfully
+2024-07-03 19:57:55,241 - INFO - Start grabber
+2024-07-03 19:57:56,908 - INFO - Start cache update
+2024-07-03 19:57:56,908 - INFO - Finish cache update Successfully
+2024-07-03 19:57:56,908 - INFO - Finish grabbing successfully
+2024-07-03 19:58:02,729 - INFO - Start analyze
+2024-07-03 19:58:02,730 - INFO - Start analyzing <AI.ai_adapters.basic_algorithm_adapter.BasicAlgorithmAdapter object at 0x7f3695c78a70>
+2024-07-03 19:58:06,052 - INFO - End analyzing successfully
+2024-07-03 19:58:11,909 - INFO - Start grabber
+2024-07-03 19:58:13,713 - INFO - Start cache update
+2024-07-03 19:58:13,713 - INFO - Finish cache update Successfully
+2024-07-03 19:58:13,713 - INFO - Finish grabbing successfully
+2024-07-03 19:58:21,052 - INFO - Start analyze
+2024-07-03 19:58:21,053 - INFO - Start analyzing <AI.ai_adapters.basic_algorithm_adapter.BasicAlgorithmAdapter object at 0x7f3695c78a70>
+2024-07-03 19:58:24,320 - INFO - End analyzing successfully
+2024-07-03 19:58:28,713 - INFO - Start grabber
+2024-07-03 19:58:30,501 - INFO - Start cache update
+2024-07-03 19:58:30,501 - INFO - Finish cache update Successfully
+2024-07-03 19:58:30,501 - INFO - Finish grabbing successfully
+2024-07-03 19:58:39,320 - INFO - Start analyze
+2024-07-03 19:58:39,321 - INFO - Start analyzing <AI.ai_adapters.basic_algorithm_adapter.BasicAlgorithmAdapter object at 0x7f3695c78a70>
+2024-07-03 19:58:42,843 - INFO - End analyzing successfully
+2024-07-03 19:58:45,501 - INFO - Start grabber
+2024-07-03 19:58:47,102 - INFO - Start cache update
+2024-07-03 19:58:47,102 - INFO - Finish cache update Successfully
+2024-07-03 19:58:47,103 - INFO - Finish grabbing successfully
+2024-07-03 19:58:51,379 - INFO - Start cleaning conversation log
+2024-07-03 19:58:51,436 - INFO - Cleaned conversation logs data successfully
+2024-07-03 19:58:57,844 - INFO - Start analyze
+2024-07-03 19:58:57,845 - INFO - Start analyzing <AI.ai_adapters.basic_algorithm_adapter.BasicAlgorithmAdapter object at 0x7f3695c78a70>
+2024-07-03 19:59:01,247 - INFO - End analyzing successfully
+2024-07-03 19:59:02,103 - INFO - Start grabber
+2024-07-03 19:59:03,771 - INFO - Start cache update
+2024-07-03 19:59:03,771 - INFO - Finish cache update Successfully
+2024-07-03 19:59:03,776 - INFO - Finish grabbing successfully
+2024-07-03 19:59:09,185 - INFO - Start cleaning log data
+2024-07-03 19:59:09,190 - INFO - Cleaned old log data successfully
+2024-07-03 19:59:16,247 - INFO - Start analyze
+2024-07-03 19:59:16,248 - INFO - Start analyzing <AI.ai_adapters.basic_algorithm_adapter.BasicAlgorithmAdapter object at 0x7f3695c78a70>
+2024-07-03 19:59:18,776 - INFO - Start grabber
+2024-07-03 19:59:19,594 - INFO - End analyzing successfully
+2024-07-03 19:59:20,316 - INFO - Start cache update
+2024-07-03 19:59:20,317 - INFO - Finish cache update Successfully
+2024-07-03 19:59:20,317 - INFO - Finish grabbing successfully
+2024-07-03 19:59:34,594 - INFO - Start analyze
+2024-07-03 19:59:34,595 - INFO - Start analyzing <AI.ai_adapters.basic_algorithm_adapter.BasicAlgorithmAdapter object at 0x7f3695c78a70>
+2024-07-03 19:59:35,317 - INFO - Start grabber
+2024-07-03 19:59:36,996 - INFO - Start cache update
+2024-07-03 19:59:37,869 - INFO - Finish cache update Successfully
+2024-07-03 19:59:37,869 - INFO - Finish grabbing successfully
+2024-07-03 19:59:37,988 - INFO - End analyzing successfully

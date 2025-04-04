@@ -1,0 +1,1207 @@
+2025-03-26 19:25:05,678 - INFO - Authentication to Live-Person complete successfully
+2025-03-26 19:25:09,080 - INFO - Start analyze
+2025-03-26 19:25:09,080 - INFO - Finished system initiation successfully
+2025-03-26 19:25:09,080 - INFO - End analyzing successfully
+2025-03-26 19:25:09,083 - INFO - Start grabber
+2025-03-26 19:25:10,140 - INFO - Start cache update
+2025-03-26 19:25:10,140 - INFO - Finish cache update Successfully
+2025-03-26 19:25:10,140 - INFO - Finish grabbing successfully
+2025-03-26 19:25:14,082 - INFO - Start analyze
+2025-03-26 19:25:14,083 - INFO - Start analyzing GSR
+2025-03-26 19:25:15,140 - INFO - Start grabber
+2025-03-26 19:25:16,030 - WARNING - Number of retries: 0, Message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:25:16,090 - INFO - algorithm:GSR made a prodiction:[0.9940904 0.0059096] with regards to conversation ID:146b9246-bf33-4d1a-8570-dfdf3fdaa067
+2025-03-26 19:25:16,090 - INFO - algorithm:GSR made a prodiction:[0.23955598 0.760444  ] with regards to conversation ID:2f28b744-0bd9-4f55-a900-ceb2d5d32ddf
+2025-03-26 19:25:16,111 - INFO - End analyzing successfully
+2025-03-26 19:25:16,919 - WARNING - Number of retries: 1, Message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:25:17,809 - ERROR - Error message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:25:17,809 - ERROR - lp_api_manager Call: Headers - {'Authorization': 'Bearer d70c67215245ff8fa9ab709c17d59c77992f78953239df68490a762ef023b80d', 'Content-Type': 'application/json', 'Content-Length': '165'}, Body - b'{"start": {"from": 1742923515140, "to": 1743009915140}, "contentToRetrieve": ["consumerParticipants", "messageRecords", "monitoring"], "status": ["OPEN", "OVERDUE"]}', Url - https://va.msghist.liveperson.net/messaging_history/api/account/40920689/conversations/search?offset=0&limit=100&source=sahar_AI_openConv, Type - POST
+2025-03-26 19:25:17,809 - WARNING - Unauthorized, try to authenticate
+2025-03-26 19:25:19,816 - ERROR - Grabber finished unsuccessfully. Error message: '_metadata'
+2025-03-26 19:25:21,111 - INFO - Start analyze
+2025-03-26 19:25:21,112 - INFO - Start analyzing GSR
+2025-03-26 19:25:22,209 - INFO - End analyzing successfully
+2025-03-26 19:25:24,816 - INFO - Start grabber
+2025-03-26 19:25:25,944 - INFO - Start cache update
+2025-03-26 19:25:25,944 - INFO - Finish cache update Successfully
+2025-03-26 19:25:25,944 - INFO - Finish grabbing successfully
+2025-03-26 19:25:27,210 - INFO - Start analyze
+2025-03-26 19:25:27,210 - INFO - Start analyzing GSR
+2025-03-26 19:25:28,360 - INFO - End analyzing successfully
+2025-03-26 19:25:30,945 - INFO - Start grabber
+2025-03-26 19:25:32,885 - INFO - Start cache update
+2025-03-26 19:25:32,885 - INFO - Finish cache update Successfully
+2025-03-26 19:25:32,886 - INFO - Finish grabbing successfully
+2025-03-26 19:25:33,361 - INFO - Start analyze
+2025-03-26 19:25:33,361 - INFO - Start analyzing GSR
+2025-03-26 19:25:34,462 - INFO - End analyzing successfully
+2025-03-26 19:25:37,887 - INFO - Start grabber
+2025-03-26 19:25:38,921 - INFO - Start cache update
+2025-03-26 19:25:38,921 - INFO - Finish cache update Successfully
+2025-03-26 19:25:38,921 - INFO - Finish grabbing successfully
+2025-03-26 19:25:39,463 - INFO - Start analyze
+2025-03-26 19:25:39,463 - INFO - Start analyzing GSR
+2025-03-26 19:25:40,513 - INFO - End analyzing successfully
+2025-03-26 19:25:43,922 - INFO - Start grabber
+2025-03-26 19:25:45,080 - INFO - Start cache update
+2025-03-26 19:25:45,081 - INFO - Finish cache update Successfully
+2025-03-26 19:25:45,082 - INFO - Finish grabbing successfully
+2025-03-26 19:25:45,513 - INFO - Start analyze
+2025-03-26 19:25:45,514 - INFO - Start analyzing GSR
+2025-03-26 19:25:46,508 - INFO - End analyzing successfully
+2025-03-26 19:25:50,083 - INFO - Start grabber
+2025-03-26 19:25:51,222 - INFO - Start cache update
+2025-03-26 19:25:51,223 - INFO - Finish cache update Successfully
+2025-03-26 19:25:51,223 - INFO - Finish grabbing successfully
+2025-03-26 19:25:51,508 - INFO - Start analyze
+2025-03-26 19:25:51,509 - INFO - Start analyzing GSR
+2025-03-26 19:25:52,646 - INFO - End analyzing successfully
+2025-03-26 19:25:56,223 - INFO - Start grabber
+2025-03-26 19:25:57,232 - INFO - Start cache update
+2025-03-26 19:25:57,232 - INFO - Finish cache update Successfully
+2025-03-26 19:25:57,233 - INFO - Finish grabbing successfully
+2025-03-26 19:25:57,646 - INFO - Start analyze
+2025-03-26 19:25:57,646 - INFO - Start analyzing GSR
+2025-03-26 19:25:58,825 - INFO - End analyzing successfully
+2025-03-26 19:26:02,233 - INFO - Start grabber
+2025-03-26 19:26:03,104 - WARNING - Number of retries: 0, Message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:26:03,826 - INFO - Start analyze
+2025-03-26 19:26:03,826 - INFO - Start analyzing GSR
+2025-03-26 19:26:04,131 - INFO - Start cache update
+2025-03-26 19:26:04,132 - INFO - Finish cache update Successfully
+2025-03-26 19:26:04,132 - INFO - Finish grabbing successfully
+2025-03-26 19:26:04,894 - INFO - End analyzing successfully
+2025-03-26 19:26:09,132 - INFO - Start grabber
+2025-03-26 19:26:09,894 - INFO - Start analyze
+2025-03-26 19:26:09,894 - INFO - Start analyzing GSR
+2025-03-26 19:26:10,020 - WARNING - Number of retries: 0, Message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:26:10,911 - WARNING - Number of retries: 1, Message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:26:10,979 - INFO - End analyzing successfully
+2025-03-26 19:26:11,880 - ERROR - Error message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:26:11,880 - ERROR - lp_api_manager Call: Headers - {'Authorization': 'Bearer b827e2bdebbbd0d844bbdddcff57ff1647c6abfc209994a4cbb3ce5f71a5a7b5', 'Content-Type': 'application/json', 'Content-Length': '165'}, Body - b'{"start": {"from": 1742923569132, "to": 1743009969132}, "contentToRetrieve": ["consumerParticipants", "messageRecords", "monitoring"], "status": ["OPEN", "OVERDUE"]}', Url - https://va.msghist.liveperson.net/messaging_history/api/account/40920689/conversations/search?offset=0&limit=100&source=sahar_AI_openConv, Type - POST
+2025-03-26 19:26:11,880 - WARNING - Unauthorized, try to authenticate
+2025-03-26 19:26:13,701 - ERROR - Grabber finished unsuccessfully. Error message: '_metadata'
+2025-03-26 19:26:15,979 - INFO - Start analyze
+2025-03-26 19:26:15,980 - INFO - Start analyzing GSR
+2025-03-26 19:26:17,028 - INFO - End analyzing successfully
+2025-03-26 19:26:18,701 - INFO - Start grabber
+2025-03-26 19:26:19,571 - INFO - Start cache update
+2025-03-26 19:26:19,571 - INFO - Finish cache update Successfully
+2025-03-26 19:26:19,571 - INFO - Finish grabbing successfully
+2025-03-26 19:26:22,028 - INFO - Start analyze
+2025-03-26 19:26:22,029 - INFO - Start analyzing GSR
+2025-03-26 19:26:22,888 - INFO - End analyzing successfully
+2025-03-26 19:26:24,571 - INFO - Start grabber
+2025-03-26 19:26:25,583 - INFO - Start cache update
+2025-03-26 19:26:25,583 - INFO - Finish cache update Successfully
+2025-03-26 19:26:25,583 - INFO - Finish grabbing successfully
+2025-03-26 19:26:27,888 - INFO - Start analyze
+2025-03-26 19:26:27,889 - INFO - Start analyzing GSR
+2025-03-26 19:26:29,126 - INFO - End analyzing successfully
+2025-03-26 19:26:30,583 - INFO - Start grabber
+2025-03-26 19:29:20,926 - INFO - Authentication to Live-Person complete successfully
+2025-03-26 19:29:24,460 - INFO - Start analyze
+2025-03-26 19:29:24,460 - INFO - Finished system initiation successfully
+2025-03-26 19:29:24,461 - INFO - End analyzing successfully
+2025-03-26 19:29:24,463 - INFO - Start grabber
+2025-03-26 19:29:25,527 - INFO - Start cache update
+2025-03-26 19:29:25,527 - INFO - Finish cache update Successfully
+2025-03-26 19:29:25,528 - INFO - Finish grabbing successfully
+2025-03-26 19:29:29,463 - INFO - Start analyze
+2025-03-26 19:29:29,463 - INFO - Start analyzing GSR
+2025-03-26 19:29:30,529 - INFO - Start grabber
+2025-03-26 19:29:31,411 - WARNING - Number of retries: 0, Message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:29:31,435 - INFO - algorithm:GSR made a prodiction:[0.99172336 0.00827663] with regards to conversation ID:146b9246-bf33-4d1a-8570-dfdf3fdaa067
+2025-03-26 19:29:31,435 - INFO - algorithm:GSR made a prodiction:[0.69826794 0.30173206] with regards to conversation ID:2f28b744-0bd9-4f55-a900-ceb2d5d32ddf
+2025-03-26 19:29:31,458 - INFO - End analyzing successfully
+2025-03-26 19:29:32,279 - WARNING - Number of retries: 1, Message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:29:33,225 - ERROR - Error message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:29:33,225 - ERROR - lp_api_manager Call: Headers - {'Authorization': 'Bearer d1c6161eb4fe35cd49a73b635432e9a3584df34a02357888c4f59186aa7ed765', 'Content-Type': 'application/json', 'Content-Length': '165'}, Body - b'{"start": {"from": 1742923770529, "to": 1743010170529}, "contentToRetrieve": ["consumerParticipants", "messageRecords", "monitoring"], "status": ["OPEN", "OVERDUE"]}', Url - https://va.msghist.liveperson.net/messaging_history/api/account/40920689/conversations/search?offset=0&limit=100&source=sahar_AI_openConv, Type - POST
+2025-03-26 19:29:33,225 - WARNING - Unauthorized, try to authenticate
+2025-03-26 19:29:34,940 - ERROR - Grabber finished unsuccessfully. Error message: '_metadata'
+2025-03-26 19:29:36,459 - INFO - Start analyze
+2025-03-26 19:29:36,459 - INFO - Start analyzing GSR
+2025-03-26 19:29:37,626 - INFO - End analyzing successfully
+2025-03-26 19:29:39,941 - INFO - Start grabber
+2025-03-26 19:29:40,969 - INFO - Start cache update
+2025-03-26 19:29:40,969 - INFO - Finish cache update Successfully
+2025-03-26 19:29:40,969 - INFO - Finish grabbing successfully
+2025-03-26 19:29:42,626 - INFO - Start analyze
+2025-03-26 19:29:42,626 - INFO - Start analyzing GSR
+2025-03-26 19:29:43,577 - INFO - End analyzing successfully
+2025-03-26 19:29:45,970 - INFO - Start grabber
+2025-03-26 19:29:46,995 - INFO - Start cache update
+2025-03-26 19:29:46,996 - INFO - Finish cache update Successfully
+2025-03-26 19:29:46,996 - INFO - Finish grabbing successfully
+2025-03-26 19:29:48,577 - INFO - Start analyze
+2025-03-26 19:29:48,577 - INFO - Start analyzing GSR
+2025-03-26 19:29:49,681 - INFO - End analyzing successfully
+2025-03-26 19:29:51,996 - INFO - Start grabber
+2025-03-26 19:29:53,002 - INFO - Start cache update
+2025-03-26 19:29:53,002 - INFO - Finish cache update Successfully
+2025-03-26 19:29:53,003 - INFO - Finish grabbing successfully
+2025-03-26 19:29:54,682 - INFO - Start analyze
+2025-03-26 19:29:54,682 - INFO - Start analyzing GSR
+2025-03-26 19:29:55,761 - INFO - End analyzing successfully
+2025-03-26 19:29:58,003 - INFO - Start grabber
+2025-03-26 19:29:59,032 - INFO - Start cache update
+2025-03-26 19:29:59,032 - INFO - Finish cache update Successfully
+2025-03-26 19:29:59,032 - INFO - Finish grabbing successfully
+2025-03-26 19:30:00,761 - INFO - Start analyze
+2025-03-26 19:30:00,761 - INFO - Start analyzing GSR
+2025-03-26 19:30:01,850 - INFO - End analyzing successfully
+2025-03-26 19:30:04,032 - INFO - Start grabber
+2025-03-26 19:30:05,040 - INFO - Start cache update
+2025-03-26 19:30:05,041 - INFO - Finish cache update Successfully
+2025-03-26 19:30:05,041 - INFO - Finish grabbing successfully
+2025-03-26 19:30:06,850 - INFO - Start analyze
+2025-03-26 19:30:06,851 - INFO - Start analyzing GSR
+2025-03-26 19:30:08,096 - INFO - End analyzing successfully
+2025-03-26 19:30:10,041 - INFO - Start grabber
+2025-03-26 19:30:10,987 - INFO - Start cache update
+2025-03-26 19:30:10,987 - INFO - Finish cache update Successfully
+2025-03-26 19:30:10,987 - INFO - Finish grabbing successfully
+2025-03-26 19:30:13,096 - INFO - Start analyze
+2025-03-26 19:30:13,097 - INFO - Start analyzing GSR
+2025-03-26 19:30:14,147 - INFO - End analyzing successfully
+2025-03-26 19:30:15,988 - INFO - Start grabber
+2025-03-26 19:30:17,024 - INFO - Start cache update
+2025-03-26 19:30:17,025 - INFO - Finish cache update Successfully
+2025-03-26 19:30:17,025 - INFO - Finish grabbing successfully
+2025-03-26 19:30:19,147 - INFO - Start analyze
+2025-03-26 19:30:19,148 - INFO - Start analyzing GSR
+2025-03-26 19:30:20,265 - INFO - End analyzing successfully
+2025-03-26 19:34:39,306 - INFO - Authentication to Live-Person complete successfully
+2025-03-26 19:34:42,692 - INFO - Start analyze
+2025-03-26 19:34:42,693 - INFO - Finished system initiation successfully
+2025-03-26 19:34:42,693 - INFO - End analyzing successfully
+2025-03-26 19:34:42,698 - INFO - Start grabber
+2025-03-26 19:34:43,544 - INFO - Start cache update
+2025-03-26 19:34:43,545 - INFO - Finish cache update Successfully
+2025-03-26 19:34:43,545 - INFO - Finish grabbing successfully
+2025-03-26 19:34:47,698 - INFO - Start analyze
+2025-03-26 19:34:47,698 - INFO - Start analyzing GSR
+2025-03-26 19:34:48,550 - INFO - Start grabber
+2025-03-26 19:34:49,173 - INFO - algorithm:GSR made a prodiction:[0.99654406 0.00345592] with regards to conversation ID:8b3b9406-2022-4ba6-9f41-27f7d6e4414d
+2025-03-26 19:34:49,189 - INFO - End analyzing successfully
+2025-03-26 19:34:49,447 - WARNING - Number of retries: 0, Message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:34:50,402 - WARNING - Number of retries: 1, Message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:34:51,295 - ERROR - Error message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:34:51,296 - ERROR - lp_api_manager Call: Headers - {'Authorization': 'Bearer 8b9612990d3eed3e0107def5927e370fa72e389b43441e762f8e5f2c1b6c707b', 'Content-Type': 'application/json', 'Content-Length': '165'}, Body - b'{"start": {"from": 1742924088556, "to": 1743010488556}, "contentToRetrieve": ["consumerParticipants", "messageRecords", "monitoring"], "status": ["OPEN", "OVERDUE"]}', Url - https://va.msghist.liveperson.net/messaging_history/api/account/40920689/conversations/search?offset=0&limit=100&source=sahar_AI_openConv, Type - POST
+2025-03-26 19:34:51,296 - WARNING - Unauthorized, try to authenticate
+2025-03-26 19:34:53,339 - ERROR - Grabber finished unsuccessfully. Error message: '_metadata'
+2025-03-26 19:34:54,189 - INFO - Start analyze
+2025-03-26 19:34:54,190 - INFO - Start analyzing GSR
+2025-03-26 19:34:54,795 - INFO - End analyzing successfully
+2025-03-26 19:34:58,340 - INFO - Start grabber
+2025-03-26 19:34:59,440 - INFO - Start cache update
+2025-03-26 19:34:59,441 - INFO - Finish cache update Successfully
+2025-03-26 19:34:59,441 - INFO - Finish grabbing successfully
+2025-03-26 19:34:59,796 - INFO - Start analyze
+2025-03-26 19:34:59,796 - INFO - Start analyzing GSR
+2025-03-26 19:35:00,364 - INFO - End analyzing successfully
+2025-03-26 19:35:04,441 - INFO - Start grabber
+2025-03-26 19:35:05,303 - INFO - Start cache update
+2025-03-26 19:35:05,303 - INFO - Finish cache update Successfully
+2025-03-26 19:35:05,303 - INFO - Finish grabbing successfully
+2025-03-26 19:35:05,365 - INFO - Start analyze
+2025-03-26 19:35:05,365 - INFO - Start analyzing GSR
+2025-03-26 19:35:05,909 - INFO - End analyzing successfully
+2025-03-26 19:35:10,304 - INFO - Start grabber
+2025-03-26 19:35:10,909 - INFO - Start analyze
+2025-03-26 19:35:10,910 - INFO - Start analyzing GSR
+2025-03-26 19:35:11,203 - INFO - Start cache update
+2025-03-26 19:35:11,204 - INFO - Finish cache update Successfully
+2025-03-26 19:35:11,204 - INFO - Finish grabbing successfully
+2025-03-26 19:35:11,523 - INFO - End analyzing successfully
+2025-03-26 19:35:16,204 - INFO - Start grabber
+2025-03-26 19:35:16,524 - INFO - Start analyze
+2025-03-26 19:35:16,524 - INFO - Start analyzing GSR
+2025-03-26 19:35:17,221 - INFO - Start cache update
+2025-03-26 19:35:17,221 - INFO - Finish cache update Successfully
+2025-03-26 19:35:17,221 - INFO - Finish grabbing successfully
+2025-03-26 19:35:17,634 - INFO - algorithm:GSR made a prodiction:[0.9967571  0.00324296] with regards to conversation ID:36ee211a-828e-4447-a2a3-25d6682adc15
+2025-03-26 19:35:17,643 - INFO - End analyzing successfully
+2025-03-26 19:35:22,221 - INFO - Start grabber
+2025-03-26 19:35:22,643 - INFO - Start analyze
+2025-03-26 19:35:22,643 - INFO - Start analyzing GSR
+2025-03-26 19:35:23,276 - INFO - Start cache update
+2025-03-26 19:35:23,276 - INFO - Finish cache update Successfully
+2025-03-26 19:35:23,276 - INFO - Finish grabbing successfully
+2025-03-26 19:35:23,737 - INFO - algorithm:GSR made a prodiction:[0.99679166 0.00320838] with regards to conversation ID:36ee211a-828e-4447-a2a3-25d6682adc15
+2025-03-26 19:35:23,745 - INFO - End analyzing successfully
+2025-03-26 19:35:28,277 - INFO - Start grabber
+2025-03-26 19:35:28,746 - INFO - Start analyze
+2025-03-26 19:35:28,746 - INFO - Start analyzing GSR
+2025-03-26 19:35:29,842 - INFO - algorithm:GSR made a prodiction:[0.996851   0.00314896] with regards to conversation ID:36ee211a-828e-4447-a2a3-25d6682adc15
+2025-03-26 19:35:29,851 - INFO - End analyzing successfully
+2025-03-26 19:35:29,994 - INFO - Start cache update
+2025-03-26 19:35:29,994 - INFO - Finish cache update Successfully
+2025-03-26 19:35:29,994 - INFO - Finish grabbing successfully
+2025-03-26 19:35:34,851 - INFO - Start analyze
+2025-03-26 19:35:34,851 - INFO - Start analyzing GSR
+2025-03-26 19:35:34,995 - INFO - Start grabber
+2025-03-26 19:35:36,078 - INFO - Start cache update
+2025-03-26 19:35:36,078 - INFO - Finish cache update Successfully
+2025-03-26 19:35:36,078 - INFO - Finish grabbing successfully
+2025-03-26 19:35:36,831 - INFO - algorithm:GSR made a prodiction:[0.99396014 0.00603983] with regards to conversation ID:e6087190-cceb-4303-bcec-e5fb62ae737e
+2025-03-26 19:35:36,840 - INFO - End analyzing successfully
+2025-03-26 19:35:41,078 - INFO - Start grabber
+2025-03-26 19:35:41,840 - INFO - Start analyze
+2025-03-26 19:35:41,840 - INFO - Start analyzing GSR
+2025-03-26 19:35:42,088 - INFO - Start cache update
+2025-03-26 19:35:42,088 - INFO - Finish cache update Successfully
+2025-03-26 19:35:42,088 - INFO - Finish grabbing successfully
+2025-03-26 19:35:43,800 - INFO - End analyzing successfully
+2025-03-26 19:35:47,088 - INFO - Start grabber
+2025-03-26 19:35:48,380 - INFO - Start cache update
+2025-03-26 19:35:48,381 - INFO - Finish cache update Successfully
+2025-03-26 19:35:48,381 - INFO - Finish grabbing successfully
+2025-03-26 19:35:48,800 - INFO - Start analyze
+2025-03-26 19:35:48,800 - INFO - Start analyzing GSR
+2025-03-26 19:35:50,769 - INFO - algorithm:GSR made a prodiction:[0.9965479  0.00345216] with regards to conversation ID:36ee211a-828e-4447-a2a3-25d6682adc15
+2025-03-26 19:35:50,779 - INFO - End analyzing successfully
+2025-03-26 19:35:53,381 - INFO - Start grabber
+2025-03-26 19:35:54,358 - INFO - Start cache update
+2025-03-26 19:35:54,358 - INFO - Finish cache update Successfully
+2025-03-26 19:35:54,358 - INFO - Finish grabbing successfully
+2025-03-26 19:35:55,779 - INFO - Start analyze
+2025-03-26 19:35:55,779 - INFO - Start analyzing GSR
+2025-03-26 19:35:57,705 - INFO - End analyzing successfully
+2025-03-26 19:35:59,359 - INFO - Start grabber
+2025-03-26 19:36:00,406 - INFO - Start cache update
+2025-03-26 19:36:00,406 - INFO - Finish cache update Successfully
+2025-03-26 19:36:00,406 - INFO - Finish grabbing successfully
+2025-03-26 19:36:02,705 - INFO - Start analyze
+2025-03-26 19:36:02,706 - INFO - Start analyzing GSR
+2025-03-26 19:36:04,696 - INFO - End analyzing successfully
+2025-03-26 19:36:05,407 - INFO - Start grabber
+2025-03-26 19:36:07,745 - INFO - Start cache update
+2025-03-26 19:36:07,745 - INFO - Finish cache update Successfully
+2025-03-26 19:36:07,746 - INFO - Finish grabbing successfully
+2025-03-26 19:36:09,697 - INFO - Start analyze
+2025-03-26 19:36:09,697 - INFO - Start analyzing GSR
+2025-03-26 19:36:11,513 - INFO - End analyzing successfully
+2025-03-26 19:36:12,746 - INFO - Start grabber
+2025-03-26 19:36:13,743 - INFO - Start cache update
+2025-03-26 19:36:13,743 - INFO - Finish cache update Successfully
+2025-03-26 19:36:13,743 - INFO - Finish grabbing successfully
+2025-03-26 19:36:16,513 - INFO - Start analyze
+2025-03-26 19:36:16,514 - INFO - Start analyzing GSR
+2025-03-26 19:36:18,414 - INFO - algorithm:GSR made a prodiction:[0.99672025 0.00327973] with regards to conversation ID:36ee211a-828e-4447-a2a3-25d6682adc15
+2025-03-26 19:36:18,423 - INFO - End analyzing successfully
+2025-03-26 19:36:18,743 - INFO - Start grabber
+2025-03-26 19:36:19,989 - INFO - Start cache update
+2025-03-26 19:36:19,990 - INFO - Finish cache update Successfully
+2025-03-26 19:36:19,990 - INFO - Finish grabbing successfully
+2025-03-26 19:36:23,423 - INFO - Start analyze
+2025-03-26 19:36:23,423 - INFO - Start analyzing GSR
+2025-03-26 19:36:24,990 - INFO - Start grabber
+2025-03-26 19:36:25,248 - INFO - End analyzing successfully
+2025-03-26 19:36:26,260 - INFO - Start cache update
+2025-03-26 19:36:26,260 - INFO - Finish cache update Successfully
+2025-03-26 19:36:26,260 - INFO - Finish grabbing successfully
+2025-03-26 19:36:30,249 - INFO - Start analyze
+2025-03-26 19:36:30,249 - INFO - Start analyzing GSR
+2025-03-26 19:36:31,260 - INFO - Start grabber
+2025-03-26 19:36:32,046 - INFO - algorithm:GSR made a prodiction:[0.9966499  0.00335011] with regards to conversation ID:36ee211a-828e-4447-a2a3-25d6682adc15
+2025-03-26 19:36:32,055 - INFO - End analyzing successfully
+2025-03-26 19:36:32,256 - INFO - Start cache update
+2025-03-26 19:36:32,257 - INFO - Finish cache update Successfully
+2025-03-26 19:36:32,257 - INFO - Finish grabbing successfully
+2025-03-26 19:36:37,056 - INFO - Start analyze
+2025-03-26 19:36:37,056 - INFO - Start analyzing GSR
+2025-03-26 19:36:37,257 - INFO - Start grabber
+2025-03-26 19:36:38,280 - INFO - Start cache update
+2025-03-26 19:36:38,280 - INFO - Finish cache update Successfully
+2025-03-26 19:36:38,280 - INFO - Finish grabbing successfully
+2025-03-26 19:36:38,923 - INFO - End analyzing successfully
+2025-03-26 19:36:43,280 - INFO - Start grabber
+2025-03-26 19:36:43,923 - INFO - Start analyze
+2025-03-26 19:36:43,923 - INFO - Start analyzing GSR
+2025-03-26 19:36:44,263 - INFO - Start cache update
+2025-03-26 19:36:44,263 - INFO - Finish cache update Successfully
+2025-03-26 19:36:44,263 - INFO - Finish grabbing successfully
+2025-03-26 19:36:45,767 - INFO - End analyzing successfully
+2025-03-26 19:36:49,263 - INFO - Start grabber
+2025-03-26 19:36:50,300 - INFO - Start cache update
+2025-03-26 19:36:50,301 - INFO - Finish cache update Successfully
+2025-03-26 19:36:50,301 - INFO - Finish grabbing successfully
+2025-03-26 19:36:50,767 - INFO - Start analyze
+2025-03-26 19:36:50,768 - INFO - Start analyzing GSR
+2025-03-26 19:36:52,716 - INFO - End analyzing successfully
+2025-03-26 19:36:55,301 - INFO - Start grabber
+2025-03-26 19:36:56,308 - INFO - Start cache update
+2025-03-26 19:36:56,308 - INFO - Finish cache update Successfully
+2025-03-26 19:36:56,308 - INFO - Finish grabbing successfully
+2025-03-26 19:36:57,716 - INFO - Start analyze
+2025-03-26 19:36:57,717 - INFO - Start analyzing GSR
+2025-03-26 19:36:59,664 - INFO - algorithm:GSR made a prodiction:[0.99670345 0.00329651] with regards to conversation ID:36ee211a-828e-4447-a2a3-25d6682adc15
+2025-03-26 19:36:59,664 - INFO - algorithm:GSR made a prodiction:[0.9933031  0.00669686] with regards to conversation ID:e6087190-cceb-4303-bcec-e5fb62ae737e
+2025-03-26 19:36:59,678 - INFO - End analyzing successfully
+2025-03-26 19:37:01,308 - INFO - Start grabber
+2025-03-26 19:37:02,281 - INFO - Start cache update
+2025-03-26 19:37:02,281 - INFO - Finish cache update Successfully
+2025-03-26 19:37:02,281 - INFO - Finish grabbing successfully
+2025-03-26 19:37:04,678 - INFO - Start analyze
+2025-03-26 19:37:04,678 - INFO - Start analyzing GSR
+2025-03-26 19:37:06,613 - INFO - algorithm:GSR made a prodiction:[0.9952485  0.00475158] with regards to conversation ID:e6087190-cceb-4303-bcec-e5fb62ae737e
+2025-03-26 19:37:06,620 - INFO - End analyzing successfully
+2025-03-26 19:37:07,281 - INFO - Start grabber
+2025-03-26 19:37:11,199 - INFO - Start cache update
+2025-03-26 19:37:11,199 - INFO - Finish cache update Successfully
+2025-03-26 19:37:11,199 - INFO - Finish grabbing successfully
+2025-03-26 19:37:11,620 - INFO - Start analyze
+2025-03-26 19:37:11,620 - INFO - Start analyzing GSR
+2025-03-26 19:37:13,521 - INFO - algorithm:GSR made a prodiction:[0.9966054 0.0033946] with regards to conversation ID:36ee211a-828e-4447-a2a3-25d6682adc15
+2025-03-26 19:37:13,521 - INFO - algorithm:GSR made a prodiction:[0.9952181  0.00478189] with regards to conversation ID:e6087190-cceb-4303-bcec-e5fb62ae737e
+2025-03-26 19:37:13,534 - INFO - End analyzing successfully
+2025-03-26 19:37:16,199 - INFO - Start grabber
+2025-03-26 19:37:17,185 - INFO - Start cache update
+2025-03-26 19:37:17,185 - INFO - Finish cache update Successfully
+2025-03-26 19:37:17,185 - INFO - Finish grabbing successfully
+2025-03-26 19:37:18,534 - INFO - Start analyze
+2025-03-26 19:37:18,534 - INFO - Start analyzing GSR
+2025-03-26 19:37:20,439 - INFO - End analyzing successfully
+2025-03-26 19:37:22,185 - INFO - Start grabber
+2025-03-26 19:37:23,065 - INFO - Start cache update
+2025-03-26 19:37:23,065 - INFO - Finish cache update Successfully
+2025-03-26 19:37:23,065 - INFO - Finish grabbing successfully
+2025-03-26 19:37:25,440 - INFO - Start analyze
+2025-03-26 19:37:25,440 - INFO - Start analyzing GSR
+2025-03-26 19:37:27,465 - INFO - End analyzing successfully
+2025-03-26 19:37:28,065 - INFO - Start grabber
+2025-03-26 19:37:28,914 - INFO - Start cache update
+2025-03-26 19:37:28,915 - INFO - Finish cache update Successfully
+2025-03-26 19:37:28,915 - INFO - Finish grabbing successfully
+2025-03-26 19:37:32,467 - INFO - Start analyze
+2025-03-26 19:37:32,471 - INFO - Start analyzing GSR
+2025-03-26 19:37:33,915 - INFO - Start grabber
+2025-03-26 19:37:34,515 - INFO - End analyzing successfully
+2025-03-26 19:37:34,919 - INFO - Start cache update
+2025-03-26 19:37:34,919 - INFO - Finish cache update Successfully
+2025-03-26 19:37:34,919 - INFO - Finish grabbing successfully
+2025-03-26 19:37:39,515 - INFO - Start analyze
+2025-03-26 19:37:39,515 - INFO - Start analyzing GSR
+2025-03-26 19:37:39,922 - INFO - Start grabber
+2025-03-26 19:37:40,910 - INFO - Start cache update
+2025-03-26 19:37:40,910 - INFO - Finish cache update Successfully
+2025-03-26 19:37:40,910 - INFO - Finish grabbing successfully
+2025-03-26 19:37:41,423 - INFO - algorithm:GSR made a prodiction:[0.9964954  0.00350462] with regards to conversation ID:36ee211a-828e-4447-a2a3-25d6682adc15
+2025-03-26 19:37:41,431 - INFO - End analyzing successfully
+2025-03-26 19:39:17,346 - INFO - Authentication to Live-Person complete successfully
+2025-03-26 19:39:20,749 - INFO - Start analyze
+2025-03-26 19:39:20,749 - INFO - Finished system initiation successfully
+2025-03-26 19:39:20,750 - INFO - End analyzing successfully
+2025-03-26 19:39:20,754 - INFO - Start grabber
+2025-03-26 19:39:21,763 - INFO - Start cache update
+2025-03-26 19:39:21,763 - INFO - Finish cache update Successfully
+2025-03-26 19:39:21,763 - INFO - Finish grabbing successfully
+2025-03-26 19:39:25,754 - INFO - Start analyze
+2025-03-26 19:39:25,755 - INFO - Start analyzing GSR
+2025-03-26 19:39:26,764 - INFO - Start grabber
+2025-03-26 19:39:27,642 - WARNING - Number of retries: 0, Message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:39:28,362 - INFO - algorithm:GSR made a prodiction:[0.9963491  0.00365085] with regards to conversation ID:e6087190-cceb-4303-bcec-e5fb62ae737e
+2025-03-26 19:39:28,362 - INFO - algorithm:GSR made a prodiction:[0.9955022  0.00449788] with regards to conversation ID:36ee211a-828e-4447-a2a3-25d6682adc15
+2025-03-26 19:39:28,363 - INFO - algorithm:GSR made a prodiction:[0.9964223  0.00357775] with regards to conversation ID:8b3b9406-2022-4ba6-9f41-27f7d6e4414d
+2025-03-26 19:39:28,386 - INFO - End analyzing successfully
+2025-03-26 19:39:28,585 - WARNING - Number of retries: 1, Message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:39:29,499 - ERROR - Error message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:39:29,499 - ERROR - lp_api_manager Call: Headers - {'Authorization': 'Bearer d741f5adb26d4acfb57c5de472f2139b51bbc8661f39a06b284fcc2b4275350f', 'Content-Type': 'application/json', 'Content-Length': '165'}, Body - b'{"start": {"from": 1742924366764, "to": 1743010766764}, "contentToRetrieve": ["consumerParticipants", "messageRecords", "monitoring"], "status": ["OPEN", "OVERDUE"]}', Url - https://va.msghist.liveperson.net/messaging_history/api/account/40920689/conversations/search?offset=0&limit=100&source=sahar_AI_openConv, Type - POST
+2025-03-26 19:39:29,499 - WARNING - Unauthorized, try to authenticate
+2025-03-26 19:39:31,476 - ERROR - Grabber finished unsuccessfully. Error message: '_metadata'
+2025-03-26 19:39:33,386 - INFO - Start analyze
+2025-03-26 19:39:33,386 - INFO - Start analyzing GSR
+2025-03-26 19:39:35,291 - INFO - End analyzing successfully
+2025-03-26 19:39:36,477 - INFO - Start grabber
+2025-03-26 19:39:37,523 - INFO - Start cache update
+2025-03-26 19:39:37,524 - INFO - Finish cache update Successfully
+2025-03-26 19:39:37,524 - INFO - Finish grabbing successfully
+2025-03-26 19:39:40,292 - INFO - Start analyze
+2025-03-26 19:39:40,292 - INFO - Start analyzing GSR
+2025-03-26 19:39:42,353 - INFO - End analyzing successfully
+2025-03-26 19:39:42,524 - INFO - Start grabber
+2025-03-26 19:39:43,540 - INFO - Start cache update
+2025-03-26 19:39:43,540 - INFO - Finish cache update Successfully
+2025-03-26 19:39:43,541 - INFO - Finish grabbing successfully
+2025-03-26 19:39:47,353 - INFO - Start analyze
+2025-03-26 19:39:47,354 - INFO - Start analyzing GSR
+2025-03-26 19:39:48,542 - INFO - Start grabber
+2025-03-26 19:39:49,335 - INFO - End analyzing successfully
+2025-03-26 19:39:50,925 - INFO - Start cache update
+2025-03-26 19:39:50,925 - INFO - Finish cache update Successfully
+2025-03-26 19:39:50,926 - INFO - Finish grabbing successfully
+2025-03-26 19:39:54,335 - INFO - Start analyze
+2025-03-26 19:39:54,335 - INFO - Start analyzing GSR
+2025-03-26 19:39:55,926 - INFO - Start grabber
+2025-03-26 19:39:56,334 - INFO - algorithm:GSR made a prodiction:[0.9961299  0.00387017] with regards to conversation ID:36ee211a-828e-4447-a2a3-25d6682adc15
+2025-03-26 19:39:56,341 - INFO - End analyzing successfully
+2025-03-26 19:39:57,063 - INFO - Start cache update
+2025-03-26 19:39:57,063 - INFO - Finish cache update Successfully
+2025-03-26 19:39:57,063 - INFO - Finish grabbing successfully
+2025-03-26 19:40:01,342 - INFO - Start analyze
+2025-03-26 19:40:01,342 - INFO - Start analyzing GSR
+2025-03-26 19:40:02,064 - INFO - Start grabber
+2025-03-26 19:40:03,241 - INFO - Start cache update
+2025-03-26 19:40:03,241 - INFO - Finish cache update Successfully
+2025-03-26 19:40:03,241 - INFO - Finish grabbing successfully
+2025-03-26 19:40:03,381 - INFO - algorithm:GSR made a prodiction:[0.99582505 0.004175  ] with regards to conversation ID:36ee211a-828e-4447-a2a3-25d6682adc15
+2025-03-26 19:40:03,388 - INFO - End analyzing successfully
+2025-03-26 19:40:08,241 - INFO - Start grabber
+2025-03-26 19:40:08,388 - INFO - Start analyze
+2025-03-26 19:40:08,388 - INFO - Start analyzing GSR
+2025-03-26 19:40:09,130 - INFO - Start cache update
+2025-03-26 19:40:09,130 - INFO - Finish cache update Successfully
+2025-03-26 19:40:09,130 - INFO - Finish grabbing successfully
+2025-03-26 19:40:10,414 - INFO - algorithm:GSR made a prodiction:[0.99666744 0.0033326 ] with regards to conversation ID:e6087190-cceb-4303-bcec-e5fb62ae737e
+2025-03-26 19:40:10,422 - INFO - End analyzing successfully
+2025-03-26 19:40:14,131 - INFO - Start grabber
+2025-03-26 19:40:15,151 - INFO - Start cache update
+2025-03-26 19:40:15,151 - INFO - Finish cache update Successfully
+2025-03-26 19:40:15,151 - INFO - Finish grabbing successfully
+2025-03-26 19:40:15,422 - INFO - Start analyze
+2025-03-26 19:40:15,422 - INFO - Start analyzing GSR
+2025-03-26 19:40:17,411 - INFO - End analyzing successfully
+2025-03-26 19:40:20,152 - INFO - Start grabber
+2025-03-26 19:40:21,160 - INFO - Start cache update
+2025-03-26 19:40:21,160 - INFO - Finish cache update Successfully
+2025-03-26 19:40:21,161 - INFO - Finish grabbing successfully
+2025-03-26 19:40:22,411 - INFO - Start analyze
+2025-03-26 19:40:22,411 - INFO - Start analyzing GSR
+2025-03-26 19:40:24,640 - INFO - algorithm:GSR made a prodiction:[0.995996   0.00400401] with regards to conversation ID:36ee211a-828e-4447-a2a3-25d6682adc15
+2025-03-26 19:40:24,647 - INFO - End analyzing successfully
+2025-03-26 19:40:26,162 - INFO - Start grabber
+2025-03-26 19:40:27,466 - INFO - Start cache update
+2025-03-26 19:40:27,466 - INFO - Finish cache update Successfully
+2025-03-26 19:40:27,466 - INFO - Finish grabbing successfully
+2025-03-26 19:42:03,531 - INFO - Authentication to Live-Person complete successfully
+2025-03-26 19:42:07,287 - INFO - Start analyze
+2025-03-26 19:42:07,288 - INFO - Finished system initiation successfully
+2025-03-26 19:42:07,288 - INFO - End analyzing successfully
+2025-03-26 19:42:07,293 - INFO - Start grabber
+2025-03-26 19:42:08,280 - INFO - Start cache update
+2025-03-26 19:42:08,280 - INFO - Finish cache update Successfully
+2025-03-26 19:42:08,280 - INFO - Finish grabbing successfully
+2025-03-26 19:42:12,293 - INFO - Start analyze
+2025-03-26 19:42:12,293 - INFO - Start analyzing GSR
+2025-03-26 19:42:13,284 - INFO - Start grabber
+2025-03-26 19:42:14,188 - WARNING - Number of retries: 0, Message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:42:14,973 - INFO - algorithm:GSR made a prodiction:[0.9784944  0.02150555] with regards to conversation ID:e6087190-cceb-4303-bcec-e5fb62ae737e
+2025-03-26 19:42:14,974 - INFO - algorithm:GSR made a prodiction:[0.9965211  0.00347891] with regards to conversation ID:36ee211a-828e-4447-a2a3-25d6682adc15
+2025-03-26 19:42:14,974 - INFO - algorithm:GSR made a prodiction:[0.99654406 0.00345592] with regards to conversation ID:8b3b9406-2022-4ba6-9f41-27f7d6e4414d
+2025-03-26 19:42:15,003 - INFO - End analyzing successfully
+2025-03-26 19:42:15,059 - WARNING - Number of retries: 1, Message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:42:15,953 - ERROR - Error message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:42:15,953 - ERROR - lp_api_manager Call: Headers - {'Authorization': 'Bearer f6d2ca61d472bda2ba12b5975a427767e049c9ad2cae2db2c4bd8ae748a97423', 'Content-Type': 'application/json', 'Content-Length': '165'}, Body - b'{"start": {"from": 1742924533284, "to": 1743010933284}, "contentToRetrieve": ["consumerParticipants", "messageRecords", "monitoring"], "status": ["OPEN", "OVERDUE"]}', Url - https://va.msghist.liveperson.net/messaging_history/api/account/40920689/conversations/search?offset=0&limit=100&source=sahar_AI_openConv, Type - POST
+2025-03-26 19:42:15,953 - WARNING - Unauthorized, try to authenticate
+2025-03-26 19:42:18,088 - ERROR - Grabber finished unsuccessfully. Error message: '_metadata'
+2025-03-26 19:42:20,003 - INFO - Start analyze
+2025-03-26 19:42:20,003 - INFO - Start analyzing GSR
+2025-03-26 19:42:22,066 - INFO - End analyzing successfully
+2025-03-26 19:42:23,088 - INFO - Start grabber
+2025-03-26 19:42:24,116 - INFO - Start cache update
+2025-03-26 19:42:24,117 - INFO - Finish cache update Successfully
+2025-03-26 19:42:24,117 - INFO - Finish grabbing successfully
+2025-03-26 19:42:27,067 - INFO - Start analyze
+2025-03-26 19:42:27,067 - INFO - Start analyzing GSR
+2025-03-26 19:42:29,065 - INFO - End analyzing successfully
+2025-03-26 19:42:29,117 - INFO - Start grabber
+2025-03-26 19:42:30,152 - INFO - Start cache update
+2025-03-26 19:42:30,152 - INFO - Finish cache update Successfully
+2025-03-26 19:42:30,152 - INFO - Finish grabbing successfully
+2025-03-26 19:42:34,065 - INFO - Start analyze
+2025-03-26 19:42:34,065 - INFO - Start analyzing GSR
+2025-03-26 19:42:35,152 - INFO - Start grabber
+2025-03-26 19:42:36,126 - INFO - End analyzing successfully
+2025-03-26 19:42:36,200 - INFO - Start cache update
+2025-03-26 19:42:36,201 - INFO - Finish cache update Successfully
+2025-03-26 19:42:36,201 - INFO - Finish grabbing successfully
+2025-03-26 19:42:41,126 - INFO - Start analyze
+2025-03-26 19:42:41,127 - INFO - Start analyzing GSR
+2025-03-26 19:42:41,201 - INFO - Start grabber
+2025-03-26 19:42:42,234 - INFO - Start cache update
+2025-03-26 19:42:42,234 - INFO - Finish cache update Successfully
+2025-03-26 19:42:42,234 - INFO - Finish grabbing successfully
+2025-03-26 19:42:43,085 - INFO - End analyzing successfully
+2025-03-26 19:42:47,235 - INFO - Start grabber
+2025-03-26 19:42:48,085 - INFO - Start analyze
+2025-03-26 19:42:48,086 - INFO - Start analyzing GSR
+2025-03-26 19:42:48,258 - INFO - Start cache update
+2025-03-26 19:42:48,258 - INFO - Finish cache update Successfully
+2025-03-26 19:42:48,258 - INFO - Finish grabbing successfully
+2025-03-26 19:42:50,450 - INFO - End analyzing successfully
+2025-03-26 19:42:53,259 - INFO - Start grabber
+2025-03-26 19:42:54,306 - INFO - Start cache update
+2025-03-26 19:42:54,366 - INFO - Finish cache update Successfully
+2025-03-26 19:42:54,366 - INFO - Finish grabbing successfully
+2025-03-26 19:42:55,450 - INFO - Start analyze
+2025-03-26 19:42:55,450 - INFO - Start analyzing GSR
+2025-03-26 19:42:57,265 - INFO - End analyzing successfully
+2025-03-26 19:42:59,367 - INFO - Start grabber
+2025-03-26 19:43:00,405 - INFO - Start cache update
+2025-03-26 19:43:00,405 - INFO - Finish cache update Successfully
+2025-03-26 19:43:00,406 - INFO - Finish grabbing successfully
+2025-03-26 19:43:02,265 - INFO - Start analyze
+2025-03-26 19:43:02,266 - INFO - Start analyzing GSR
+2025-03-26 19:43:04,093 - INFO - End analyzing successfully
+2025-03-26 19:43:05,406 - INFO - Start grabber
+2025-03-26 19:43:06,401 - INFO - Start cache update
+2025-03-26 19:43:06,401 - INFO - Finish cache update Successfully
+2025-03-26 19:43:06,401 - INFO - Finish grabbing successfully
+2025-03-26 19:43:09,094 - INFO - Start analyze
+2025-03-26 19:43:09,094 - INFO - Start analyzing GSR
+2025-03-26 19:43:11,148 - INFO - End analyzing successfully
+2025-03-26 19:43:11,402 - INFO - Start grabber
+2025-03-26 19:43:12,541 - INFO - Start cache update
+2025-03-26 19:43:12,541 - INFO - Finish cache update Successfully
+2025-03-26 19:43:12,542 - INFO - Finish grabbing successfully
+2025-03-26 19:43:16,148 - INFO - Start analyze
+2025-03-26 19:43:16,149 - INFO - Start analyzing GSR
+2025-03-26 19:43:17,542 - INFO - Start grabber
+2025-03-26 19:43:18,073 - INFO - algorithm:GSR made a prodiction:[0.98069406 0.01930597] with regards to conversation ID:e6087190-cceb-4303-bcec-e5fb62ae737e
+2025-03-26 19:43:18,073 - INFO - algorithm:GSR made a prodiction:[0.996642   0.00335802] with regards to conversation ID:36ee211a-828e-4447-a2a3-25d6682adc15
+2025-03-26 19:43:18,086 - INFO - End analyzing successfully
+2025-03-26 19:43:18,765 - INFO - Start cache update
+2025-03-26 19:43:18,766 - INFO - Finish cache update Successfully
+2025-03-26 19:43:18,766 - INFO - Finish grabbing successfully
+2025-03-26 19:43:23,086 - INFO - Start analyze
+2025-03-26 19:43:23,086 - INFO - Start analyzing GSR
+2025-03-26 19:43:23,768 - INFO - Start grabber
+2025-03-26 19:43:24,800 - INFO - Start cache update
+2025-03-26 19:43:24,800 - INFO - Finish cache update Successfully
+2025-03-26 19:43:24,800 - INFO - Finish grabbing successfully
+2025-03-26 19:43:24,984 - INFO - End analyzing successfully
+2025-03-26 19:43:29,800 - INFO - Start grabber
+2025-03-26 19:43:29,984 - INFO - Start analyze
+2025-03-26 19:43:29,985 - INFO - Start analyzing GSR
+2025-03-26 19:43:30,783 - INFO - Start cache update
+2025-03-26 19:43:30,783 - INFO - Finish cache update Successfully
+2025-03-26 19:43:30,783 - INFO - Finish grabbing successfully
+2025-03-26 19:43:32,037 - INFO - End analyzing successfully
+2025-03-26 19:43:35,783 - INFO - Start grabber
+2025-03-26 19:43:36,831 - INFO - Start cache update
+2025-03-26 19:43:36,832 - INFO - Finish cache update Successfully
+2025-03-26 19:43:36,832 - INFO - Finish grabbing successfully
+2025-03-26 19:43:37,041 - INFO - Start analyze
+2025-03-26 19:43:37,042 - INFO - Start analyzing GSR
+2025-03-26 19:43:39,153 - INFO - algorithm:GSR made a prodiction:[0.98252916 0.01747079] with regards to conversation ID:e6087190-cceb-4303-bcec-e5fb62ae737e
+2025-03-26 19:43:39,161 - INFO - End analyzing successfully
+2025-03-26 19:43:41,832 - INFO - Start grabber
+2025-03-26 19:43:42,797 - INFO - Start cache update
+2025-03-26 19:43:42,797 - INFO - Finish cache update Successfully
+2025-03-26 19:43:42,797 - INFO - Finish grabbing successfully
+2025-03-26 19:43:44,161 - INFO - Start analyze
+2025-03-26 19:43:44,161 - INFO - Start analyzing GSR
+2025-03-26 19:43:46,054 - INFO - End analyzing successfully
+2025-03-26 19:43:47,798 - INFO - Start grabber
+2025-03-26 19:43:48,796 - INFO - Start cache update
+2025-03-26 19:43:48,796 - INFO - Finish cache update Successfully
+2025-03-26 19:43:48,796 - INFO - Finish grabbing successfully
+2025-03-26 19:43:51,055 - INFO - Start analyze
+2025-03-26 19:43:51,055 - INFO - Start analyzing GSR
+2025-03-26 19:43:52,687 - INFO - End analyzing successfully
+2025-03-26 19:43:53,796 - INFO - Start grabber
+2025-03-26 19:43:54,721 - INFO - Start cache update
+2025-03-26 19:43:54,721 - INFO - Finish cache update Successfully
+2025-03-26 19:43:54,722 - INFO - Finish grabbing successfully
+2025-03-26 19:43:57,688 - INFO - Start analyze
+2025-03-26 19:43:57,688 - INFO - Start analyzing GSR
+2025-03-26 19:43:59,722 - INFO - Start grabber
+2025-03-26 19:43:59,734 - INFO - End analyzing successfully
+2025-03-26 19:44:00,732 - INFO - Start cache update
+2025-03-26 19:44:00,732 - INFO - Finish cache update Successfully
+2025-03-26 19:44:00,732 - INFO - Finish grabbing successfully
+2025-03-26 19:44:04,735 - INFO - Start analyze
+2025-03-26 19:44:04,735 - INFO - Start analyzing GSR
+2025-03-26 19:44:05,733 - INFO - Start grabber
+2025-03-26 19:44:06,667 - INFO - algorithm:GSR made a prodiction:[0.9972957  0.00270433] with regards to conversation ID:36ee211a-828e-4447-a2a3-25d6682adc15
+2025-03-26 19:44:06,676 - INFO - End analyzing successfully
+2025-03-26 19:44:06,724 - INFO - Start cache update
+2025-03-26 19:44:06,724 - INFO - Finish cache update Successfully
+2025-03-26 19:44:06,724 - INFO - Finish grabbing successfully
+2025-03-26 19:44:11,677 - INFO - Start analyze
+2025-03-26 19:44:11,679 - INFO - Start analyzing GSR
+2025-03-26 19:44:11,725 - INFO - Start grabber
+2025-03-26 19:44:12,732 - INFO - Start cache update
+2025-03-26 19:44:12,733 - INFO - Finish cache update Successfully
+2025-03-26 19:44:12,733 - INFO - Finish grabbing successfully
+2025-03-26 19:44:13,574 - INFO - End analyzing successfully
+2025-03-26 19:44:17,733 - INFO - Start grabber
+2025-03-26 19:44:18,575 - INFO - Start analyze
+2025-03-26 19:44:18,575 - INFO - Start analyzing GSR
+2025-03-26 19:44:18,746 - INFO - Start cache update
+2025-03-26 19:44:18,747 - INFO - Finish cache update Successfully
+2025-03-26 19:44:18,747 - INFO - Finish grabbing successfully
+2025-03-26 19:44:20,967 - INFO - End analyzing successfully
+2025-03-26 19:44:23,747 - INFO - Start grabber
+2025-03-26 19:44:24,822 - INFO - Start cache update
+2025-03-26 19:44:24,822 - INFO - Finish cache update Successfully
+2025-03-26 19:44:24,822 - INFO - Finish grabbing successfully
+2025-03-26 19:44:25,967 - INFO - Start analyze
+2025-03-26 19:44:25,967 - INFO - Start analyzing GSR
+2025-03-26 19:44:27,952 - INFO - End analyzing successfully
+2025-03-26 19:44:29,822 - INFO - Start grabber
+2025-03-26 19:44:30,975 - INFO - Start cache update
+2025-03-26 19:44:31,179 - INFO - Finish cache update Successfully
+2025-03-26 19:44:31,179 - INFO - Finish grabbing successfully
+2025-03-26 19:44:32,953 - INFO - Start analyze
+2025-03-26 19:44:32,953 - INFO - Start analyzing GSR
+2025-03-26 19:44:34,901 - INFO - algorithm:GSR made a prodiction:[0.99026394 0.00973608] with regards to conversation ID:e6087190-cceb-4303-bcec-e5fb62ae737e
+2025-03-26 19:44:34,910 - INFO - End analyzing successfully
+2025-03-26 19:44:36,180 - INFO - Start grabber
+2025-03-26 19:44:37,294 - INFO - Start cache update
+2025-03-26 19:44:37,295 - INFO - Finish cache update Successfully
+2025-03-26 19:44:37,295 - INFO - Finish grabbing successfully
+2025-03-26 19:44:39,910 - INFO - Start analyze
+2025-03-26 19:44:39,911 - INFO - Start analyzing GSR
+2025-03-26 19:44:42,297 - INFO - Start grabber
+2025-03-26 19:44:42,479 - INFO - End analyzing successfully
+2025-03-26 19:44:43,373 - INFO - Start cache update
+2025-03-26 19:44:43,374 - INFO - Finish cache update Successfully
+2025-03-26 19:44:43,374 - INFO - Finish grabbing successfully
+2025-03-26 19:44:47,481 - INFO - Start analyze
+2025-03-26 19:44:47,483 - INFO - Start analyzing GSR
+2025-03-26 19:44:48,374 - INFO - Start grabber
+2025-03-26 19:44:49,404 - INFO - Start cache update
+2025-03-26 19:44:49,404 - INFO - Finish cache update Successfully
+2025-03-26 19:44:49,404 - INFO - Finish grabbing successfully
+2025-03-26 19:44:49,469 - INFO - End analyzing successfully
+2025-03-26 19:44:54,404 - INFO - Start grabber
+2025-03-26 19:44:54,469 - INFO - Start analyze
+2025-03-26 19:44:54,469 - INFO - Start analyzing GSR
+2025-03-26 19:44:55,420 - INFO - Start cache update
+2025-03-26 19:44:55,420 - INFO - Finish cache update Successfully
+2025-03-26 19:44:55,420 - INFO - Finish grabbing successfully
+2025-03-26 19:44:56,437 - INFO - End analyzing successfully
+2025-03-26 19:45:00,420 - INFO - Start grabber
+2025-03-26 19:45:01,437 - INFO - Start analyze
+2025-03-26 19:45:01,437 - INFO - Start analyzing GSR
+2025-03-26 19:45:01,455 - INFO - Start cache update
+2025-03-26 19:45:01,456 - INFO - Finish cache update Successfully
+2025-03-26 19:45:01,456 - INFO - Finish grabbing successfully
+2025-03-26 19:45:03,643 - INFO - End analyzing successfully
+2025-03-26 19:45:06,456 - INFO - Start grabber
+2025-03-26 19:45:07,575 - INFO - Start cache update
+2025-03-26 19:45:07,575 - INFO - Finish cache update Successfully
+2025-03-26 19:45:07,575 - INFO - Finish grabbing successfully
+2025-03-26 19:45:08,649 - INFO - Start analyze
+2025-03-26 19:45:08,650 - INFO - Start analyzing GSR
+2025-03-26 19:45:11,017 - INFO - End analyzing successfully
+2025-03-26 19:45:12,576 - INFO - Start grabber
+2025-03-26 19:45:13,650 - INFO - Start cache update
+2025-03-26 19:45:13,650 - INFO - Finish cache update Successfully
+2025-03-26 19:45:13,650 - INFO - Finish grabbing successfully
+2025-03-26 19:45:16,018 - INFO - Start analyze
+2025-03-26 19:45:16,018 - INFO - Start analyzing GSR
+2025-03-26 19:45:17,921 - INFO - End analyzing successfully
+2025-03-26 19:45:18,651 - INFO - Start grabber
+2025-03-26 19:45:19,627 - INFO - Start cache update
+2025-03-26 19:45:19,628 - INFO - Finish cache update Successfully
+2025-03-26 19:45:19,628 - INFO - Finish grabbing successfully
+2025-03-26 19:45:22,921 - INFO - Start analyze
+2025-03-26 19:45:22,921 - INFO - Start analyzing GSR
+2025-03-26 19:45:24,628 - INFO - Start grabber
+2025-03-26 19:45:24,836 - INFO - End analyzing successfully
+2025-03-26 19:45:26,054 - INFO - Start cache update
+2025-03-26 19:45:26,054 - INFO - Finish cache update Successfully
+2025-03-26 19:45:26,054 - INFO - Finish grabbing successfully
+2025-03-26 19:45:29,836 - INFO - Start analyze
+2025-03-26 19:45:29,836 - INFO - Start analyzing GSR
+2025-03-26 19:45:31,055 - INFO - Start grabber
+2025-03-26 19:45:32,120 - INFO - Start cache update
+2025-03-26 19:45:32,120 - INFO - Finish cache update Successfully
+2025-03-26 19:45:32,120 - INFO - Finish grabbing successfully
+2025-03-26 19:45:32,150 - INFO - algorithm:GSR made a prodiction:[0.98424613 0.01575389] with regards to conversation ID:e6087190-cceb-4303-bcec-e5fb62ae737e
+2025-03-26 19:45:32,159 - INFO - End analyzing successfully
+2025-03-26 19:45:37,120 - INFO - Start grabber
+2025-03-26 19:45:37,159 - INFO - Start analyze
+2025-03-26 19:45:37,160 - INFO - Start analyzing GSR
+2025-03-26 19:45:38,161 - INFO - Start cache update
+2025-03-26 19:45:38,163 - INFO - Finish cache update Successfully
+2025-03-26 19:45:38,164 - INFO - Finish grabbing successfully
+2025-03-26 19:45:39,045 - INFO - End analyzing successfully
+2025-03-26 19:45:43,164 - INFO - Start grabber
+2025-03-26 19:45:44,046 - INFO - Start analyze
+2025-03-26 19:45:44,046 - INFO - Start analyzing GSR
+2025-03-26 19:45:44,263 - INFO - Start cache update
+2025-03-26 19:45:44,263 - INFO - Finish cache update Successfully
+2025-03-26 19:45:44,263 - INFO - Finish grabbing successfully
+2025-03-26 19:46:05,090 - INFO - Authentication to Live-Person complete successfully
+2025-03-26 19:46:08,886 - INFO - Start analyze
+2025-03-26 19:46:08,887 - INFO - Finished system initiation successfully
+2025-03-26 19:46:08,887 - INFO - End analyzing successfully
+2025-03-26 19:46:08,892 - INFO - Start grabber
+2025-03-26 19:46:09,941 - INFO - Start cache update
+2025-03-26 19:46:09,942 - INFO - Finish cache update Successfully
+2025-03-26 19:46:09,942 - INFO - Finish grabbing successfully
+2025-03-26 19:46:13,892 - INFO - Start analyze
+2025-03-26 19:46:13,892 - INFO - Start analyzing GSR
+2025-03-26 19:46:14,944 - INFO - Start grabber
+2025-03-26 19:46:15,890 - WARNING - Number of retries: 0, Message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:46:16,620 - INFO - algorithm:GSR made a prodiction:[0.9948927  0.00510728] with regards to conversation ID:e6087190-cceb-4303-bcec-e5fb62ae737e
+2025-03-26 19:46:16,620 - INFO - algorithm:GSR made a prodiction:[0.9963014  0.00369861] with regards to conversation ID:36ee211a-828e-4447-a2a3-25d6682adc15
+2025-03-26 19:46:16,620 - INFO - algorithm:GSR made a prodiction:[0.9964223  0.00357775] with regards to conversation ID:8b3b9406-2022-4ba6-9f41-27f7d6e4414d
+2025-03-26 19:46:16,648 - INFO - End analyzing successfully
+2025-03-26 19:46:16,770 - WARNING - Number of retries: 1, Message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:46:17,659 - ERROR - Error message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:46:17,659 - ERROR - lp_api_manager Call: Headers - {'Authorization': 'Bearer bdfada48d881be5092f188895f6e57d9e8de4b9b0439860b7f78f7907c82b7bf', 'Content-Type': 'application/json', 'Content-Length': '165'}, Body - b'{"start": {"from": 1742924774944, "to": 1743011174944}, "contentToRetrieve": ["consumerParticipants", "messageRecords", "monitoring"], "status": ["OPEN", "OVERDUE"]}', Url - https://va.msghist.liveperson.net/messaging_history/api/account/40920689/conversations/search?offset=0&limit=100&source=sahar_AI_openConv, Type - POST
+2025-03-26 19:46:17,659 - WARNING - Unauthorized, try to authenticate
+2025-03-26 19:46:19,725 - ERROR - Grabber finished unsuccessfully. Error message: '_metadata'
+2025-03-26 19:46:21,648 - INFO - Start analyze
+2025-03-26 19:46:21,649 - INFO - Start analyzing GSR
+2025-03-26 19:46:23,675 - INFO - End analyzing successfully
+2025-03-26 19:46:24,727 - INFO - Start grabber
+2025-03-26 19:46:25,899 - INFO - Start cache update
+2025-03-26 19:46:25,899 - INFO - Finish cache update Successfully
+2025-03-26 19:46:25,899 - INFO - Finish grabbing successfully
+2025-03-26 19:46:28,676 - INFO - Start analyze
+2025-03-26 19:46:28,676 - INFO - Start analyzing GSR
+2025-03-26 19:46:30,901 - INFO - Start grabber
+2025-03-26 19:46:30,906 - INFO - algorithm:GSR made a prodiction:[0.99626166 0.00373832] with regards to conversation ID:36ee211a-828e-4447-a2a3-25d6682adc15
+2025-03-26 19:46:30,913 - INFO - End analyzing successfully
+2025-03-26 19:46:31,907 - INFO - Start cache update
+2025-03-26 19:46:31,908 - INFO - Finish cache update Successfully
+2025-03-26 19:46:31,908 - INFO - Finish grabbing successfully
+2025-03-26 19:48:43,301 - INFO - Authentication to Live-Person complete successfully
+2025-03-26 19:48:47,114 - INFO - Start analyze
+2025-03-26 19:48:47,114 - INFO - Finished system initiation successfully
+2025-03-26 19:48:47,114 - INFO - End analyzing successfully
+2025-03-26 19:48:47,119 - INFO - Start grabber
+2025-03-26 19:48:48,147 - INFO - Start cache update
+2025-03-26 19:48:48,148 - INFO - Finish cache update Successfully
+2025-03-26 19:48:48,149 - INFO - Finish grabbing successfully
+2025-03-26 19:48:52,119 - INFO - Start analyze
+2025-03-26 19:48:52,119 - INFO - Start analyzing GSR
+2025-03-26 19:48:53,151 - INFO - Start grabber
+2025-03-26 19:48:54,047 - WARNING - Number of retries: 0, Message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:48:54,917 - WARNING - Number of retries: 1, Message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:48:55,570 - INFO - algorithm:GSR made a prodiction:[0.9931919  0.00680807] with regards to conversation ID:9e7e2c84-0198-4f69-a83b-abe1f0d10faf
+2025-03-26 19:48:55,570 - INFO - algorithm:GSR made a prodiction:[0.9913914  0.00860863] with regards to conversation ID:e6087190-cceb-4303-bcec-e5fb62ae737e
+2025-03-26 19:48:55,570 - INFO - algorithm:GSR made a prodiction:[0.9972594  0.00274057] with regards to conversation ID:36ee211a-828e-4447-a2a3-25d6682adc15
+2025-03-26 19:48:55,570 - INFO - algorithm:GSR made a prodiction:[0.99654406 0.00345593] with regards to conversation ID:8b3b9406-2022-4ba6-9f41-27f7d6e4414d
+2025-03-26 19:48:55,606 - INFO - End analyzing successfully
+2025-03-26 19:48:55,834 - ERROR - Error message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:48:55,834 - ERROR - lp_api_manager Call: Headers - {'Authorization': 'Bearer edb1a4d726f26a27469e09b9831a61f7ae313463438ab0c87f9f600178bc800d', 'Content-Type': 'application/json', 'Content-Length': '165'}, Body - b'{"start": {"from": 1742924933151, "to": 1743011333151}, "contentToRetrieve": ["consumerParticipants", "messageRecords", "monitoring"], "status": ["OPEN", "OVERDUE"]}', Url - https://va.msghist.liveperson.net/messaging_history/api/account/40920689/conversations/search?offset=0&limit=100&source=sahar_AI_openConv, Type - POST
+2025-03-26 19:48:55,835 - WARNING - Unauthorized, try to authenticate
+2025-03-26 19:48:57,537 - ERROR - Grabber finished unsuccessfully. Error message: '_metadata'
+2025-03-26 19:49:00,755 - INFO - Start analyze
+2025-03-26 19:49:00,771 - INFO - Start analyzing GSR
+2025-03-26 19:49:02,537 - INFO - Start grabber
+2025-03-26 19:49:03,614 - INFO - End analyzing successfully
+2025-03-26 19:49:03,696 - INFO - Start cache update
+2025-03-26 19:49:03,696 - INFO - Finish cache update Successfully
+2025-03-26 19:49:03,696 - INFO - Finish grabbing successfully
+2025-03-26 19:49:08,615 - INFO - Start analyze
+2025-03-26 19:49:08,615 - INFO - Start analyzing GSR
+2025-03-26 19:49:08,696 - INFO - Start grabber
+2025-03-26 19:49:09,876 - INFO - Start cache update
+2025-03-26 19:49:09,876 - INFO - Finish cache update Successfully
+2025-03-26 19:49:09,876 - INFO - Finish grabbing successfully
+2025-03-26 19:49:11,149 - INFO - algorithm:GSR made a prodiction:[0.9787542  0.02124576] with regards to conversation ID:e6087190-cceb-4303-bcec-e5fb62ae737e
+2025-03-26 19:49:11,157 - INFO - End analyzing successfully
+2025-03-26 19:49:14,876 - INFO - Start grabber
+2025-03-26 19:49:15,918 - INFO - Start cache update
+2025-03-26 19:49:15,919 - INFO - Finish cache update Successfully
+2025-03-26 19:49:15,919 - INFO - Finish grabbing successfully
+2025-03-26 19:49:16,157 - INFO - Start analyze
+2025-03-26 19:49:16,158 - INFO - Start analyzing GSR
+2025-03-26 19:49:19,104 - INFO - algorithm:GSR made a prodiction:[0.99709666 0.00290333] with regards to conversation ID:36ee211a-828e-4447-a2a3-25d6682adc15
+2025-03-26 19:49:19,111 - INFO - End analyzing successfully
+2025-03-26 19:49:20,919 - INFO - Start grabber
+2025-03-26 19:49:21,993 - INFO - Start cache update
+2025-03-26 19:49:21,993 - INFO - Finish cache update Successfully
+2025-03-26 19:49:21,993 - INFO - Finish grabbing successfully
+2025-03-26 19:49:24,112 - INFO - Start analyze
+2025-03-26 19:49:24,113 - INFO - Start analyzing GSR
+2025-03-26 19:49:26,608 - INFO - End analyzing successfully
+2025-03-26 19:49:26,993 - INFO - Start grabber
+2025-03-26 19:49:28,169 - INFO - Start cache update
+2025-03-26 19:49:28,169 - INFO - Finish cache update Successfully
+2025-03-26 19:49:28,169 - INFO - Finish grabbing successfully
+2025-03-26 19:49:31,609 - INFO - Start analyze
+2025-03-26 19:49:31,609 - INFO - Start analyzing GSR
+2025-03-26 19:49:33,172 - INFO - Start grabber
+2025-03-26 19:49:34,201 - INFO - Start cache update
+2025-03-26 19:49:34,201 - INFO - Finish cache update Successfully
+2025-03-26 19:49:34,202 - INFO - Finish grabbing successfully
+2025-03-26 19:49:34,516 - INFO - End analyzing successfully
+2025-03-26 19:49:39,436 - INFO - Start grabber
+2025-03-26 19:49:39,519 - INFO - Start analyze
+2025-03-26 19:49:39,519 - INFO - Start analyzing GSR
+2025-03-26 19:49:40,481 - INFO - Start cache update
+2025-03-26 19:49:40,482 - INFO - Finish cache update Successfully
+2025-03-26 19:49:40,482 - INFO - Finish grabbing successfully
+2025-03-26 19:49:42,530 - INFO - End analyzing successfully
+2025-03-26 19:49:45,482 - INFO - Start grabber
+2025-03-26 19:49:46,482 - INFO - Start cache update
+2025-03-26 19:49:46,483 - INFO - Finish cache update Successfully
+2025-03-26 19:49:46,483 - INFO - Finish grabbing successfully
+2025-03-26 19:49:47,530 - INFO - Start analyze
+2025-03-26 19:49:47,531 - INFO - Start analyzing GSR
+2025-03-26 19:49:50,084 - INFO - End analyzing successfully
+2025-03-26 19:49:51,483 - INFO - Start grabber
+2025-03-26 19:49:52,530 - INFO - Start cache update
+2025-03-26 19:49:52,530 - INFO - Finish cache update Successfully
+2025-03-26 19:49:52,530 - INFO - Finish grabbing successfully
+2025-03-26 19:49:55,084 - INFO - Start analyze
+2025-03-26 19:49:55,085 - INFO - Start analyzing GSR
+2025-03-26 19:49:57,534 - INFO - Start grabber
+2025-03-26 19:49:58,193 - INFO - End analyzing successfully
+2025-03-26 19:49:58,610 - INFO - Start cache update
+2025-03-26 19:49:58,610 - INFO - Finish cache update Successfully
+2025-03-26 19:49:58,610 - INFO - Finish grabbing successfully
+2025-03-26 19:50:03,194 - INFO - Start analyze
+2025-03-26 19:50:03,194 - INFO - Start analyzing GSR
+2025-03-26 19:50:03,611 - INFO - Start grabber
+2025-03-26 19:50:04,611 - INFO - Start cache update
+2025-03-26 19:50:04,611 - INFO - Finish cache update Successfully
+2025-03-26 19:50:04,611 - INFO - Finish grabbing successfully
+2025-03-26 19:50:05,855 - INFO - End analyzing successfully
+2025-03-26 19:50:09,612 - INFO - Start grabber
+2025-03-26 19:50:10,681 - INFO - Start cache update
+2025-03-26 19:50:10,681 - INFO - Finish cache update Successfully
+2025-03-26 19:50:10,681 - INFO - Finish grabbing successfully
+2025-03-26 19:50:10,855 - INFO - Start analyze
+2025-03-26 19:50:10,856 - INFO - Start analyzing GSR
+2025-03-26 19:50:13,922 - INFO - End analyzing successfully
+2025-03-26 19:50:15,681 - INFO - Start grabber
+2025-03-26 19:50:16,687 - INFO - Start cache update
+2025-03-26 19:50:16,687 - INFO - Finish cache update Successfully
+2025-03-26 19:50:16,687 - INFO - Finish grabbing successfully
+2025-03-26 19:50:18,922 - INFO - Start analyze
+2025-03-26 19:50:18,923 - INFO - Start analyzing GSR
+2025-03-26 19:50:21,420 - INFO - End analyzing successfully
+2025-03-26 19:50:21,687 - INFO - Start grabber
+2025-03-26 19:50:23,057 - INFO - Start cache update
+2025-03-26 19:50:23,057 - INFO - Finish cache update Successfully
+2025-03-26 19:50:23,057 - INFO - Finish grabbing successfully
+2025-03-26 19:50:26,421 - INFO - Start analyze
+2025-03-26 19:50:26,421 - INFO - Start analyzing GSR
+2025-03-26 19:50:28,058 - INFO - Start grabber
+2025-03-26 19:50:28,921 - INFO - End analyzing successfully
+2025-03-26 19:50:29,113 - INFO - Start cache update
+2025-03-26 19:50:29,114 - INFO - Finish cache update Successfully
+2025-03-26 19:50:29,114 - INFO - Finish grabbing successfully
+2025-03-26 19:50:33,922 - INFO - Start analyze
+2025-03-26 19:50:33,922 - INFO - Start analyzing GSR
+2025-03-26 19:50:34,116 - INFO - Start grabber
+2025-03-26 19:50:35,143 - INFO - Start cache update
+2025-03-26 19:50:35,528 - INFO - Finish cache update Successfully
+2025-03-26 19:50:35,528 - INFO - Finish grabbing successfully
+2025-03-26 19:50:36,917 - INFO - End analyzing successfully
+2025-03-26 19:50:40,529 - INFO - Start grabber
+2025-03-26 19:50:41,603 - INFO - Start cache update
+2025-03-26 19:50:41,603 - INFO - Finish cache update Successfully
+2025-03-26 19:50:41,603 - INFO - Finish grabbing successfully
+2025-03-26 19:50:41,917 - INFO - Start analyze
+2025-03-26 19:50:41,918 - INFO - Start analyzing GSR
+2025-03-26 19:50:44,427 - INFO - algorithm:GSR made a prodiction:[0.9969909 0.0030091] with regards to conversation ID:36ee211a-828e-4447-a2a3-25d6682adc15
+2025-03-26 19:50:44,435 - INFO - End analyzing successfully
+2025-03-26 19:50:46,603 - INFO - Start grabber
+2025-03-26 19:50:47,697 - INFO - Start cache update
+2025-03-26 19:50:47,697 - INFO - Finish cache update Successfully
+2025-03-26 19:50:47,697 - INFO - Finish grabbing successfully
+2025-03-26 19:50:49,435 - INFO - Start analyze
+2025-03-26 19:50:49,436 - INFO - Start analyzing GSR
+2025-03-26 19:50:52,512 - INFO - End analyzing successfully
+2025-03-26 19:50:52,697 - INFO - Start grabber
+2025-03-26 19:50:53,735 - INFO - Start cache update
+2025-03-26 19:50:53,735 - INFO - Finish cache update Successfully
+2025-03-26 19:50:53,735 - INFO - Finish grabbing successfully
+2025-03-26 19:50:57,513 - INFO - Start analyze
+2025-03-26 19:50:57,514 - INFO - Start analyzing GSR
+2025-03-26 19:50:58,737 - INFO - Start grabber
+2025-03-26 19:50:59,607 - WARNING - Number of retries: 0, Message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:51:00,222 - INFO - End analyzing successfully
+2025-03-26 19:51:00,489 - WARNING - Number of retries: 1, Message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:51:01,471 - INFO - Start cache update
+2025-03-26 19:51:01,471 - INFO - Finish cache update Successfully
+2025-03-26 19:51:01,471 - INFO - Finish grabbing successfully
+2025-03-26 19:51:05,222 - INFO - Start analyze
+2025-03-26 19:51:05,223 - INFO - Start analyzing GSR
+2025-03-26 19:51:06,471 - INFO - Start grabber
+2025-03-26 19:51:07,381 - WARNING - Number of retries: 0, Message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:51:08,130 - INFO - End analyzing successfully
+2025-03-26 19:51:08,273 - WARNING - Number of retries: 1, Message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:51:09,511 - INFO - Start cache update
+2025-03-26 19:51:09,512 - INFO - Finish cache update Successfully
+2025-03-26 19:51:09,512 - INFO - Finish grabbing successfully
+2025-03-26 19:51:13,130 - INFO - Start analyze
+2025-03-26 19:51:13,130 - INFO - Start analyzing GSR
+2025-03-26 19:51:14,517 - INFO - Start grabber
+2025-03-26 19:51:15,439 - WARNING - Number of retries: 0, Message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:51:15,921 - INFO - End analyzing successfully
+2025-03-26 19:51:16,333 - WARNING - Number of retries: 1, Message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:51:17,213 - ERROR - Error message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:51:17,213 - ERROR - lp_api_manager Call: Headers - {'Authorization': 'Bearer eab4f206578adf74facde5a46e55bc8e15d665f84fdc5511e184f425db8ed319', 'Content-Type': 'application/json', 'Content-Length': '165'}, Body - b'{"start": {"from": 1742925074522, "to": 1743011474522}, "contentToRetrieve": ["consumerParticipants", "messageRecords", "monitoring"], "status": ["OPEN", "OVERDUE"]}', Url - https://va.msghist.liveperson.net/messaging_history/api/account/40920689/conversations/search?offset=0&limit=100&source=sahar_AI_openConv, Type - POST
+2025-03-26 19:51:17,213 - WARNING - Unauthorized, try to authenticate
+2025-03-26 19:51:19,303 - ERROR - Grabber finished unsuccessfully. Error message: '_metadata'
+2025-03-26 19:51:20,921 - INFO - Start analyze
+2025-03-26 19:51:20,921 - INFO - Start analyzing GSR
+2025-03-26 19:51:23,486 - INFO - End analyzing successfully
+2025-03-26 19:51:24,304 - INFO - Start grabber
+2025-03-26 19:51:25,525 - INFO - Start cache update
+2025-03-26 19:51:26,005 - INFO - Finish cache update Successfully
+2025-03-26 19:51:26,005 - INFO - Finish grabbing successfully
+2025-03-26 19:51:28,486 - INFO - Start analyze
+2025-03-26 19:51:28,487 - INFO - Start analyzing GSR
+2025-03-26 19:51:30,982 - INFO - End analyzing successfully
+2025-03-26 19:51:31,007 - INFO - Start grabber
+2025-03-26 19:51:32,159 - INFO - Start cache update
+2025-03-26 19:51:32,159 - INFO - Finish cache update Successfully
+2025-03-26 19:51:32,159 - INFO - Finish grabbing successfully
+2025-03-26 19:51:35,982 - INFO - Start analyze
+2025-03-26 19:51:35,983 - INFO - Start analyzing GSR
+2025-03-26 19:51:37,178 - INFO - Start grabber
+2025-03-26 19:51:38,439 - INFO - Start cache update
+2025-03-26 19:51:38,440 - INFO - Finish cache update Successfully
+2025-03-26 19:51:38,440 - INFO - Finish grabbing successfully
+2025-03-26 19:51:39,147 - INFO - End analyzing successfully
+2025-03-26 19:51:43,443 - INFO - Start grabber
+2025-03-26 19:51:44,148 - INFO - Start analyze
+2025-03-26 19:51:44,148 - INFO - Start analyzing GSR
+2025-03-26 19:51:44,508 - INFO - Start cache update
+2025-03-26 19:51:44,509 - INFO - Finish cache update Successfully
+2025-03-26 19:51:44,509 - INFO - Finish grabbing successfully
+2025-03-26 19:51:46,564 - INFO - End analyzing successfully
+2025-03-26 19:51:49,509 - INFO - Start grabber
+2025-03-26 19:51:50,532 - INFO - Start cache update
+2025-03-26 19:51:50,533 - INFO - Finish cache update Successfully
+2025-03-26 19:51:50,533 - INFO - Finish grabbing successfully
+2025-03-26 19:51:51,564 - INFO - Start analyze
+2025-03-26 19:51:51,565 - INFO - Start analyzing GSR
+2025-03-26 19:51:54,616 - INFO - algorithm:GSR made a prodiction:[0.9970475  0.00295259] with regards to conversation ID:36ee211a-828e-4447-a2a3-25d6682adc15
+2025-03-26 19:51:54,623 - INFO - End analyzing successfully
+2025-03-26 19:51:55,533 - INFO - Start grabber
+2025-03-26 19:51:56,543 - INFO - Start cache update
+2025-03-26 19:51:56,543 - INFO - Finish cache update Successfully
+2025-03-26 19:51:56,543 - INFO - Finish grabbing successfully
+2025-03-26 19:51:59,627 - INFO - Start analyze
+2025-03-26 19:51:59,632 - INFO - Start analyzing GSR
+2025-03-26 19:52:01,544 - INFO - Start grabber
+2025-03-26 19:52:02,382 - INFO - End analyzing successfully
+2025-03-26 19:52:02,707 - INFO - Start cache update
+2025-03-26 19:52:02,707 - INFO - Finish cache update Successfully
+2025-03-26 19:52:02,707 - INFO - Finish grabbing successfully
+2025-03-26 19:52:07,382 - INFO - Start analyze
+2025-03-26 19:52:07,383 - INFO - Start analyzing GSR
+2025-03-26 19:52:07,708 - INFO - Start grabber
+2025-03-26 19:52:08,706 - INFO - Start cache update
+2025-03-26 19:52:08,707 - INFO - Finish cache update Successfully
+2025-03-26 19:52:08,707 - INFO - Finish grabbing successfully
+2025-03-26 19:52:10,074 - INFO - End analyzing successfully
+2025-03-26 19:52:13,707 - INFO - Start grabber
+2025-03-26 19:52:15,075 - INFO - Start analyze
+2025-03-26 19:52:15,075 - INFO - Start analyzing GSR
+2025-03-26 19:52:16,193 - INFO - Start cache update
+2025-03-26 19:52:16,193 - INFO - Finish cache update Successfully
+2025-03-26 19:52:16,193 - INFO - Finish grabbing successfully
+2025-03-26 19:52:17,771 - INFO - End analyzing successfully
+2025-03-26 19:52:21,194 - INFO - Start grabber
+2025-03-26 19:52:22,562 - INFO - Start cache update
+2025-03-26 19:52:22,705 - INFO - Finish cache update Successfully
+2025-03-26 19:52:22,705 - INFO - Finish grabbing successfully
+2025-03-26 19:52:22,772 - INFO - Start analyze
+2025-03-26 19:52:22,772 - INFO - Start analyzing GSR
+2025-03-26 19:59:25,415 - INFO - Authentication to Live-Person complete successfully
+2025-03-26 19:59:29,259 - INFO - Start analyze
+2025-03-26 19:59:29,259 - INFO - Finished system initiation successfully
+2025-03-26 19:59:29,259 - INFO - End analyzing successfully
+2025-03-26 19:59:29,264 - INFO - Start grabber
+2025-03-26 19:59:30,435 - INFO - Start cache update
+2025-03-26 19:59:30,435 - INFO - Finish cache update Successfully
+2025-03-26 19:59:30,435 - INFO - Finish grabbing successfully
+2025-03-26 19:59:33,060 - ERROR - Error message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:59:33,060 - ERROR - lp_api_manager Call: Headers - {'Content-Type': 'Application/JSON', 'Accept': 'Application/JSON', 'Content-Length': '86'}, Body - b'{"username": "omerdo", "password": "\\u05dd\\u05e6\\u05e7\\u05e8\\u05d9\\u05df\\u05da\\u05e9"}', Url - https://va.agentvep.liveperson.net/api/account/40920689/login?v=1.3, Type - POST
+2025-03-26 19:59:34,264 - INFO - Start analyze
+2025-03-26 19:59:34,265 - INFO - Start analyzing GSR
+2025-03-26 19:59:35,436 - INFO - Start grabber
+2025-03-26 19:59:36,683 - INFO - Start cache update
+2025-03-26 19:59:36,683 - INFO - Finish cache update Successfully
+2025-03-26 19:59:36,683 - INFO - Finish grabbing successfully
+2025-03-26 19:59:37,192 - INFO - algorithm:GSR made a prodiction:[0.99417734 0.00582265] with regards to conversation ID:9e7e2c84-0198-4f69-a83b-abe1f0d10faf
+2025-03-26 19:59:37,192 - INFO - algorithm:GSR made a prodiction:[0.99392736 0.00607259] with regards to conversation ID:e6087190-cceb-4303-bcec-e5fb62ae737e
+2025-03-26 19:59:37,193 - INFO - algorithm:GSR made a prodiction:[0.9951859  0.00481409] with regards to conversation ID:36ee211a-828e-4447-a2a3-25d6682adc15
+2025-03-26 19:59:37,227 - INFO - End analyzing successfully
+2025-03-26 19:59:39,789 - ERROR - Error message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 19:59:39,790 - ERROR - lp_api_manager Call: Headers - {'Content-Type': 'Application/JSON', 'Accept': 'Application/JSON', 'Content-Length': '86'}, Body - b'{"username": "omerdo", "password": "\\u05dd\\u05e6\\u05e7\\u05e8\\u05d9\\u05df\\u05da\\u05e9"}', Url - https://va.agentvep.liveperson.net/api/account/40920689/login?v=1.3, Type - POST
+2025-03-26 19:59:41,683 - INFO - Start grabber
+2025-03-26 19:59:42,227 - INFO - Start analyze
+2025-03-26 19:59:42,227 - INFO - Start analyzing GSR
+2025-03-26 19:59:42,711 - INFO - Start cache update
+2025-03-26 19:59:42,711 - INFO - Finish cache update Successfully
+2025-03-26 19:59:42,711 - INFO - Finish grabbing successfully
+2025-03-26 19:59:44,176 - INFO - End analyzing successfully
+2025-03-26 19:59:47,711 - INFO - Start grabber
+2025-03-26 19:59:48,837 - INFO - Start cache update
+2025-03-26 19:59:48,837 - INFO - Finish cache update Successfully
+2025-03-26 19:59:48,837 - INFO - Finish grabbing successfully
+2025-03-26 19:59:49,176 - INFO - Start analyze
+2025-03-26 19:59:49,176 - INFO - Start analyzing GSR
+2025-03-26 19:59:51,731 - INFO - algorithm:GSR made a prodiction:[0.995265   0.00473503] with regards to conversation ID:36ee211a-828e-4447-a2a3-25d6682adc15
+2025-03-26 19:59:51,740 - INFO - End analyzing successfully
+2025-03-26 19:59:53,838 - INFO - Start grabber
+2025-03-26 19:59:55,014 - INFO - Start cache update
+2025-03-26 19:59:55,014 - INFO - Finish cache update Successfully
+2025-03-26 19:59:55,014 - INFO - Finish grabbing successfully
+2025-03-26 19:59:56,741 - INFO - Start analyze
+2025-03-26 19:59:56,741 - INFO - Start analyzing GSR
+2025-03-26 19:59:58,697 - INFO - End analyzing successfully
+2025-03-26 20:00:00,014 - INFO - Start grabber
+2025-03-26 20:00:01,161 - INFO - Start cache update
+2025-03-26 20:00:01,161 - INFO - Finish cache update Successfully
+2025-03-26 20:00:01,162 - INFO - Finish grabbing successfully
+2025-03-26 20:00:03,698 - INFO - Start analyze
+2025-03-26 20:00:03,698 - INFO - Start analyzing GSR
+2025-03-26 20:00:05,792 - INFO - algorithm:GSR made a prodiction:[0.9940276  0.00597237] with regards to conversation ID:e6087190-cceb-4303-bcec-e5fb62ae737e
+2025-03-26 20:00:05,800 - INFO - End analyzing successfully
+2025-03-26 20:00:06,162 - INFO - Start grabber
+2025-03-26 20:00:07,047 - WARNING - Number of retries: 0, Message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 20:00:07,934 - WARNING - Number of retries: 1, Message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 20:00:08,835 - ERROR - Error message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 20:00:08,836 - ERROR - lp_api_manager Call: Headers - {'Authorization': 'Bearer aab581930b1dc94739011254efa2685bd1d413d953a3bd553b5c2bda62801223', 'Content-Type': 'application/json', 'Content-Length': '165'}, Body - b'{"start": {"from": 1742925606162, "to": 1743012006162}, "contentToRetrieve": ["consumerParticipants", "messageRecords", "monitoring"], "status": ["OPEN", "OVERDUE"]}', Url - https://va.msghist.liveperson.net/messaging_history/api/account/40920689/conversations/search?offset=0&limit=100&source=sahar_AI_openConv, Type - POST
+2025-03-26 20:00:08,836 - WARNING - Unauthorized, try to authenticate
+2025-03-26 20:00:10,801 - INFO - Start analyze
+2025-03-26 20:00:10,801 - INFO - Start analyzing GSR
+2025-03-26 20:00:10,867 - ERROR - Grabber finished unsuccessfully. Error message: '_metadata'
+2025-03-26 20:00:12,771 - INFO - End analyzing successfully
+2025-03-26 20:00:15,868 - INFO - Start grabber
+2025-03-26 20:00:17,122 - INFO - Start cache update
+2025-03-26 20:00:17,122 - INFO - Finish cache update Successfully
+2025-03-26 20:00:17,122 - INFO - Finish grabbing successfully
+2025-03-26 20:00:17,771 - INFO - Start analyze
+2025-03-26 20:00:17,772 - INFO - Start analyzing GSR
+2025-03-26 20:00:20,467 - INFO - End analyzing successfully
+2025-03-26 20:00:22,123 - INFO - Start grabber
+2025-03-26 20:00:23,309 - INFO - Start cache update
+2025-03-26 20:00:23,310 - INFO - Finish cache update Successfully
+2025-03-26 20:00:23,310 - INFO - Finish grabbing successfully
+2025-03-26 20:00:25,468 - INFO - Start analyze
+2025-03-26 20:00:25,468 - INFO - Start analyzing GSR
+2025-03-26 20:00:28,033 - INFO - algorithm:GSR made a prodiction:[0.98982716 0.0101728 ] with regards to conversation ID:e6087190-cceb-4303-bcec-e5fb62ae737e
+2025-03-26 20:00:28,033 - INFO - algorithm:GSR made a prodiction:[0.99391127 0.00608879] with regards to conversation ID:a7d52656-0918-4dd8-bc04-a8c3fed0b6a8
+2025-03-26 20:00:28,046 - INFO - End analyzing successfully
+2025-03-26 20:00:28,310 - INFO - Start grabber
+2025-03-26 20:00:29,199 - WARNING - Number of retries: 0, Message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 20:00:30,072 - WARNING - Number of retries: 1, Message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 20:00:31,090 - ERROR - Error message: Unauthorized — Bad Authentication (invalid site, agent, or credentials)
+2025-03-26 20:00:31,095 - ERROR - lp_api_manager Call: Headers - {'Authorization': 'Bearer 8ceb57686858292631f62545c3e6fdb20633c0ae7a5dd696ed7f8259000a9047', 'Content-Type': 'application/json', 'Content-Length': '165'}, Body - b'{"start": {"from": 1742925628310, "to": 1743012028310}, "contentToRetrieve": ["consumerParticipants", "messageRecords", "monitoring"], "status": ["OPEN", "OVERDUE"]}', Url - https://va.msghist.liveperson.net/messaging_history/api/account/40920689/conversations/search?offset=0&limit=100&source=sahar_AI_openConv, Type - POST
+2025-03-26 20:00:31,095 - WARNING - Unauthorized, try to authenticate
+2025-03-26 20:00:32,858 - ERROR - Grabber finished unsuccessfully. Error message: '_metadata'
+2025-03-26 20:00:33,046 - INFO - Start analyze
+2025-03-26 20:00:33,047 - INFO - Start analyzing GSR
+2025-03-26 20:00:35,584 - INFO - End analyzing successfully
+2025-03-26 20:00:37,859 - INFO - Start grabber
+2025-03-26 20:00:39,085 - INFO - Start cache update
+2025-03-26 20:00:39,085 - INFO - Finish cache update Successfully
+2025-03-26 20:00:39,086 - INFO - Finish grabbing successfully
+2025-03-26 20:00:40,585 - INFO - Start analyze
+2025-03-26 20:00:40,585 - INFO - Start analyzing GSR
+2025-03-26 20:00:43,347 - INFO - End analyzing successfully
+2025-03-26 20:00:44,087 - INFO - Start grabber
+2025-03-26 20:00:45,279 - INFO - Start cache update
+2025-03-26 20:00:45,279 - INFO - Finish cache update Successfully
+2025-03-26 20:00:45,279 - INFO - Finish grabbing successfully
+2025-03-26 20:00:48,349 - INFO - Start analyze
+2025-03-26 20:00:48,357 - INFO - Start analyzing GSR
+2025-03-26 20:00:50,280 - INFO - Start grabber
+2025-03-26 20:00:50,923 - INFO - algorithm:GSR made a prodiction:[0.99538654 0.00461344] with regards to conversation ID:36ee211a-828e-4447-a2a3-25d6682adc15
+2025-03-26 20:00:50,930 - INFO - End analyzing successfully
+2025-03-26 20:00:51,407 - INFO - Start cache update
+2025-03-26 20:00:51,408 - INFO - Finish cache update Successfully
+2025-03-26 20:00:51,408 - INFO - Finish grabbing successfully
+2025-03-26 20:00:55,930 - INFO - Start analyze
+2025-03-26 20:00:55,931 - INFO - Start analyzing GSR
+2025-03-26 20:00:56,409 - INFO - Start grabber
+2025-03-26 20:00:57,480 - INFO - Start cache update
+2025-03-26 20:00:57,480 - INFO - Finish cache update Successfully
+2025-03-26 20:00:57,480 - INFO - Finish grabbing successfully
+2025-03-26 20:00:58,510 - INFO - End analyzing successfully
+2025-03-26 20:01:02,480 - INFO - Start grabber
+2025-03-26 20:01:03,511 - INFO - Start analyze
+2025-03-26 20:01:03,511 - INFO - Start analyzing GSR
+2025-03-26 20:01:03,673 - INFO - Start cache update
+2025-03-26 20:01:03,673 - INFO - Finish cache update Successfully
+2025-03-26 20:01:03,673 - INFO - Finish grabbing successfully
+2025-03-26 20:01:06,308 - INFO - End analyzing successfully
+2025-03-26 20:01:08,674 - INFO - Start grabber
+2025-03-26 20:01:09,832 - INFO - Start cache update
+2025-03-26 20:01:09,833 - INFO - Finish cache update Successfully
+2025-03-26 20:01:09,833 - INFO - Finish grabbing successfully
+2025-03-26 20:01:11,343 - INFO - Start analyze
+2025-03-26 20:01:11,364 - INFO - Start analyzing GSR
+2025-03-26 20:01:14,010 - INFO - End analyzing successfully
+2025-03-26 20:01:14,833 - INFO - Start grabber
+2025-03-26 20:01:16,011 - INFO - Start cache update
+2025-03-26 20:01:16,011 - INFO - Finish cache update Successfully
+2025-03-26 20:01:16,011 - INFO - Finish grabbing successfully
+2025-03-26 20:01:19,011 - INFO - Start analyze
+2025-03-26 20:01:19,011 - INFO - Start analyzing GSR
+2025-03-26 20:01:21,012 - INFO - Start grabber
+2025-03-26 20:01:21,469 - INFO - End analyzing successfully
+2025-03-26 20:01:22,234 - INFO - Start cache update
+2025-03-26 20:01:22,809 - INFO - Finish cache update Successfully
+2025-03-26 20:01:22,809 - INFO - Finish grabbing successfully
+2025-03-26 20:01:26,469 - INFO - Start analyze
+2025-03-26 20:01:26,469 - INFO - Start analyzing GSR
+2025-03-26 20:01:27,811 - INFO - Start grabber
+2025-03-26 20:01:29,249 - INFO - Start cache update
+2025-03-26 20:01:29,250 - INFO - Finish cache update Successfully
+2025-03-26 20:01:29,253 - INFO - Finish grabbing successfully
+2025-03-26 20:01:29,646 - INFO - End analyzing successfully
+2025-03-26 20:01:34,259 - INFO - Start grabber
+2025-03-26 20:01:34,646 - INFO - Start analyze
+2025-03-26 20:01:34,646 - INFO - Start analyzing GSR
+2025-03-26 20:01:35,460 - INFO - Start cache update
+2025-03-26 20:01:35,461 - INFO - Finish cache update Successfully
+2025-03-26 20:01:35,461 - INFO - Finish grabbing successfully
+2025-03-26 20:01:37,169 - INFO - End analyzing successfully
+2025-03-26 20:01:40,461 - INFO - Start grabber
+2025-03-26 20:01:41,856 - INFO - Start cache update
+2025-03-26 20:01:41,857 - INFO - Finish cache update Successfully
+2025-03-26 20:01:41,857 - INFO - Finish grabbing successfully
+2025-03-26 20:01:42,169 - INFO - Start analyze
+2025-03-26 20:01:42,170 - INFO - Start analyzing GSR
+2025-03-26 20:01:44,759 - INFO - End analyzing successfully
+2025-03-26 20:01:46,857 - INFO - Start grabber
+2025-03-26 20:01:47,947 - INFO - Start cache update
+2025-03-26 20:01:47,947 - INFO - Finish cache update Successfully
+2025-03-26 20:01:47,947 - INFO - Finish grabbing successfully
+2025-03-26 20:01:49,759 - INFO - Start analyze
+2025-03-26 20:01:49,760 - INFO - Start analyzing GSR
+2025-03-26 20:01:52,871 - INFO - algorithm:GSR made a prodiction:[0.99147546 0.00852459] with regards to conversation ID:e6087190-cceb-4303-bcec-e5fb62ae737e
+2025-03-26 20:01:52,878 - INFO - End analyzing successfully
+2025-03-26 20:01:52,948 - INFO - Start grabber
+2025-03-26 20:01:54,076 - INFO - Start cache update
+2025-03-26 20:01:54,077 - INFO - Finish cache update Successfully
+2025-03-26 20:01:54,077 - INFO - Finish grabbing successfully
+2025-03-26 20:01:57,879 - INFO - Start analyze
+2025-03-26 20:01:57,881 - INFO - Start analyzing GSR
+2025-03-26 20:01:59,079 - INFO - Start grabber
+2025-03-26 20:02:00,263 - INFO - Start cache update
+2025-03-26 20:02:00,264 - INFO - Finish cache update Successfully
+2025-03-26 20:02:00,264 - INFO - Finish grabbing successfully
+2025-03-26 20:02:00,371 - INFO - End analyzing successfully
+2025-03-26 20:02:05,264 - INFO - Start grabber
+2025-03-26 20:02:05,371 - INFO - Start analyze
+2025-03-26 20:02:05,372 - INFO - Start analyzing GSR
+2025-03-26 20:02:06,271 - INFO - Start cache update
+2025-03-26 20:02:06,271 - INFO - Finish cache update Successfully
+2025-03-26 20:02:06,271 - INFO - Finish grabbing successfully
+2025-03-26 20:02:07,924 - INFO - End analyzing successfully
+2025-03-26 20:02:11,271 - INFO - Start grabber
+2025-03-26 20:02:12,891 - INFO - Start cache update
+2025-03-26 20:02:12,892 - INFO - Finish cache update Successfully
+2025-03-26 20:02:12,892 - INFO - Finish grabbing successfully
+2025-03-26 20:02:12,924 - INFO - Start analyze
+2025-03-26 20:02:12,925 - INFO - Start analyzing GSR
+2025-03-26 20:02:15,649 - INFO - End analyzing successfully
+2025-03-26 20:02:17,892 - INFO - Start grabber
+2025-03-26 20:02:18,974 - INFO - Start cache update
+2025-03-26 20:02:18,974 - INFO - Finish cache update Successfully
+2025-03-26 20:02:18,974 - INFO - Finish grabbing successfully
+2025-03-26 20:02:20,651 - INFO - Start analyze
+2025-03-26 20:02:20,651 - INFO - Start analyzing GSR
+2025-03-26 20:02:23,423 - INFO - algorithm:GSR made a prodiction:[0.9949654  0.00503465] with regards to conversation ID:36ee211a-828e-4447-a2a3-25d6682adc15
+2025-03-26 20:02:23,431 - INFO - End analyzing successfully
+2025-03-26 20:02:23,975 - INFO - Start grabber

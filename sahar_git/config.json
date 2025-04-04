@@ -1,0 +1,28 @@
+{
+    "userName": "omerdo",
+    "password": "omerhila",
+    "accountId": "40920689",
+
+    "serviceLogInName": "agentVep",
+    "messageHistName": "msgHist",
+
+    "numberOfRetriesAPICalls": 3,
+
+    "grabber_interval": 5,
+
+    "analyzer_interval": 5,
+
+    "deleteThreadCacheInterval": 86400,
+    "cacheDataMaxAge": 160000,
+
+    "logCacheInterval": 5,
+    "maxCacheLogAge": 2500000,
+
+    "deleteThreadLogsInterval": 86400,
+
+    "maxLogFile": 30,
+
+    "AI-algorithms": ["GSR_algorithm"],
+
+    "cache_update_interval": 10
+}

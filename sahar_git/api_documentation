@@ -1,0 +1,97 @@
+API Documentation
+Introduction
+Welcome to the documentation for the Sahar Messaging API. This API provides endpoints to interact with conversations and agents in the messaging platform.
+
+Base URL
+All endpoints described in this documentation have the base URL:
+https://your-api-base-url.com/api
+
+Authentication
+Authentication is required for all endpoints. Include an authentication token in the header of your requests:
+Authorization: Bearer YOUR_AUTH_TOKEN
+
+1. Get Open Conversations
+Endpoint: /getOpenConversations
+Method: GET
+Description: Returns all open conversations for Sahar with minimal data.
+Response:
+[
+    {
+        "ID": "conversation_id",
+        "agentName": "agent_name",
+        "consumerName": "consumer_name",
+        "riskAssessment": "risk_assessment"
+    },
+]
+
+2. Get Conversation by ID
+Endpoint: /getConversation/{convID}
+Method: GET
+Description: Returns detailed information about a specific conversation.
+Response:
+{
+    "ID": "conversation_id",
+    "agentName": "agent_name",
+    "consumerName": "consumer_name",
+    "riskAssessment": "risk_assessment",
+    // Other conversation details
+}
+
+3. Get All Conversations
+Endpoint: /getAllConversations
+Method: GET
+Description: Returns all opne conversations info.
+Response:
+[
+    {
+        "ID": "conversation_id",
+        "agentName": "agent_name",
+        "consumerName": "consumer_name",
+        "riskAssessment": "risk_assessment"
+    },
+    ...
+]
+
+4. Subscribe
+Endpoint: /subscribe
+Method: POST
+Description: Establishes an observer pattern with the specified agent for receiving real-time data.
+Request Body:
+{
+    "agentInfo": {
+        "agentID": "agent_id",
+        "agentName": "agent_name",
+        // Other agent information
+    }
+}
+
+Response:
+Status Code: 200 OK
+Body:
+{
+    "success": true,
+    "message": "Subscription successful",
+    "token": "YOUR_AUTH_TOKEN"
+}
+
+
+5. Unsubscribe
+Endpoint: /unsubscribe
+Method: POST
+Description: Unsubscribes the specified agent from receiving real-time data.
+Request Body:
+{
+    "agentInfo": {
+        "agentID": "agent_id",
+        "agentName": "agent_name",
+        // Other agent information
+    }
+}
+Response:
+{
+    "success": true,
+    "message": "Unsubscription successful"
+}
+
+Error Handling
+The API returns appropriate HTTP status codes for each request.
