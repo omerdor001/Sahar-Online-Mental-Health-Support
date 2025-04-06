@@ -38,17 +38,19 @@ self.addEventListener('message',async (event) => {
   const { type, data } = event.data;
   switch (type) {
     case 'SET_API_BASE_URL':
-      apiBaseURL = data;
-      console.log('Service Worker: API Base URL set to:', apiBaseURL);
       setupInterval(); 
       break;
     case 'SET_NOTIFICATION_TIME':
-      notificationTimeDuration = data;
-      console.log(`Notification time updated to: ${notificationTimeDuration} minutes`);
       setupInterval();
       break;
     case 'LOGIN':
-      authToken = data;
+      const { tokenData, API_BASE_URL,notificationTimeData } = data;
+      authToken = tokenData;
+      apiBaseURL = API_BASE_URL; 
+      if (typeof notificationTimeData === 'number') {
+        notificationTimeDuration = notificationTimeData;
+        console.log(`Notification time set via LOGIN: ${notificationTimeDuration} minutes`);
+      }
       console.log('User logged in. Starting fetch interval.');
       setupInterval();
       break;
@@ -93,6 +95,10 @@ function setupInterval() {
     requestApiBaseURL();
     return;
   }
+  if (!notificationTimeDuration) {
+    requestNotificationTimeDuration();
+    return;
+  }
   startInterval();
 }
 
@@ -134,7 +140,7 @@ function requestApiBaseURL() {
     clients.forEach((client) => {
       const messageChannel = new MessageChannel();
       messageChannel.port1.onmessage = (event) => {
-        const { type, apiBaseURL: receivedUrl } = event.data;
+        const { type, receivedUrl } = event.data;
         if (type === "API_BASE_URL_RESPONSE" && receivedUrl) {
           apiBaseURL = receivedUrl;
           urlReceived = true;
@@ -150,10 +156,49 @@ function requestApiBaseURL() {
   });
 }
 
+function requestNotificationTimeDuration() {
+  console.log("Notification time is missing. Requesting from ServiceWorker clients...");
+  self.clients.matchAll().then((clients) => {
+    if (clients.length === 0) {
+      console.log("No clients available to request the Notification time.");
+      return;
+    }
+    let notificationTimeReceived = false;
+    clients.forEach((client) => {
+      const messageChannel = new MessageChannel();
+      messageChannel.port1.onmessage = (event) => {
+        const { type, receivedTime } = event.data;
+        if (type === "NOTIFICATION_TIME_RESPONSE" && typeof receivedTime === "number") {
+          notificationTimeReceived = true;
+          console.log("Notification time received from client:", receivedTime);
+          notificationTimeDuration = receivedTime;
+          startInterval();
+        }
+      };
+      client.postMessage({ type: "GET_NOTIFICATION_TIME" }, [messageChannel.port2]);
+    });
+
+    if (!notificationTimeReceived) {
+      console.log("Notification time request sent, but no response yet.");
+    }
+  });
+}
+
+
 function startInterval() {
   getOpenConversations();
   try {
     intervalId = setInterval(() => {
+      stopInterval();
+  if (!authToken) {
+    requestAuthToken();
+  }
+  if (!apiBaseURL) {
+    requestApiBaseURL();
+  }
+  if (!notificationTimeDuration) {
+    requestNotificationTimeDuration();
+  }
       console.log("Interval triggered at:", Date.now());
       const currentTime = new Date();
       const currentSecond = currentTime.getSeconds();
@@ -208,10 +253,13 @@ async function getOpenConversations() {
       processConversations(data);
     } else {
       console.log(apiBaseURL);
+      console.log(response.status);
       console.warn('Error fetching conversations:', response.statusText);
-      if (response.status === 401) {
-        stopInterval();
-        authToken = null;
+      if (response.status === 401 || response.status === 403 || response.status === 502) {
+        console.log('Token expired or invalid. Logging out...');
+        sendLogoutToClients(); 
+        stopInterval(); 
+        authToken = null; 
       }
     }
   } catch (error) {
@@ -219,10 +267,24 @@ async function getOpenConversations() {
   }
 }
 
+function sendLogoutToClients() {
+  console.log('Sending logout message to clients');
+  self.clients.matchAll().then((clients) => {
+    clients.forEach((client) => {
+      client.postMessage({
+        type: 'LOGOUT_INVALID_TOKEN', 
+      });
+    });
+  });
+}
 
 async function processConversations(newData) {
   const newConversations = newData.data || [];
   console.log("Processing new conversations:", newConversations);
+  if (newConversations.length === 0) {
+    sendConversationsToClients(newConversations);
+    return;
+  }
   const currentTime = Date.now();
   const validConversations = [];
   for (const conversation of newConversations) {
@@ -244,6 +306,7 @@ async function processConversations(newData) {
     conversationHashSet.clear();
     validConversations.forEach((conversation) => conversationHashSet.add(conversation));
   }
+  console.log("Before Analyze");
   await analyzeGSRValues(validConversations, currentTime);
   sendConversationsToClients();
 }
@@ -252,7 +315,7 @@ async function analyzeGSRValues(conversations, currentTime) {
   for (const { GSR } of conversations) {
     if (GSR > 0.8 && currentTime - lastAlertTime > notificationTimeDuration * 60 * 1000) {
       lastAlertTime = currentTime;
-      sendAlertToClients('High suicide risk detected!');
+      sendAlertToClients('אותרה שיחה ברמת אובדנות גבוהה');
     }
   }
 }
