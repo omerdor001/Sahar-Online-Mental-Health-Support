@@ -2,7 +2,11 @@ import subprocess
 import time
 import requests
 import os
+import sys
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import signal
+from DataBase.database_helper import db
+from dao_object.conversation_prediction_object import ConversationPredictionDAO
 
 SERVICE_NAME = "sahar_testing.service"
 LOGIN_URL = "http://127.0.0.1:6001/login"
@@ -12,7 +16,7 @@ def get_gunicorn_pid():
         output = subprocess.check_output(["ps", "aux"])
         lines = output.decode().splitlines()
         for line in lines:
-            if "gunicorn" in line and "server:app" in line:
+            if "gunicorn" in line and "127.0.0.1:6001" in line:
                 return int(line.split()[1])  # second column is PID
         return None
     except subprocess.CalledProcessError:
@@ -92,6 +96,36 @@ def test_multiple_crashes():
         assert wait_for_server(), f"❌ Server did not recover after crash #{i+1}"
 
     print("✅ Multiple crash recovery test passed!")
+
+def fetch_db_snapshot():
+    """Fetch all rows from the database as a list of dicts."""
+    with db.app.app_context():
+        rows = ConversationPredictionDAO.query.all()
+        return [{col.name: getattr(row, col.name) for col in row.__table__.columns} for row in rows]
+
+def test_database_persistence_on_crash():
+    print("🔁 Starting test: database persistence across crash")
+
+    # Take a snapshot before crash
+    pre_crash_data = fetch_db_snapshot()
+    print(f"📄 Rows before crash: {len(pre_crash_data)}")
+
+    # Crash and recover
+    assert kill_gunicorn(), "❌ Failed to kill Gunicorn"
+    time.sleep(9)
+    assert is_service_active(), "❌ Service did not restart"
+    assert wait_for_server(), "❌ Server did not recover"
+
+    # Take snapshot again
+    post_crash_data = fetch_db_snapshot()
+    print(f"📄 Rows after crash: {len(post_crash_data)}")
+
+    assert pre_crash_data == post_crash_data, "❌ Database state changed after crash!"
+    print("✅ Database persistence test passed!")
+
+
+
 if __name__ == "__main__":
     test_server_recovery()
     test_multiple_crashes()
+    test_database_persistence_on_crash()
