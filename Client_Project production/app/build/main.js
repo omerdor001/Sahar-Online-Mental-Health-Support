@@ -1,8 +1,9 @@
+const basename = window.location.pathname.startsWith("/test") ? "/test" : "/";
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.getRegistration().then((existingRegistration) => {
     if (!existingRegistration) {
-      navigator.serviceWorker.register('/background.js')
+      navigator.serviceWorker.register(`${basename}background.js`)
         .then((registration) => {
           console.log('Service Worker registered with scope:', registration.scope);
         })

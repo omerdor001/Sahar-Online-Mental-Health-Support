@@ -38,9 +38,13 @@ self.addEventListener('message',async (event) => {
   const { type, data } = event.data;
   switch (type) {
     case 'SET_API_BASE_URL':
+      apiBaseURL = data;
+      console.log('Service Worker: API Base URL set to:', apiBaseURL);
       setupInterval(); 
       break;
     case 'SET_NOTIFICATION_TIME':
+      notificationTimeDuration = data;
+      console.log(`Notification time updated to: ${notificationTimeDuration} minutes`);
       setupInterval();
       break;
     case 'LOGIN':
@@ -71,13 +75,22 @@ self.addEventListener('message',async (event) => {
       setupInterval();
       break;
 
-    case 'WAKE_UP':
-      console.log('Service Worker received WAKE_UP message.');
-      if (!intervalId) {
-        console.log('Restarting fetch interval after WAKE_UP.');
-        setupInterval(); 
-      }
-      break;
+      case 'WAKE_UP':
+        if (!intervalId) {
+          console.log('Restarting fetch interval after WAKE_UP.');
+          setupInterval(); 
+        }
+        console.log('Service Worker received WAKE_UP message.');
+        if (!authToken) {
+          requestAuthToken();    //added this
+        }
+        if (!apiBaseURL) {
+          requestApiBaseURL();    //added this
+        }
+        if (!notificationTimeDuration) {
+          requestNotificationTimeDuration();  //added this
+        }
+        break;
       
     default:
       console.warn('Unhandled message type:', type);
@@ -118,7 +131,7 @@ function requestAuthToken() {
           authToken = token;
           tokenReceived = true;
           console.log("Token received from client:", authToken);
-          startInterval();
+          //startInterval();
         }
       };
       client.postMessage({ type: "GET_TOKEN" }, [messageChannel.port2]);
@@ -145,7 +158,7 @@ function requestApiBaseURL() {
           apiBaseURL = receivedUrl;
           urlReceived = true;
           console.log("API Base URL received from client:", apiBaseURL);
-          startInterval();
+          //startInterval();
         }
       };
       client.postMessage({ type: "SET_API_BASE_URL" }, [messageChannel.port2]);
@@ -172,7 +185,7 @@ function requestNotificationTimeDuration() {
           notificationTimeReceived = true;
           console.log("Notification time received from client:", receivedTime);
           notificationTimeDuration = receivedTime;
-          startInterval();
+          //startInterval();
         }
       };
       client.postMessage({ type: "GET_NOTIFICATION_TIME" }, [messageChannel.port2]);
@@ -189,20 +202,9 @@ function startInterval() {
   getOpenConversations();
   try {
     intervalId = setInterval(() => {
-      stopInterval();
-  if (!authToken) {
-    requestAuthToken();
-  }
-  if (!apiBaseURL) {
-    requestApiBaseURL();
-  }
-  if (!notificationTimeDuration) {
-    requestNotificationTimeDuration();
-  }
       console.log("Interval triggered at:", Date.now());
       const currentTime = new Date();
       const currentSecond = currentTime.getSeconds();
-      console.log(currentSecond)
       if ([0, 15, 30, 45].includes(currentSecond)) {
         if (!authToken) {
           console.log("Auth token missing during interval. Skipping fetch.");
@@ -253,7 +255,6 @@ async function getOpenConversations() {
       processConversations(data);
     } else {
       console.log(apiBaseURL);
-      console.log(response.status);
       console.warn('Error fetching conversations:', response.statusText);
       if (response.status === 401 || response.status === 403 || response.status === 502) {
         console.log('Token expired or invalid. Logging out...');
@@ -278,36 +279,42 @@ function sendLogoutToClients() {
   });
 }
 
+
 async function processConversations(newData) {
   const newConversations = newData.data || [];
-  console.log("Processing new conversations:", newConversations);
-  if (newConversations.length === 0) {
-    sendConversationsToClients(newConversations);
+  if(newConversations.length===0){
+    conversationHashSet.clear();
+    sendConversationsToClients();
     return;
   }
+  console.log("Processing new conversations:", newConversations);
   const currentTime = Date.now();
-  const validConversations = [];
-  for (const conversation of newConversations) {
-    const { conversationId, GSR, status, duration } = conversation;
-    if (!conversationId || GSR === undefined || duration === undefined) {
-      console.warn('Invalid conversation data:', conversation);
-      continue;
-    }
-    if (status === "CLOSE") {
-      continue; 
-    }
-    const previousConversation = prevConversationsMap.get(conversationId);
-    if (!previousConversation || previousConversation.duration !== duration) {
-      validConversations.push(conversation);
-      prevConversationsMap.set(conversationId, conversation);
-    }
-  }
-  if (validConversations.length > 0) {
-    conversationHashSet.clear();
-    validConversations.forEach((conversation) => conversationHashSet.add(conversation));
-  }
-  console.log("Before Analyze");
-  await analyzeGSRValues(validConversations, currentTime);
+  // const validConversations = [];
+  // for (const conversation of newConversations) {
+  //   const { conversationId, GSR, status, duration } = conversation;
+  //   if (!conversationId || GSR === undefined || duration === undefined) {
+  //     console.warn('Invalid conversation data:', conversation);
+  //     continue;
+  //   }
+  //   if (status === "CLOSE") {
+  //     continue; 
+  //   }
+  //   const previousConversation = prevConversationsMap.get(conversationId);
+  //   if (!previousConversation || previousConversation.duration !== duration) {
+  //     validConversations.push(conversation);
+  //     prevConversationsMap.set(conversationId, conversation);
+  //   }
+  // }
+  // if (validConversations.length > 0) {
+  //   conversationHashSet.clear();
+  //   validConversations.forEach((conversation) => conversationHashSet.add(conversation));
+  // }
+  // await analyzeGSRValues(validConversations, currentTime);
+  conversationHashSet.clear(); 
+  newConversations.forEach((conversation) => {
+    conversationHashSet.add(conversation); 
+  });
+  await analyzeGSRValues(conversationHashSet, currentTime);
   sendConversationsToClients();
 }
 

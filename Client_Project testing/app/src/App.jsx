@@ -10,7 +10,7 @@ import './index.css';
 import { fetchLogin } from './http.js';
 import TriggerModal from './components/TriggerModal';
 
-const basename = window.location.pathname.startsWith("/test") ? "/test" : "/";
+const basename = window.location.pathname.startsWith("/test") ? "/test/" : "/";
 const isTestEnvironment = window.location.pathname.startsWith("/test");
 const API_BASE_URL = isTestEnvironment ? '/test/api' : '/api';
 
@@ -28,16 +28,16 @@ function App() {
   const [notificationTime, setNotificationTime] = useState(2);
 
   useEffect(() => {
-    const handleBeforeUnload = (e) => {
-      handleLogout();
-      e.preventDefault();
-      e.returnValue = ''; 
-    };
-    window.addEventListener('unload', handleBeforeUnload);
-    return () => {
-      window.removeEventListener('unload', handleBeforeUnload);
-    };
-  }, []);
+      const handleBeforeUnload = (e) => {
+        handleLogout();
+        e.preventDefault();
+        e.returnValue = ''; 
+      };
+      window.addEventListener('unload', handleBeforeUnload);
+      return () => {
+        window.removeEventListener('unload', handleBeforeUnload);
+      };
+    }, []);
 
   const usePreventWindowAlert = () => {
     useEffect(() => {
@@ -56,29 +56,26 @@ function App() {
   useEffect(() => {
     const tokenData = localStorage.getItem('token');
     const storedNotificationTime = localStorage.getItem('notificationTime');
-    if (storedNotificationTime) {
-      setNotificationTime(parseInt(storedNotificationTime, 10));
-    }
-    const urlBase=localStorage.getItem("apiBaseURL");
-  
+    const apiBase= localStorage.getItem('apiBaseURL');
     if ('serviceWorker' in navigator) {
-      const alreadyUnregistered = sessionStorage.getItem('swUnregistered');
+      const alreadyUnregistered = localStorage.getItem('swUnregistered');
+  
       navigator.serviceWorker.getRegistration().then((existingRegistration) => {
         if (existingRegistration && !alreadyUnregistered) {
           console.log('Unregistering existing Service Worker...');
           existingRegistration.unregister().then(() => {
             console.log('Service Worker unregistered. Reloading...');
-            sessionStorage.setItem('swUnregistered', 'true'); 
+            localStorage.setItem('swUnregistered', 'true');
             window.location.reload();
           });
           return; 
         }
   
         navigator.serviceWorker
-          .register(`${basename}/background.js`, { scope: `${basename}/` })
+          .register(`${basename}background.js`)
           .then((registration) => {
             console.log('Service Worker registered in app:', registration);
-            sessionStorage.removeItem('swUnregistered');
+  
             navigator.serviceWorker.addEventListener('controllerchange', () => {
               console.log('Service Worker now controlling the page');
               if (navigator.serviceWorker.controller) {
@@ -136,14 +133,14 @@ function App() {
           case 'SET_API_BASE_URL': {
             event.ports[0].postMessage({
               type: 'API_BASE_URL_RESPONSE',
-              receivedUrl: urlBase,
+              receivedUrl: apiBase,
             });
             break;
           }
           case 'GET_NOTIFICATION_TIME': {
             event.ports[0].postMessage({
               type: 'NOTIFICATION_TIME_RESPONSE',
-              receivedTime: notificationTime,
+              receivedTime: Number(storedNotificationTime),
             });
             break;
           }
@@ -154,10 +151,6 @@ function App() {
       };
       navigator.serviceWorker.addEventListener('message', handleServiceWorkerMessage);
       const wakeUpInterval = setInterval(() => {
-        const alreadyUnregistered = sessionStorage.getItem('swUnregistered');
-        if (alreadyUnregistered) {
-          return;
-        }
         navigator.serviceWorker.ready.then((registration) => {
           if (registration.active) {
             console.log('Sending WAKE_UP to Service Worker.');
@@ -234,15 +227,15 @@ useEffect(() => {
       setIsLogged(true);
       setErrorMessage('');
       const tokenData = localStorage.getItem('token');
-      const notificationTimeData= localStorage.getItem('notificationTime');
-      const notificationTimeLogin=  parseInt(notificationTimeData, 10);
+      const notificationTimeData= Number(localStorage.getItem('notificationTime'));
+      setNotificationTime(notificationTimeData);
       localStorage.setItem("apiBaseURL",API_BASE_URL);
       navigator.serviceWorker.controller?.postMessage({
         type: 'LOGIN',
         data: {
           tokenData,
           API_BASE_URL,
-          notificationTimeLogin,
+          notificationTimeData,
         }
       });
     } catch (error) {
@@ -253,6 +246,7 @@ useEffect(() => {
     }
     setLoadIcon(false);
   };
+  
 
   const handleLogout = () => {
     console.log("start logout process");
@@ -279,7 +273,6 @@ useEffect(() => {
     });
   };
 
-
   const openLogoutModal = () => {
     if (modalRef.current) {
       modalRef.current.open();
@@ -293,6 +286,7 @@ useEffect(() => {
 
   return (
     <Router basename={basename}>
+      <div className="min-h-screen bg-white">
         <div className="m-4">
           <LogoutModal ref={modalRef} handleLogout={handleLogout} />
           <TriggerModal
@@ -338,6 +332,7 @@ useEffect(() => {
             />
           </Routes>
         </div>
+      </div>
     </Router>
   );
 }

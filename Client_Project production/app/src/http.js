@@ -51,7 +51,7 @@ export async function fetchConversationsHistory(navigate, setOpenConversationsHi
     },
   });
   if (!response.ok) {
-    if (response.status === 401) {
+    if (response.status === 401 || response.status === 403) {
       setToken(null); 
       dispatchTokenUpdate(undefined); 
       handleLogout();

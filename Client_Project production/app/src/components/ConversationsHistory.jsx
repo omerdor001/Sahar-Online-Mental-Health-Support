@@ -132,6 +132,7 @@ function ConversationsHistory({ handleLogout }) {
     const timeValue = getTimeFilterValue();
     console.log(`Fetching conversations with time value: ${timeValue} minutes`);
     fetchConversationsHistory(navigate, setHistoricalConversations, handleLogout, timeValue);
+    console.log(historicalConversations);
   };
 
   useEffect(() => {

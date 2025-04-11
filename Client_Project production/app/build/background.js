@@ -48,7 +48,13 @@ self.addEventListener('message',async (event) => {
       setupInterval();
       break;
     case 'LOGIN':
-      authToken = data;
+      const { tokenData, API_BASE_URL,notificationTimeData } = data;
+      authToken = tokenData;
+      apiBaseURL = API_BASE_URL; 
+      if (typeof notificationTimeData === 'number') {
+        notificationTimeDuration = notificationTimeData;
+        console.log(`Notification time set via LOGIN: ${notificationTimeDuration} minutes`);
+      }
       console.log('User logged in. Starting fetch interval.');
       setupInterval();
       break;
@@ -69,13 +75,22 @@ self.addEventListener('message',async (event) => {
       setupInterval();
       break;
 
-    case 'WAKE_UP':
-      console.log('Service Worker received WAKE_UP message.');
-      if (!intervalId) {
-        console.log('Restarting fetch interval after WAKE_UP.');
-        setupInterval(); 
-      }
-      break;
+      case 'WAKE_UP':
+        console.log('Service Worker received WAKE_UP message.');
+        if (!authToken) {
+          requestAuthToken();    //added this
+        }
+        if (!apiBaseURL) {
+          requestApiBaseURL();    //added this
+        }
+        if (!notificationTimeDuration) {
+          requestNotificationTimeDuration();  //added this
+        }
+        if (!intervalId) {
+          console.log('Restarting fetch interval after WAKE_UP.');
+          setupInterval(); 
+        }
+        break;
       
     default:
       console.warn('Unhandled message type:', type);
@@ -86,34 +101,102 @@ function setupInterval() {
   console.log("Try to set up interval");
   stopInterval();
   if (!authToken) {
-    console.log("Auth token is missing. Requesting from ServiceWorker clients...");
-    self.clients.matchAll().then((clients) => {
-      if (clients.length === 0) {
-        console.log("No clients available to request the token.");
-        return;
-      }
-      let tokenReceived = false;
-      clients.forEach((client) => {
-        const messageChannel = new MessageChannel();
-        messageChannel.port1.onmessage = (event) => {
-          const { type, token } = event.data;
-          if (type === "TOKEN_RESPONSE" && token) {
-            authToken = token;
-            tokenReceived = true;
-            console.log("Token received from client:", authToken);
-            startInterval();
-          }
-        };
-        client.postMessage({ type: "GET_TOKEN" }, [messageChannel.port2]);
-      });
-      if (!tokenReceived) {
-        console.log("Token request sent, but no response yet.");
-      }
-    });
-    return; 
+    requestAuthToken();
+    return;
+  }
+  if (!apiBaseURL) {
+    requestApiBaseURL();
+    return;
+  }
+  if (!notificationTimeDuration) {
+    requestNotificationTimeDuration();
+    return;
   }
   startInterval();
 }
+
+function requestAuthToken() {
+  console.log("Auth token is missing. Requesting from ServiceWorker clients...");
+  self.clients.matchAll().then((clients) => {
+    if (clients.length === 0) {
+      console.log("No clients available to request the token.");
+      return;
+    }
+    let tokenReceived = false;
+    clients.forEach((client) => {
+      const messageChannel = new MessageChannel();
+      messageChannel.port1.onmessage = (event) => {
+        const { type, token } = event.data;
+        if (type === "TOKEN_RESPONSE" && token) {
+          authToken = token;
+          tokenReceived = true;
+          console.log("Token received from client:", authToken);
+          //startInterval();
+        }
+      };
+      client.postMessage({ type: "GET_TOKEN" }, [messageChannel.port2]);
+    });
+    if (!tokenReceived) {
+      console.log("Token request sent, but no response yet.");
+    }
+  });
+}
+
+function requestApiBaseURL() {
+  console.log("API Base URL is missing. Requesting from ServiceWorker clients...");
+  self.clients.matchAll().then((clients) => {
+    if (clients.length === 0) {
+      console.log("No clients available to request the API Base URL.");
+      return;
+    }
+    let urlReceived = false;
+    clients.forEach((client) => {
+      const messageChannel = new MessageChannel();
+      messageChannel.port1.onmessage = (event) => {
+        const { type, receivedUrl } = event.data;
+        if (type === "API_BASE_URL_RESPONSE" && receivedUrl) {
+          apiBaseURL = receivedUrl;
+          urlReceived = true;
+          console.log("API Base URL received from client:", apiBaseURL);
+          //startInterval();
+        }
+      };
+      client.postMessage({ type: "SET_API_BASE_URL" }, [messageChannel.port2]);
+    });
+    if (!urlReceived) {
+      console.log("API Base URL request sent, but no response yet.");
+    }
+  });
+}
+
+function requestNotificationTimeDuration() {
+  console.log("Notification time is missing. Requesting from ServiceWorker clients...");
+  self.clients.matchAll().then((clients) => {
+    if (clients.length === 0) {
+      console.log("No clients available to request the Notification time.");
+      return;
+    }
+    let notificationTimeReceived = false;
+    clients.forEach((client) => {
+      const messageChannel = new MessageChannel();
+      messageChannel.port1.onmessage = (event) => {
+        const { type, receivedTime } = event.data;
+        if (type === "NOTIFICATION_TIME_RESPONSE" && typeof receivedTime === "number") {
+          notificationTimeReceived = true;
+          console.log("Notification time received from client:", receivedTime);
+          notificationTimeDuration = receivedTime;
+          //startInterval();
+        }
+      };
+      client.postMessage({ type: "GET_NOTIFICATION_TIME" }, [messageChannel.port2]);
+    });
+
+    if (!notificationTimeReceived) {
+      console.log("Notification time request sent, but no response yet.");
+    }
+  });
+}
+
 
 function startInterval() {
   getOpenConversations();
@@ -122,7 +205,6 @@ function startInterval() {
       console.log("Interval triggered at:", Date.now());
       const currentTime = new Date();
       const currentSecond = currentTime.getSeconds();
-      console.log(currentSecond)
       if ([0, 15, 30, 45].includes(currentSecond)) {
         if (!authToken) {
           console.log("Auth token missing during interval. Skipping fetch.");
@@ -152,6 +234,10 @@ async function getOpenConversations() {
     console.warn('No auth token available. Skipping fetch.');
     return;
   }
+  if (!apiBaseURL) {
+    console.warn('No url available. Skipping fetch.');
+    return;
+  }
   try {
     const response = await fetch(`${apiBaseURL}/get_open_calls`, {
       method: 'GET',
@@ -168,10 +254,13 @@ async function getOpenConversations() {
       const data = await response.json();
       processConversations(data);
     } else {
+      console.log(apiBaseURL);
       console.warn('Error fetching conversations:', response.statusText);
-      if (response.status === 401) {
-        stopInterval();
-        authToken = null;
+      if (response.status === 401 || response.status === 403 || response.status === 502) {
+        console.log('Token expired or invalid. Logging out...');
+        sendLogoutToClients(); 
+        stopInterval(); 
+        authToken = null; 
       }
     }
   } catch (error) {
@@ -179,40 +268,61 @@ async function getOpenConversations() {
   }
 }
 
+function sendLogoutToClients() {
+  console.log('Sending logout message to clients');
+  self.clients.matchAll().then((clients) => {
+    clients.forEach((client) => {
+      client.postMessage({
+        type: 'LOGOUT_INVALID_TOKEN', 
+      });
+    });
+  });
+}
+
 
 async function processConversations(newData) {
   const newConversations = newData.data || [];
+  if(newConversations.length===0){
+    conversationHashSet.clear();
+    sendConversationsToClients();
+    return;
+  }
   console.log("Processing new conversations:", newConversations);
   const currentTime = Date.now();
-  const validConversations = [];
-  for (const conversation of newConversations) {
-    const { conversationId, GSR, status, duration } = conversation;
-    if (!conversationId || GSR === undefined || duration === undefined) {
-      console.warn('Invalid conversation data:', conversation);
-      continue;
-    }
-    if (status === "CLOSE") {
-      continue; 
-    }
-    const previousConversation = prevConversationsMap.get(conversationId);
-    if (!previousConversation || previousConversation.duration !== duration) {
-      validConversations.push(conversation);
-      prevConversationsMap.set(conversationId, conversation);
-    }
-  }
-  conversationHashSet.clear();
-  validConversations.forEach((conversation) => conversationHashSet.add(conversation));
-  await analyzeGSRValues(validConversations, currentTime);
-  if(conversationHashSet.size!=0){
-    sendConversationsToClients();
-  }
+  // const validConversations = [];
+  // for (const conversation of newConversations) {
+  //   const { conversationId, GSR, status, duration } = conversation;
+  //   if (!conversationId || GSR === undefined || duration === undefined) {
+  //     console.warn('Invalid conversation data:', conversation);
+  //     continue;
+  //   }
+  //   if (status === "CLOSE") {
+  //     continue; 
+  //   }
+  //   const previousConversation = prevConversationsMap.get(conversationId);
+  //   if (!previousConversation || previousConversation.duration !== duration) {
+  //     validConversations.push(conversation);
+  //     prevConversationsMap.set(conversationId, conversation);
+  //   }
+  // }
+  // if (validConversations.length > 0) {
+  //   conversationHashSet.clear();
+  //   validConversations.forEach((conversation) => conversationHashSet.add(conversation));
+  // }
+  // await analyzeGSRValues(validConversations, currentTime);
+  conversationHashSet.clear(); 
+  newConversations.forEach((conversation) => {
+    conversationHashSet.add(conversation); 
+  });
+  await analyzeGSRValues(conversationHashSet, currentTime);
+  sendConversationsToClients();
 }
 
 async function analyzeGSRValues(conversations, currentTime) {
   for (const { GSR } of conversations) {
     if (GSR > 0.8 && currentTime - lastAlertTime > notificationTimeDuration * 60 * 1000) {
       lastAlertTime = currentTime;
-      sendAlertToClients('High suicide risk detected!');
+      sendAlertToClients('אותרה שיחה ברמת אובדנות גבוהה');
     }
   }
 }

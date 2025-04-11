@@ -105,12 +105,10 @@ function Conversations({ handleLogout }) {
       const handleServiceWorkerMessage = (event) => {
         const { type, conversations, date } = event.data;
         if (type === 'OPEN_CONVERSATIONS' && conversations) {
-          if(conversations.size!=0){
-            localStorage.setItem(
-              'openConversations',
-              JSON.stringify(conversations)
-            );
-          }
+          localStorage.setItem(
+            'openConversations',
+            JSON.stringify(conversations)
+          );
           console.log("Updating conversations in Conversation page");
           const newConversations = JSON.parse(localStorage.getItem('openConversations')) || [];
           newConversations.reverse();
@@ -119,9 +117,7 @@ function Conversations({ handleLogout }) {
               t.conversationId === value.conversationId 
             ))
           );
-          if(uniqueConversations.size!=0){
-            localStorage.setItem('openConversations', JSON.stringify(uniqueConversations));
-          }
+          localStorage.setItem('openConversations', JSON.stringify(uniqueConversations));
           console.log(uniqueConversations);
           setOpenConversations(uniqueConversations);
           if(date){
