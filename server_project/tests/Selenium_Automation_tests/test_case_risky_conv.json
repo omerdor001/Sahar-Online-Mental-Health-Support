@@ -1,0 +1,162 @@
+{
+    "_metadata": {
+        "count": 1,
+        "self": {
+            "rel": "self",
+            "href": "https://va.msghist.liveperson.net/messaging_history/api/account/40920689/conversations/search?limit=50&offset=0&v=1"
+        },
+        "shardsStatusResult": {
+            "partialResult": false
+        }
+    },
+    "conversationHistoryRecords": [
+        {
+
+            "info": {
+                "startTime": "2025-04-06 17:11:22.673+0000",
+                "startTimeL": 1743959482673,
+                "endTime": "undefined",
+                "endTimeL": -1,
+                "duration": 2352072,
+                "conversationId": "f9dd135b-b81d-434a-a07a-a8a270b6969d",
+                "brandId": "testing",
+                "latestAgentId": "3306507930",
+                "latestAgentNickname": "\u05e1\u05d4\"\u05e8 - \u05de\u05e2\u05e0\u05d4 \u05d0\u05d5\u05d8\u05d5\u05de\u05d8\u05d9",
+                "latestAgentFullName": "\u05e1\u05d4\"\u05e8 - \u05de\u05e2\u05e0\u05d4 \u05d0\u05d5\u05d8\u05d5\u05de\u05d8\u05d9",
+                "latestAgentLoginName": "pcsbot",
+                "agentDeleted": false,
+                "latestSkillId": 3748081138,
+                "latestSkillName": "WhatsApp",
+                "source": "WhatsApp Business",
+                "status": "OPEN",
+                "fullDialogStatus": "OPEN",
+                "firstConversation": true,
+                "latestAgentGroupId": -1,
+                "latestAgentGroupName": "Main Group",
+                "latestQueueState": "ACTIVE",
+                "isPartial": false,
+                "features": [
+                    "PHOTO_SHARING",
+                    "QUICK_REPLIES",
+                    "AUTO_MESSAGES",
+                    "MULTI_DIALOG",
+                    "FILE_SHARING",
+                    "RICH_CONTENT"
+                ],
+                "ipAddress": "10.84.208.11",
+                "latestHandlerAccountId": "40920689",
+                "latestHandlerSkillId": 3748081138
+            },
+            "messageRecords": [
+                {
+                    "type": "TEXT_PLAIN",
+                    "messageData": {
+                        "msg": {
+                            "text": "\u05e9\u05dc\u05d5\u05dd \u05d0\u05e0\u05d9 \u05de\u05e8\u05d2\u05d9\u05e9\u05d4 \u05e9\u05d0\u05e0\u05d9 \u05e8\u05d5\u05e6\u05d4 \u05dc\u05e1\u05d9\u05d9\u05dd \u05d0\u05ea \u05d7\u05d9\u05d9 \u05db\u05d9 \u05d0\u05d9\u05df \u05dc\u05d9 \u05de\u05e9\u05e4\u05d7\u05d4 \u05d0\u05e3 \u05d0\u05d7\u05d3 \u05dc\u05d0 \u05de\u05e2\u05d5\u05e0\u05d9\u05d9\u05df \u05d1\u05e7\u05e8 \u05d0\u05d9\u05ea\u05d9 \u05d5\u05d9\u05d5\u05ea\u05e8 \u05de\u05d6\u05d4 \u05d4\u05dd \u05de\u05db\u05d7\u05d9\u05e9\u05d9\u05dd \u05d0\u05ea \u05d4\u05e7\u05d9\u05d5\u05dd \u05e9\u05dc\u05d9 \n\u05d1\u05ea \u05d4\u05d6\u05d5\u05d2 \u05e9\u05dc\u05d9 \u05d7\u05d5\u05e9\u05d1\u05ea \u05e9\u05d0\u05dd \u05d0\u05e0\u05d9 \u05dc\u05d0 \u05ea\u05d5\u05de\u05db\u05ea \u05d1\u05d4 \u05d9\u05d5\u05dd \u05d0\u05d7\u05d3 (\u05d0\u05d9\u05d1\u05d3\u05d4 \u05d0\u05ea \u05e1\u05d1\u05ea\u05d0 \u05e9\u05dc\u05d4 \u05d4\u05d0\u05d4\u05d5\u05d1\u05d4 \u05dc\u05e4\u05e0\u05d9 \u05db\u05e9\u05d1\u05d5\u05e2\u05d9\u05d9\u05dd) \u05d0\u05d6 \u05d0\u05e0\u05d9 \u05dc\u05d0 \u05d8\u05d5\u05d1 \u05db\u05dc\u05d5\u05dd \u05de\u05e9\u05e4\u05d9\u05dc\u05d4 \u05d0\u05d5\u05ea\u05d9 \u05de\u05d5\u05dc \u05d0\u05de\u05d0 \u05e9\u05dc\u05d9 \u05e9\u05e9\u05d5\u05ea\u05d4 \u05d0\u05d3\u05d5\u05dc\u05df \u05d5\u05d1\u05e2\u05e6\u05de\u05d4 \u05d9\u05e6\u05d0\u05d4 \u05de\u05d0\u05d9\u05e4\u05d5\u05d6 \u05e4\u05e1\u05d9\u05db\u05d9\u05d0\u05d8\u05e8\u05d9 \u05dc\u05e4\u05e0\u05d9 \u05db\u05de\u05d4 \u05d7\u05d5\u05d3\u05e9\u05d9\u05dd \u05d0\u05e0\u05d9 \u05de\u05e8\u05d2\u05d9\u05e9\u05d4 \u05e9\u05d4\u05dd \u05dc\u05d0 \u05de\u05d1\u05d9\u05e0\u05d5\u05ea \u05e9\u05d0\u05e0\u05d9 \u05dc\u05d0 \u05d1\u05df \u05d0\u05d3\u05dd \u05e9\u05d0\u05d9\u05df \u05dc\u05d5 \u05dc\u05d1 \u05e9\u05e4\u05e9\u05d5\u05d8 \u05e7\u05e9\u05d4 \u05dc\u05d9 \u05de\u05d0\u05d5\u05d3 \u05dc\u05e1\u05d7\u05d5\u05d1 \u05e2\u05dc \u05e2\u05e6\u05de\u05d9 \u05d0\u05ea \u05d4\u05e1\u05d1\u05dc \u05e9\u05dc \u05db\u05d5\u05dc\u05dd \u05d9\u05e9 \u05dc\u05d9 \u05e8\u05e6\u05d5\u05df \u05e2\u05d6 \u05dc\u05e1\u05d9\u05d9\u05dd \u05d0\u05ea \u05d4\u05d7\u05d9\u05d9\u05dd \u05dc\u05d0 \u05e8\u05d5\u05d0\u05d4 \u05e1\u05d9\u05d1\u05d4 \u05d8\u05d5\u05d1\u05d4 \u05dc\u05d7\u05d9\u05d5\u05ea"
+                        }
+                    },
+                    "messageId": "ms::dialog:f9dd135b-b81d-434a-a07a-a8a270b6969d::msg:0",
+                    "audience": "ALL",
+                    "seq": 0,
+                    "dialogId": "f9dd135b-b81d-434a-a07a-a8a270b6969d",
+                    "participantId": "9e19bf66cf08ec289b0f2fbfa631dc3fbb9fc8c4edd4c60d981f251f3d53c428",
+                    "source": "WhatsApp Business",
+                    "time": "2025-04-06 17:11:22.732+0000",
+                    "timeL": 1743959482732,
+                    "integrationSource": "WhatsApp Business",
+                    "sentBy": "Consumer",
+                    "contextData": {
+                        "rawMetadata": "[{\"whatsappExternalId\":\"wamid.HBgMOTcyNTMzMzM1NDM0FQIAEhgUM0FDQzk0RThDRDYwQUQxNDNDRjMA\"}]",
+                        "structuredMetadata": []
+                    }
+                },
+                {
+                    "type": "TEXT_PLAIN",
+                    "messageData": {
+                        "msg": {
+                            "text": "\u05ea\u05d5\u05d3\u05d4 \u05e2\u05dc \u05e4\u05e0\u05d9\u05d9\u05ea\u05da \u05dc\u05e9\u05d9\u05e8\u05d5\u05ea \u05d4\u05d5\u05d5\u05d8\u05e1\u05d0\u05e4 \u05d4\u05d0\u05d9\u05e9\u05d9 \u05e9\u05dc \u05e1\u05d4\"\u05e8.\n\u05de\u05ea\u05e0\u05d3\u05d1\u05d9 \u05e1\u05d4\"\u05e8 \u05de\u05d7\u05db\u05d9\u05dd \u05dc\u05da \u05d5\u05de\u05d6\u05de\u05d9\u05e0\u05d9\u05dd \u05d0\u05d5\u05ea\u05da \u05dc\u05e9\u05d5\u05d7\u05d7 \u05d0\u05d9\u05ea\u05e0\u05d5 \u05db\u05e2\u05ea.                                                \n \u05d9\u05d9\u05ea\u05db\u05e0\u05d5 \u05d6\u05de\u05e0\u05d9 \u05d4\u05de\u05ea\u05e0\u05d4.\n\n\u05dc\u05e7\u05e8\u05d9\u05d0\u05ea \u05ea\u05e7\u05e0\u05d5\u05df \u05d4\u05e6'\u05d0\u05d8: https://sahar.org.il/sahar-whatsapp-terms-of-use/"
+                        }
+                    },
+                    "messageId": "ms::dialog:f9dd135b-b81d-434a-a07a-a8a270b6969d::msg:2",
+                    "audience": "ALL",
+                    "seq": 2,
+                    "dialogId": "f9dd135b-b81d-434a-a07a-a8a270b6969d",
+                    "participantId": "3306507930",
+                    "source": "WhatsApp Business",
+                    "time": "2025-04-06 17:11:25.543+0000",
+                    "timeL": 1743959485543,
+                    "integrationSource": "WhatsApp Business",
+                    "sentBy": "Agent",
+                    "contextData": {
+                        "rawMetadata": "[{\"type\":\"CbBotResponseMetaData\",\"botMsgId\":\"3424d0cc-c87d-47d8-93c8-cb9cd5f42f49\",\"botInteractionId\":\"31e613bc-f088-4352-996d-edaaae652e80\",\"botInteractionName\":\"\",\"botId\":\"dd8e1662-afa2-4600-b9cf-94ba8a78ca38\",\"botType\":\"CUSTOMER_FACING_BOT\",\"botProvider\":\"LP CB\",\"botProviderType\":\"1P_LP_CONNECTOR\",\"intentId\":\"\",\"intentName\":\"\",\"matchType\":\"Pattern\",\"domainName\":\"\",\"domainType\":\"\"}]",
+                        "structuredMetadata": []
+                    },
+                    "predefinedContent": false
+                },
+                {
+                    "type": "TEXT_PLAIN",
+                    "messageData": {
+                        "msg": {
+                            "text": "\u05e9\u05d9\u05de\u05d5\u05e9 \u05d1\u05e9\u05d9\u05e8\u05d5\u05ea \u05d4\u05d5\u05d5\u05d8\u05e1\u05d0\u05e4 \u05e9\u05dc \u05e1\u05d4\"\u05e8 \u05de\u05d4\u05d5\u05d5\u05d4 \u05d4\u05e1\u05db\u05de\u05d4 \u05de\u05e6\u05d9\u05d3\u05da \u05dc\u05ea\u05e0\u05d0\u05d9 \u05ea\u05e7\u05e0\u05d5\u05df \u05d4\u05e6'\u05d0\u05d8 \u05d1\u05d5\u05d5\u05d8\u05e1\u05d0\u05e4."
+                        }
+                    },
+                    "messageId": "ms::dialog:f9dd135b-b81d-434a-a07a-a8a270b6969d::msg:3",
+                    "audience": "ALL",
+                    "seq": 3,
+                    "dialogId": "f9dd135b-b81d-434a-a07a-a8a270b6969d",
+                    "participantId": "3306507930",
+                    "source": "WhatsApp Business",
+                    "time": "2025-04-06 17:11:25.592+0000",
+                    "timeL": 1743959485592,
+                    "integrationSource": "WhatsApp Business",
+                    "sentBy": "Agent",
+                    "contextData": {
+                        "rawMetadata": "[{\"type\":\"CbBotResponseMetaData\",\"botMsgId\":\"3424d0cc-c87d-47d8-93c8-cb9cd5f42f49\",\"botInteractionId\":\"31e613bc-f088-4352-996d-edaaae652e80\",\"botInteractionName\":\"\",\"botId\":\"dd8e1662-afa2-4600-b9cf-94ba8a78ca38\",\"botType\":\"CUSTOMER_FACING_BOT\",\"botProvider\":\"LP CB\",\"botProviderType\":\"1P_LP_CONNECTOR\",\"intentId\":\"\",\"intentName\":\"\",\"matchType\":\"Pattern\",\"domainName\":\"\",\"domainType\":\"\"}]",
+                        "structuredMetadata": []
+                    },
+                    "predefinedContent": false
+                },
+                {
+                    "type": "TEXT_PLAIN",
+                    "messageData": {
+                        "msg": {
+                            "text": "\u05d0\u05e0\u05d0 \u05e8\u05e9\u05de\u05d5 \u05e9\u05dd \u05d0\u05d5 \u05db\u05d9\u05e0\u05d5\u05d9"
+                        }
+                    },
+                    "messageId": "ms::dialog:f9dd135b-b81d-434a-a07a-a8a270b6969d::msg:6",
+                    "audience": "ALL",
+                    "seq": 6,
+                    "dialogId": "f9dd135b-b81d-434a-a07a-a8a270b6969d",
+                    "participantId": "3306507930",
+                    "source": "WhatsApp Business",
+                    "time": "2025-04-06 17:11:27.067+0000",
+                    "timeL": 1743959487067,
+                    "integrationSource": "WhatsApp Business",
+                    "sentBy": "Agent",
+                    "contextData": {
+                        "rawMetadata": "[{\"type\":\"CbBotResponseMetaData\",\"botMsgId\":\"3424d0cc-c87d-47d8-93c8-cb9cd5f42f49\",\"botInteractionId\":\"31e613bc-f088-4352-996d-edaaae652e80\",\"botInteractionName\":\"\",\"botId\":\"dd8e1662-afa2-4600-b9cf-94ba8a78ca38\",\"botType\":\"CUSTOMER_FACING_BOT\",\"botProvider\":\"LP CB\",\"botProviderType\":\"1P_LP_CONNECTOR\",\"intentId\":\"\",\"intentName\":\"\",\"matchType\":\"Pattern\",\"domainName\":\"\",\"domainType\":\"\"}]",
+                        "structuredMetadata": []
+                    },
+                    "predefinedContent": false
+                }
+            ],
+            "consumerParticipants": [
+                {
+                    "participantId": "9e19bf66cf08ec289b0f2fbfa631dc3fbb9fc8c4edd4c60d981f251f3d53c428",
+                    "firstName": "\u05d5\u05e8\u05d5\u05e0\u05d9\u05e7\u05d4",
+                    "lastName": "undefined",
+                    "token": "undefined",
+                    "email": "undefined",
+                    "phone": "undefined",
+                    "avatarURL": "undefined",
+                    "time": "2025-04-06 17:11:22.681+0000",
+                    "timeL": 1743959482681,
+                    "joinTime": "2025-04-06 17:11:22.681+0000",
+                    "joinTimeL": 1743959482681,
+                    "consumerName": "\u05d5\u05e8\u05d5\u05e0\u05d9\u05e7\u05d4",
+                    "dialogId": "f9dd135b-b81d-434a-a07a-a8a270b6969d"
+                }
+            ]
+        }
+    ]
+}

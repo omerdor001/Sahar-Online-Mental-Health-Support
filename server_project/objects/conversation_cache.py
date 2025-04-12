@@ -75,16 +75,12 @@ class ConversationCache:
                             conv_record.basic_algorithm_result = prediction.basic_algorithm_result
                             conv_record.IMSR = prediction.IMSR
                             conv_record.max_GSR = prediction.max_GSR
-                            print(conv_record.max_GSR)
-                            print(conv_record.GSR)
                             self.closed_conversations[conv_id] = conv_record
 
 
                         for conv_id, message_list in messages_records.items():
                             self.messages[conv_id] = message_list
 
-                    print("Nir Final len of closed converations")
-                    print(len(self.closed_conversations))
 
 
     def _start_cleanup_thread(self):
@@ -108,7 +104,7 @@ class ConversationCache:
         with self._lock.gen_wlock():
             # moving all new conversation that closed
             for conv_id, conv_record in self.open_conversations.items():
-                if conv_id not in conversation.keys():
+                if conv_id not in conversation.keys() and conv_record.brandId != 'testing':
                     move_to_close.append(conv_id)
             self._move_conv_to_close(currentTime, move_to_close)
 
@@ -122,6 +118,51 @@ class ConversationCache:
                 new_record.update_field("lastUpdateTime", currentTime)
                 self.open_conversations[conv_id] = new_record
 
+            for conv_id, message_list in messages.items():
+                self.messages[conv_id] = message_list
+        logging.info("Finish cache update Successfully")
+
+    def update_conversations_test(
+            self,
+            currentTime,
+            conversation: dict[str, ConversationHistoryRecord],
+            messages: dict[str, set[MessageRecord]],
+    ):
+        logging.info("Start cache update")
+        move_to_close: [str] = []
+        with self._lock.gen_wlock():
+            # moving all new conversation that closed
+
+            # updating open conversations dict
+            for conv_id, conv_record in conversation.items():
+                new_record = self.open_conversations.get(conv_id)
+                if new_record is None:
+                    new_record = conv_record
+                else:
+                    new_record.update(conv_record)
+                new_record.update_field("lastUpdateTime", currentTime)
+                self.open_conversations[conv_id] = new_record
+
+            for conv_id, message_list in messages.items():
+                self.messages[conv_id] = message_list
+        logging.info("Finish cache update Successfully")
+    
+    def update_conversations_test_closed(
+            self,
+            currentTime,
+            conversation: dict[str, ConversationHistoryRecord],
+            messages: dict[str, set[MessageRecord]],
+    ):
+        logging.info("Start cache update")
+        move_to_close: [str] = []
+        with self._lock.gen_wlock():
+            # moving all new conversation that closed
+
+            # updating open conversations dict
+            for conv_id, conv_record in conversation.items():
+                conv_record.update_field("need_analyze", True)
+                self.closed_conversations[conv_id] = conv_record
+            
             for conv_id, message_list in messages.items():
                 self.messages[conv_id] = message_list
         logging.info("Finish cache update Successfully")
@@ -198,8 +239,6 @@ class ConversationCache:
 
     def enrich_conversation(self, conv_id: str, json_str: str, last_message_id: str):
         logging.debug(f"Start enriching conversation: {conv_id}")
-        #print("starting encriching conversation" , conv_id)
-        #print("last_message id ", last_message_id)
         with self._lock.gen_wlock():
             try:
 
