@@ -7,7 +7,7 @@ db = SQLAlchemy()
 
 class DataBaseHelper:
     def __init__(self,app):
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database_test.db'
         app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
         db.init_app(app)
         db.app = app
@@ -18,20 +18,14 @@ class DataBaseHelper:
 
     @staticmethod
     def add_b(obj_to_add):
-        print("trying to add")
         with db.app.app_context():
             try:
-                print("before add")
                 db.session.merge(obj_to_add)
-                print("after add before commit")
                 db.session.commit()
-                print("successfully commited obj")
             except Exception as e:
                 db.session.rollback()
-                print("add obj is failed")
 
 
-    # I add it - Nir
     def get():
         from dao_object.conversation_prediction_object import ConversationPredictionDAO
         
@@ -52,25 +46,9 @@ class DataBaseHelper:
                     (ConversationPredictionDAO.conversationId == latest_message_subquery.c.conversationId) &
                     (ConversationPredictionDAO.last_message_id == latest_message_subquery.c.max_message_id)
                 ).all()
-                print("latest_predictions nir")
                 print(latest_predictions)
                 return latest_predictions
             except Exception as e :
                 print("Failed to fetch records from DB: ", str(e))
 
 
-        # with db.app.app_context():
-        #     try:
-
-            #     time_threshold = datetime.utcnow() - timedelta(minutes=15)
-            #     results = ConversationPredictionDAO.query.filter(
-            #         ConversationPredictionDAO.status == 'closed',  # Example condition to exclude closed ones
-            #         ConversationPredictionDAO.last_message_id.isnot(None),
-            #         ConversationPredictionDAO.GSR.isnot(None),
-            #         ConversationPredictionDAO.IMSR.isnot(None),
-            #         ConversationPredictionDAO.created_at >= time_threshold  # Assuming there's a `created_at` column
-            #     ).all()
-            #     return results
-            # except Exception as e:
-            #     print("Failed to fetch records:", str(e))
-            #     return []

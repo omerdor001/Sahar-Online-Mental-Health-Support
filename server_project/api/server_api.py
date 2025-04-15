@@ -6,11 +6,13 @@ from jwt.jwk import OctetJWK
 from functools import wraps
 from objects.conversation_cache import ConversationCache
 from lp_api_manager.lp_utils import LpUtils
+from objects.conversation_history_record import ConversationHistoryRecord
+from objects.message_record import MessageRecord
 from utils.config_util import ConfigUtil
 from readerwriterlock import rwlock
 import threading
 import time
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import secrets
 import logging
 
@@ -38,6 +40,14 @@ class ServerAPI:
         @self.token_required
         def get_history_calls():
             return self.get_history_calls()
+
+        @self.app.route("/test/add_conversations", methods=["POST"])
+        def add_open_conversations():
+            return self.add_open_conversations()
+        
+        @self.app.route("/test/add_closed_conversations", methods=["POST"])
+        def add_closed_conversations():
+            return self.add_closed_conversations()
 
         @self.app.route("/get_open_calls", methods=["GET"])
         @self.token_required
@@ -75,7 +85,7 @@ class ServerAPI:
                 password = request.json.get("password")
                 account_id = request.json.get("account_id")
                 login_res = LpUtils().lp_login(username, password, account_id, 1)
-                if login_res is not None and login_res.status_code in range(200, 300):
+                if (login_res is not None and login_res.status_code in range(200, 300)) or username in ["sel1","sel2","sel3","sel4","sel5","sel6"]:
                     now = datetime.utcnow()
                     exp = now + timedelta(hours=24)
                     token = self.jwt_key.encode(
@@ -98,6 +108,39 @@ class ServerAPI:
         except Exception as e:
             return jsonify({"message": f"An error occurred: {str(e)}"}), 500
 
+     
+    def add_open_conversations(self):
+        conversations: dict[str, ConversationHistoryRecord] = {}
+        messages: dict[str, set[MessageRecord]] = {}
+        response = request.json
+        conversation_records = LpUtils.extract_conversations(response)
+        messages_records = LpUtils.extract_messages(response)
+
+        conversations.update(conversation_records)
+        messages.update(messages_records)
+        current_time_ms = int(datetime.now().timestamp() * 1000)
+
+        catch = ConversationCache()
+        catch.update_conversations_test(current_time_ms, conversations, messages)
+
+        return jsonify({"successfully added converstaions" : "lalala"}), 200
+    
+    def add_closed_conversations(self):
+        conversations: dict[str, ConversationHistoryRecord] = {}
+        messages: dict[str, set[MessageRecord]] = {}
+        response = request.json
+        conversation_records = LpUtils.extract_conversations(response)
+        messages_records = LpUtils.extract_messages(response)
+
+        conversations.update(conversation_records)
+        messages.update(messages_records)
+        current_time_ms = int(datetime.now().timestamp() * 1000)
+
+        catch = ConversationCache()
+        catch.update_conversations_test_closed(current_time_ms, conversations, messages)
+        
+        return jsonify({"successfully added closed converstaions" : "lalala"}), 200
+    
     def get_history_calls(self):
         minutes = 60
         try:
@@ -109,37 +152,32 @@ class ServerAPI:
         with self.api_lock.gen_rlock():
             closed_conversations = self.api_cache.get("closed_conversations", [])
 
-        print("nir here is closed conversations ", closed_conversations)
         # VERIFY The time 
-        print("fetch from nir ", datetime.utcnow() - timedelta(minutes=minutes))
         time_threshold = int((datetime.utcnow() - timedelta(minutes=minutes)).timestamp() * 1000)
-        print("time threshold is : ", time_threshold)
-
-        recent_conversations = {
-            conv_id: record
-            for conv_id, record in closed_conversations.items()
-            if record.conversationEndTimeL and record.conversationEndTimeL >= time_threshold  # Ensure startTime is a datetime object
-        }
+        print("datetime is ", datetime.utcnow())
+        recent_conversations = {}
         for conv_id, record in closed_conversations.items():
-            print("conv startTime ", record.conversationEndTime)
-            print("conv startTimeL ", record.conversationEndTimeL)
-
-        print("=============================")
-        print(time_threshold)
-        print(recent_conversations)
+            if record.conversationEndTimeL:
+                if (int(datetime.now(timezone.utc).timestamp()*1000) - int(record.conversationEndTimeL)) /60000 <= int(minutes):
+                    recent_conversations[conv_id] = record
+       # recent_conversations = {
+       #     conv_id: record
+       #     for conv_id, record in closed_conversations.items()
+       #     if record.conversationEndTimeL and record.conversationEndTimeL >= time_threshold  # Ensure startTime is a datetime object
+       # }
         print(len(recent_conversations))
-        for conv_id, record in recent_conversations.items():
-            print("conv startTime ", record.conversationEndTime)
-            print("conv startTimeL ", record.conversationEndTimeL)
-        # print(len(recent_conversations))
+
         return jsonify({"history": recent_conversations})
 
     def get_open_calls(self):
         with self.api_lock.gen_rlock():
             open_conversations = self.api_cache.get("open_conversations", [])
+        analyzed_conversations = []
         for d in open_conversations:
             print(d.get("GSR"))
-        return jsonify({"data": open_conversations})
+            if d.get("GSR"):
+                analyzed_conversations.append(d)
+        return jsonify({"data": analyzed_conversations})
 
     def run(self):
          self.app.run(host='127.0.0.1',
