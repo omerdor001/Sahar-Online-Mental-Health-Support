@@ -114,7 +114,8 @@ class ConversationCache:
                 if new_record is None:
                     new_record = conv_record
                 else:
-                    new_record.update(conv_record)
+                    last_message_id = max(messages[conv_id], key=lambda msg: msg.timeL if msg.timeL else 0).messageId
+                    new_record.update(conv_record, last_message_id)
                 new_record.update_field("lastUpdateTime", currentTime)
                 self.open_conversations[conv_id] = new_record
 
@@ -218,7 +219,8 @@ class ConversationCache:
             conversations: dict[str, [MessageRecord]] = {}
 
             for conv_id, record in self.open_conversations.items():
-                conversations[conv_id] = self.messages.get(conv_id)
+                if record.need_analyze:
+                    conversations[conv_id] = self.messages.get(conv_id)
 
             for conv_id, record in self.closed_conversations.items():
                 if record.need_analyze:
@@ -236,6 +238,12 @@ class ConversationCache:
             conv.to_dict() for conv in json_open_conversations.values()
         ]
         return json_open_conversations
+
+    def update_need_analyze(self, data):
+        for conv_id in data:
+            conv_record = self.open_conversations.get(conv_id)
+            if conv_record:
+                conv_record.update_field("need_analyze", False)
 
     def enrich_conversation(self, conv_id: str, json_str: str, last_message_id: str):
         logging.debug(f"Start enriching conversation: {conv_id}")
@@ -451,3 +459,4 @@ class ConversationCache:
                 time.sleep(7200)
             except Exception as e:
                 logging.error(f"error in clean old cache data. {e}")
+
