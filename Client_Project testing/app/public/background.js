@@ -1,7 +1,10 @@
+importScripts('https://cdn.socket.io/4.3.2/socket.io.min.js');
+
 let lastAlertTime = 0;
 const conversationHashSet = new Set();
 const prevConversationsMap = new Map();
 const alertCooldown = 5 * 60 * 1000; 
+let socket = null;
 let apiBaseURL = '/api';
 let notificationTimeDuration = 2; 
 let intervalId = null; 
@@ -17,7 +20,7 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     (async () => {
       await self.clients.claim(); 
-      setupInterval();
+      setupSocketConnection();
     })()
   );
 });
@@ -40,12 +43,12 @@ self.addEventListener('message',async (event) => {
     case 'SET_API_BASE_URL':
       apiBaseURL = data;
       console.log('Service Worker: API Base URL set to:', apiBaseURL);
-      setupInterval(); 
+      setupSocketConnection();
       break;
     case 'SET_NOTIFICATION_TIME':
       notificationTimeDuration = data;
       console.log(`Notification time updated to: ${notificationTimeDuration} minutes`);
-      setupInterval();
+      setupSocketConnection();
       break;
     case 'LOGIN':
       const { tokenData, API_BASE_URL,notificationTimeData } = data;
@@ -56,39 +59,39 @@ self.addEventListener('message',async (event) => {
         console.log(`Notification time set via LOGIN: ${notificationTimeDuration} minutes`);
       }
       console.log('User logged in. Starting fetch interval.');
-      setupInterval();
+      setupSocketConnection();
       break;
 
     case 'LOGOUT':
       authToken = null;
-      console.log('User logged out. Stopping fetch interval.');
-      stopInterval();
+      console.log('User logged out. Stopping WebSocket connection.');
+      if (socket) socket.disconnect();
       break;
 
     case 'GET_CONVERSATIONS':
       if(intervalId===null){
-        setupInterval();
+        setupSocketConnection();
     }
     break;
 
     case 'GET_TOKEN':
-      setupInterval();
+      setupSocketConnection();
       break;
 
       case 'WAKE_UP':
-        if (!intervalId) {
-          console.log('Restarting fetch interval after WAKE_UP.');
-          setupInterval(); 
-        }
         console.log('Service Worker received WAKE_UP message.');
         if (!authToken) {
-          requestAuthToken();    //added this
+          requestAuthToken();    
         }
         if (!apiBaseURL) {
-          requestApiBaseURL();    //added this
+          requestApiBaseURL();    
         }
         if (!notificationTimeDuration) {
-          requestNotificationTimeDuration();  //added this
+          requestNotificationTimeDuration();  
+        }
+        if (!intervalId) {
+          console.log('Restarting fetch interval after WAKE_UP.');
+          setupSocketConnection();
         }
         break;
       
@@ -97,23 +100,44 @@ self.addEventListener('message',async (event) => {
   }
 });
 
-function setupInterval() {
-  console.log("Try to set up interval");
-  stopInterval();
-  if (!authToken) {
-    requestAuthToken();
-    return;
+function setupSocketConnection() {
+  try {
+    const socketURL = `${self.location.origin}/test/`;
+    console.log('Attempting to connect to:', socketURL);
+    socket = io(socketURL, {
+      transports: ['websocket'],
+      auth: {
+        token: authToken
+      },
+      withCredentials: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 3000,
+      path: '/test/socket.io'
+    });
+
+    socket.on('connect', () => {
+      console.log('Connected to server');
+      socket.emit('get_open_calls');
+    });
+
+    socket.on('open_calls_update', (data) => {
+      console.log('Received open conversations:', data);
+      processConversations(data);
+    });
+
+    socket.on('connect_error', (err) => {
+      console.error('Socket connection error:', err);
+      sendLogoutToClients();
+    });
+
+    socket.on('disconnect', () => {
+      console.log('Socket disconnected');
+    });
+  } catch (error) {
+    console.error('Error setting up socket connection:', error);
   }
-  if (!apiBaseURL) {
-    requestApiBaseURL();
-    return;
-  }
-  if (!notificationTimeDuration) {
-    requestNotificationTimeDuration();
-    return;
-  }
-  startInterval();
 }
+
 
 function requestAuthToken() {
   console.log("Auth token is missing. Requesting from ServiceWorker clients...");
@@ -131,7 +155,6 @@ function requestAuthToken() {
           authToken = token;
           tokenReceived = true;
           console.log("Token received from client:", authToken);
-          //startInterval();
         }
       };
       client.postMessage({ type: "GET_TOKEN" }, [messageChannel.port2]);
@@ -158,7 +181,6 @@ function requestApiBaseURL() {
           apiBaseURL = receivedUrl;
           urlReceived = true;
           console.log("API Base URL received from client:", apiBaseURL);
-          //startInterval();
         }
       };
       client.postMessage({ type: "SET_API_BASE_URL" }, [messageChannel.port2]);
@@ -185,7 +207,6 @@ function requestNotificationTimeDuration() {
           notificationTimeReceived = true;
           console.log("Notification time received from client:", receivedTime);
           notificationTimeDuration = receivedTime;
-          //startInterval();
         }
       };
       client.postMessage({ type: "GET_NOTIFICATION_TIME" }, [messageChannel.port2]);
@@ -195,77 +216,6 @@ function requestNotificationTimeDuration() {
       console.log("Notification time request sent, but no response yet.");
     }
   });
-}
-
-
-function startInterval() {
-  getOpenConversations();
-  try {
-    intervalId = setInterval(() => {
-      console.log("Interval triggered at:", Date.now());
-      const currentTime = new Date();
-      const currentSecond = currentTime.getSeconds();
-      if ([0, 15, 30, 45].includes(currentSecond)) {
-        if (!authToken) {
-          console.log("Auth token missing during interval. Skipping fetch.");
-          return;
-        }
-        getOpenConversations();
-      }
-    }, 1000); 
-    console.log("Interval setup complete. ID:", intervalId);
-  } catch (error) {
-    console.error("Error setting up interval:", error);
-  }
-}
-
-function stopInterval() {
-  console.log("Try to stop interval");
-  if (intervalId) {
-    console.log('Stopping interval:', intervalId);
-    clearInterval(intervalId);
-    intervalId = null;
-  }
-}
-
-
-async function getOpenConversations() {
-  if (!authToken) {
-    console.warn('No auth token available. Skipping fetch.');
-    return;
-  }
-  if (!apiBaseURL) {
-    console.warn('No url available. Skipping fetch.');
-    return;
-  }
-  try {
-    const response = await fetch(`${apiBaseURL}/get_open_calls`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `${authToken}`,
-      },
-      credentials: 'include',
-      cache: 'no-store',
-    });
-
-    if (response.ok) {
-      console.log("open call happened");
-      const data = await response.json();
-      processConversations(data);
-    } else {
-      console.log(apiBaseURL);
-      console.warn('Error fetching conversations:', response.statusText);
-      if (response.status === 401 || response.status === 403 || response.status === 502) {
-        console.log('Token expired or invalid. Logging out...');
-        sendLogoutToClients(); 
-        stopInterval(); 
-        authToken = null; 
-      }
-    }
-  } catch (error) {
-    console.error('Error fetching conversations:', error);
-  }
 }
 
 function sendLogoutToClients() {
@@ -328,16 +278,16 @@ async function analyzeGSRValues(conversations, currentTime) {
 }
 
 
-function fillPrevMap(){
-  conversationHashSet.forEach((conversation) => {
-    const { conversationId } = conversation;
-    if (conversationId) {
-      prevConversationsMap.set(conversationId, conversation);
-    } else {
-      console.warn("Conversation missing an ID:", conversation);
-    }
-  });
-}
+// function fillPrevMap(){
+//   conversationHashSet.forEach((conversation) => {
+//     const { conversationId } = conversation;
+//     if (conversationId) {
+//       prevConversationsMap.set(conversationId, conversation);
+//     } else {
+//       console.warn("Conversation missing an ID:", conversation);
+//     }
+//   });
+// }
 
 
 function sendConversationsToClients() {

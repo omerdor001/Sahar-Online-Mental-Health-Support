@@ -7,13 +7,10 @@
     @apply absolute overflow-auto border border-gray-300 shadow-md;
     width: 100vw; 
     height: 100vh; 
-    transform: scale(0.33); 
-    transform-origin: top left; 
-    position: absolute;
     top: 0;
     left: 0;
   }
-  
+
   .scale-wrapper {
     @apply absolute;
     width: 33.33vw;
@@ -21,67 +18,58 @@
     left: calc((100% - 33.33vw) / 2);
     overflow: hidden;
   }
-  
+
   .custom-shadow {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
-  
+
   .responsive-text {
     font-size: clamp(1rem, 2vw, 2.5rem);
     line-height: 1.5;
     padding: 1rem;
   }
-  
+
   .custom-scrollbar::-webkit-scrollbar {
     width: 12px;
   }
-  
+
   .custom-scrollbar::-webkit-scrollbar-track {
     background-color: #f0f0f0;
     border-radius: 8px;
   }
-  
+
   .custom-scrollbar::-webkit-scrollbar-thumb {
     background-color: #a9a9a9;
     border-radius: 8px;
   }
-  
+
   @media screen and (max-width: 768px) {
     .scale-wrapper {
       width: 75vw;
       left: calc((100% - 75vw) / 2);
     }
-    
-    .third-screen-container {
-      transform: scale(0.75);
-    }
-    
+
     .responsive-text {
       font-size: clamp(1rem, 3vw, 2rem);
     }
   }
-  
+
   @media screen and (max-width: 480px) {
     .scale-wrapper {
       width: 90vw;
       left: calc((100% - 90vw) / 2);
     }
-    
-    .third-screen-container {
-      transform: scale(0.9);
-    }
-    
+
     .responsive-text {
       font-size: 4vw;
     }
   }
-  
+
   body {
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    overflow-y: auto; 
   }
-  
 
   .main-container {
     position: absolute;

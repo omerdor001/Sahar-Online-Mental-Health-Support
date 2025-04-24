@@ -46,7 +46,7 @@ function Conversations({ handleLogout }) {
   const [selectedConversation, setSelectedConversation] = useState(null); 
   const [modalOpen, setModalOpen] = useState(false); 
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [openConversations, setOpenConversations] = useState(JSON.parse(localStorage.getItem('openConversations')) || []);
+  const [openConversations, setOpenConversations] = useState([]);
 
   function getBackgroundColor(FEGSR) {
     let hue = 120;  
@@ -97,58 +97,57 @@ function Conversations({ handleLogout }) {
     setSidebarOpen(!isSidebarOpen);
   };
 
-  useEffect(() => {
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.controller?.postMessage({
-        type: 'GET_CONVERSATIONS'
-      });
-      const handleServiceWorkerMessage = (event) => {
-        const { type, conversations, date } = event.data;
-        if (type === 'OPEN_CONVERSATIONS' && conversations) {
-          localStorage.setItem(
-            'openConversations',
-            JSON.stringify(conversations)
-          );
-          console.log("Updating conversations in Conversation page");
-          const newConversations = JSON.parse(localStorage.getItem('openConversations')) || [];
-          newConversations.reverse();
-          const uniqueConversations = newConversations.filter((value, index, self) =>
-            index === self.findIndex((t) => (
-              t.conversationId === value.conversationId 
-            ))
-          );
-          localStorage.setItem('openConversations', JSON.stringify(uniqueConversations));
-          console.log(uniqueConversations);
-          setOpenConversations(uniqueConversations);
-          if(date){
-            console.log(date);
-            localStorage.setItem('conversationsLastUpdateTime', date);
+    useEffect(() => {
+      const stored = localStorage.getItem('openConversations');
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          setOpenConversations(parsed);
+        } catch (e) {
+          console.error("Failed to parse openConversations:", e);
+        }
+      }
+    }, []);
+  
+    useEffect(() => {
+      const handleUpdate = (event) => {
+        const updatedData = event.detail;
+        if (updatedData) {
+          console.log("Received openConversations from event.detail");
+          setOpenConversations(updatedData);
+        } else {
+          try {
+            const stored = localStorage.getItem('openConversations');
+            if (stored) {
+              setOpenConversations(JSON.parse(stored));
+            }
+          } catch (e) {
+            console.error("Error parsing openConversations:", e);
           }
-          console.log(localStorage.getItem('conversationsLastUpdateTime'));
-          setConversationsLastUpdateTime(localStorage.getItem('conversationsLastUpdateTime')); 
         }
       };
-      navigator.serviceWorker.addEventListener('message', handleServiceWorkerMessage);
-      return () => {
-        navigator.serviceWorker.removeEventListener('message', handleServiceWorkerMessage);
-      };
-    }
-  }, []);
+      window.addEventListener('openConversationsUpdated', handleUpdate);
+      return () => window.removeEventListener('openConversationsUpdated', handleUpdate);
+    }, []);
   
-  useEffect(() => {
-    setConversationsLastUpdateTime(localStorage.getItem('conversationsLastUpdateTime'));
-    const filtered = openConversations.filter(conversation =>
-      conversation.consumerParticipants.consumerName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      conversation.latestAgentFullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      conversation.conversationId.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    const updatedFiltered = filtered.map(conversation => ({
-      ...conversation,
-      FEGSR: conversation.GSR ? conversation.GSR * 100 : 0,
-      FEIMSR: 0,
-    }));
-    setFilteredConversations(updatedFiltered);
-  }, [searchQuery, openConversations]);
+    useEffect(() => {
+      let filtered = [];
+      if (openConversations && Array.isArray(openConversations)) {
+        filtered = openConversations.filter(conversation =>
+          conversation.consumerParticipants?.consumerName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          conversation.latestAgentFullName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          conversation.conversationId?.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      }
+      const updatedFiltered = filtered.map(conversation => ({
+        ...conversation,
+        FEGSR: conversation.GSR ? conversation.GSR * 100 : 0,
+        FEIMSR: 0,
+      }));
+  
+      setFilteredConversations(updatedFiltered);
+      setConversationsLastUpdateTime(new Date().toISOString());
+    }, [searchQuery, openConversations]); 
 
   let conversations = [...filteredConversations];
   conversations = conversations.sort((a, b) => {
@@ -374,27 +373,22 @@ function Conversations({ handleLogout }) {
   
               {/* Title */}
               <Typography
-                variant="h4"
-                sx={{
-                  textAlign: 'center',
-              fontWeight: 'bold',
-              color: 'white',
-              mt: 1,
-              mb: 0,
-              direction: 'rtl',
-              backgroundColor: '#4fa3f7',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: 'auto',
-              ml: { xs: 0, md: -15 },
-              flexGrow: 1,
-              borderRadius: 3,
-              p: 2,
-                }}
-              >
-                שיחות פעילות
-              </Typography>
+  variant="h4"
+  sx={{
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: 'white',
+    padding: '16px 32px',
+    direction: 'rtl',
+    backgroundColor: '#4fa3f7',
+    width: '100%',
+    borderRadius: '8px',
+    margin: '20px auto',
+    boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+  }}
+>
+  שיחות פעילות
+</Typography>
             </Box>      
   
             {/* Search Input */}
