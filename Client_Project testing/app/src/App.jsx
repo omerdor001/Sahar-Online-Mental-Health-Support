@@ -9,6 +9,7 @@ import LogoutModal from "./components/LogoutModal.jsx";
 import './index.css';
 import { fetchLogin } from './http.js';
 import TriggerModal from './components/TriggerModal';
+import io from 'socket.io-client'; 
 
 const basename = window.location.pathname.startsWith("/test") ? "/test/" : "/";
 const isTestEnvironment = window.location.pathname.startsWith("/test");
@@ -26,18 +27,21 @@ function App() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
   const [notificationTime, setNotificationTime] = useState(2);
+  const [socket, setSocket] = useState(null); 
+  const authToken = localStorage.getItem('token');
+  let lastAlertTime = 0;
 
   useEffect(() => {
-      const handleBeforeUnload = (e) => {
-        handleLogout();
-        e.preventDefault();
-        e.returnValue = ''; 
-      };
-      window.addEventListener('unload', handleBeforeUnload);
-      return () => {
-        window.removeEventListener('unload', handleBeforeUnload);
-      };
-    }, []);
+    const handleBeforeUnload = (e) => {
+      handleLogout();
+      e.preventDefault();
+      e.returnValue = '';
+    };
+    window.addEventListener('unload', handleBeforeUnload);
+    return () => {
+      window.removeEventListener('unload', handleBeforeUnload);
+    };
+  }, []);
 
   const usePreventWindowAlert = () => {
     useEffect(() => {
@@ -52,135 +56,70 @@ function App() {
   };
 
   usePreventWindowAlert();
+    
+  useEffect(() => {
+    if (isLogged && authToken) {
+      const socketURL = `${window.location.origin}/test`;
+      console.log('Attempting to connect to Socket.IO:', socketURL);
+      const newSocket = io('https://saharassociation.cs.bgu.ac.il', {
+        path: '/test/socket.io/',
+        transports: ['websocket'],
+        auth: { token: authToken }, 
+      });
+      
+      setSocket(newSocket);
+
+      newSocket.on('connect', () => {
+        console.log('Socket.IO connected to server');
+      });
+
+      newSocket.on('open_calls_update', (data) => {
+        const currentTime = Date.now();
+        const notificationTimeData = Number(localStorage.getItem('notificationTime'));
+        //console.log('Received open conversations:', data);
+        localStorage.setItem('openConversations', JSON.stringify(data.data));
+        localStorage.setItem('conversationsLastUpdateTime', new Date().toISOString());
+        window.dispatchEvent(new Event('openConversationsUpdated'));
+        const highRiskConversation = data.data && data.data.find(conv => conv.GSR > 0.8);
+        if (highRiskConversation && currentTime- lastAlertTime > notificationTimeData * 60 * 1000) {
+          lastAlertTime = currentTime;
+          const alertMessage = 'אותרה שיחה ברמת אובדנות גבוהה';
+          setModalMessage(alertMessage);
+          setModalOpen(true);
+        }
+      });
+
+      newSocket.on('connect_error', (err) => {
+        console.error('Socket.IO connection error:', err);
+        handleLogout();
+      });
+
+      newSocket.on('disconnect', () => {
+        console.log('Socket.IO disconnected');
+      });
+
+      return () => {
+        if (newSocket) {
+          newSocket.disconnect();
+        }
+      };
+    } else if (socket) {
+      socket.disconnect();
+      setSocket(null);
+    }
+  }, [isLogged, authToken]);
 
   useEffect(() => {
-    const tokenData = localStorage.getItem('token');
-    const storedNotificationTime = localStorage.getItem('notificationTime');
-    const apiBase= localStorage.getItem('apiBaseURL');
-    if ('serviceWorker' in navigator) {
-      const alreadyUnregistered = localStorage.getItem('swUnregistered');
-  
-      navigator.serviceWorker.getRegistration().then((existingRegistration) => {
-        if (existingRegistration && !alreadyUnregistered) {
-          console.log('Unregistering existing Service Worker...');
-          existingRegistration.unregister().then(() => {
-            console.log('Service Worker unregistered. Reloading...');
-            localStorage.setItem('swUnregistered', 'true');
-            window.location.reload();
-          });
-          return; 
-        }
-  
-        navigator.serviceWorker
-          .register(`${basename}background.js`)
-          .then((registration) => {
-            console.log('Service Worker registered in app:', registration);
-  
-            navigator.serviceWorker.addEventListener('controllerchange', () => {
-              console.log('Service Worker now controlling the page');
-              if (navigator.serviceWorker.controller) {
-                navigator.serviceWorker.controller.postMessage({
-                  type: 'SET_NOTIFICATION_TIME',
-                  data: notificationTime,
-                });
-                if (isLogged) {
-                  navigator.serviceWorker.controller.postMessage({
-                    type: 'GET_CONVERSATIONS',
-                  });
-                }
-              }
-            });
-          })
-          .catch((error) => {
-            console.error('Service Worker registration failed in app:', error);
-          });
-      });
-  
-      const handleServiceWorkerMessage = (event) => {
-        const { type, message, conversations: newConversations, date: update_date } = event.data;
-  
-        switch (type) {
-          case 'ALERT': {
-            if (event.stopPropagation) {
-              event.stopPropagation();
-            }
-            setModalMessage(message);
-            setModalOpen(true);
-            break;
-          }
-          case 'OPEN_CONVERSATIONS': {
-            localStorage.setItem('openConversations', JSON.stringify(newConversations));
-            if (update_date) {
-              console.log(update_date);
-              localStorage.setItem('conversationsLastUpdateTime', update_date);
-            }
-            console.log(update_date);
-            console.log("Updating conversations in App");
-            break;
-          }
-          case 'LOGOUT_INVALID_TOKEN': {
-            console.log('Received LOGOUT message from Service Worker. Logging out...');
-            handleLogout(); 
-            break;
-          }
-          case 'GET_TOKEN': {
-            event.ports[0].postMessage({
-              type: 'TOKEN_RESPONSE',
-              token: tokenData || null,
-            });
-            break;
-          }
-          case 'SET_API_BASE_URL': {
-            event.ports[0].postMessage({
-              type: 'API_BASE_URL_RESPONSE',
-              receivedUrl: apiBase,
-            });
-            break;
-          }
-          case 'GET_NOTIFICATION_TIME': {
-            event.ports[0].postMessage({
-              type: 'NOTIFICATION_TIME_RESPONSE',
-              receivedTime: Number(storedNotificationTime),
-            });
-            break;
-          }
-          default: {
-            console.warn('Unhandled message type:', type);
-          }
-        }
-      };
-      navigator.serviceWorker.addEventListener('message', handleServiceWorkerMessage);
-      const wakeUpInterval = setInterval(() => {
-        navigator.serviceWorker.ready.then((registration) => {
-          if (registration.active) {
-            console.log('Sending WAKE_UP to Service Worker.');
-            registration.active.postMessage({ type: 'WAKE_UP' });
-          } else {
-            console.warn('No active Service Worker found for WAKE_UP.');
-          }
-        });
-      }, 15000);
-      return () => {
-        navigator.serviceWorker.removeEventListener('message', handleServiceWorkerMessage);
-        clearInterval(wakeUpInterval);
-      };
-    }
-  }, [notificationTime, isLogged]);
-  
-
-useEffect(() => {
-  const handleLogoutEvent = (event) => {
-    if (event.detail.type === 'LOGOUT') {
-      setIsLogged(false);
-    }
-  };
-
-  document.addEventListener('backgroundMessage', handleLogoutEvent);
-
-  return () => {
-    document.removeEventListener('backgroundMessage', handleLogoutEvent);
-  };
-}, []);
+    const handleLogoutEvent = (event) => {
+      if (event.detail.type === 'LOGOUT') {
+        setIsLogged(false);
+      }
+    };
+    document.addEventListener('backgroundMessage', handleLogoutEvent);
+    return () => {
+      document.removeEventListener('backgroundMessage', handleLogoutEvent);
+    };
+  }, []);
 
   useEffect(() => {
     const initializeApp = async () => {
@@ -198,20 +137,16 @@ useEffect(() => {
         setIsLoading(false);
       }
     };
-
     initializeApp();
-
     const handleResize = () => {
       setWindowSize({
         width: window.innerWidth,
         height: window.innerHeight,
       });
     };
-
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
 
   const handleLogin = async (accountNumber, userName, password, role, setLoadIcon) => {
     if (!accountNumber || !userName || !password || !role) {
@@ -223,21 +158,14 @@ useEffect(() => {
       await fetchLogin(accountNumber, userName, password);
       localStorage.setItem('username', userName);
       localStorage.setItem('notificationTime', '2');
+      localStorage.setItem('token', localStorage.getItem('token')); 
       localStorage.setItem('isLogged', 'true');
       setIsLogged(true);
       setErrorMessage('');
-      const tokenData = localStorage.getItem('token');
-      const notificationTimeData= Number(localStorage.getItem('notificationTime'));
+      const notificationTimeData = Number(localStorage.getItem('notificationTime'));
       setNotificationTime(notificationTimeData);
-      localStorage.setItem("apiBaseURL",API_BASE_URL);
-      navigator.serviceWorker.controller?.postMessage({
-        type: 'LOGIN',
-        data: {
-          tokenData,
-          API_BASE_URL,
-          notificationTimeData,
-        }
-      });
+      console.log(notificationTime);
+      localStorage.setItem("apiBaseURL", API_BASE_URL);
     } catch (error) {
       console.error('Login failed:', error);
       setErrorMessage('הפרטים שסיפקת אינם נכונים.');
@@ -246,7 +174,6 @@ useEffect(() => {
     }
     setLoadIcon(false);
   };
-  
 
   const handleLogout = () => {
     console.log("start logout process");
@@ -255,22 +182,10 @@ useEffect(() => {
     localStorage.removeItem('token');
     localStorage.setItem('isLogged', 'false');
     setIsLogged(false);
-    if (navigator.serviceWorker.controller) {
-      navigator.serviceWorker.controller.postMessage({ type: 'LOGOUT' });
+    if (socket) {
+      socket.disconnect();
+      setSocket(null);
     }
-    navigator.serviceWorker.getRegistration().then((registration) => {
-      if (registration) {
-        registration.unregister().then((success) => {
-          if (success) {
-            console.log('Service Worker unregistered successfully.');
-          } else {
-            console.warn('Failed to unregister Service Worker.');
-          }
-        });
-      } else {
-        console.log('No Service Worker registered.');
-      }
-    });
   };
 
   const openLogoutModal = () => {
@@ -283,7 +198,6 @@ useEffect(() => {
     return <div>Loading...</div>;
   }
 
-
   return (
     <Router basename={basename}>
       <div className="min-h-screen bg-white">
@@ -295,40 +209,40 @@ useEffect(() => {
             onClose={() => setModalOpen(false)}
           />
           <Routes>
-            <Route 
-              path="/login" 
-              element={ !isLogged ? 
-                <Login handleLogin={handleLogin} errorMessage={errorMessage} />:
+            <Route
+              path="/login"
+              element={!isLogged ?
+                <Login handleLogin={handleLogin} errorMessage={errorMessage} /> :
                 <Navigate to="/" />
-              } 
+              }
             />
-            <Route 
-              path="/" 
-              element={isLogged ?  
+            <Route
+              path="/"
+              element={isLogged ?
                 <Conversations handleLogout={openLogoutModal} /> :
                 <Navigate to="/login" />
-              } 
+              }
             />
-            <Route 
-              path="/conversation-history" 
-              element={isLogged ? 
+            <Route
+              path="/conversation-history"
+              element={isLogged ?
                 <ConversationsHistory handleLogout={openLogoutModal} /> :
                 <Navigate to="/login" />
-              } 
+              }
             />
-            <Route 
-              path="/common-questions" 
-              element={isLogged ? 
+            <Route
+              path="/common-questions"
+              element={isLogged ?
                 <CommonQuestions handleLogout={openLogoutModal} /> :
                 <Navigate to="/login" />
-              } 
+              }
             />
-            <Route 
-              path="/settings" 
-              element={isLogged ? 
+            <Route
+              path="/settings"
+              element={isLogged ?
                 <Settings handleLogout={openLogoutModal} /> :
                 <Navigate to="/login" />
-              } 
+              }
             />
           </Routes>
         </div>

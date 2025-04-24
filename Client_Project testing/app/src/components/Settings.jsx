@@ -76,26 +76,6 @@ function Settings({ handleLogout }) {
     localStorage.setItem('notificationTime', JSON.stringify(value));
     document.dispatchEvent(new CustomEvent('NotificationTime_UPDATED'));
     setNotificationTime(value);
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker
-        .register('/background.js')
-        .then((registration) => {
-          console.log('Service Worker registered in app:', registration);
-          if (navigator.serviceWorker.controller) {
-            navigator.serviceWorker.controller.postMessage({
-              type: 'SET_NOTIFICATION_TIME',
-              data: Number(value), 
-            });
-          } else {
-            console.warn('No active Service Worker controller found.');
-          }
-        })
-        .catch((error) => {
-          console.error('Error registering the Service Worker:', error);
-        });
-    } else {
-      console.warn('Service Workers are not supported in this browser.');
-    }
   };
   
 
