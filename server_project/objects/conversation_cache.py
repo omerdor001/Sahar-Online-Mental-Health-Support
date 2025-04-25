@@ -141,6 +141,7 @@ class ConversationCache:
                     new_record = conv_record
                 else:
                     new_record.update(conv_record)
+                new_record.update_field("need_analyze", True)    
                 new_record.update_field("lastUpdateTime", currentTime)
                 self.open_conversations[conv_id] = new_record
 
@@ -244,7 +245,6 @@ class ConversationCache:
             conv_record = self.open_conversations.get(conv_id)
             if conv_record:
                 conv_record.update_field("need_analyze", False)
-
     def enrich_conversation(self, conv_id: str, json_str: str, last_message_id: str):
         logging.debug(f"Start enriching conversation: {conv_id}")
         with self._lock.gen_wlock():

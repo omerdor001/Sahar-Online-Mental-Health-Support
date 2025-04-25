@@ -19,9 +19,10 @@ import logging
 app = Flask(__name__)
 
 class ServerAPI:
-    def __init__(self, app):
+    def __init__(self, app, socketio):
         self.api_lock = rwlock.RWLockFair()
         self.app = app
+        self.socketio = socketio
         self.secret_key = OctetJWK(key=secrets.token_bytes(32))
         self.api_cache = {}
         self.jwt_key=jwt.JWT()
@@ -29,6 +30,7 @@ class ServerAPI:
 
         threading.Thread(target=self.update_api_cache, daemon=True).start()
         self._setup_routes()
+        self._setup_socketio_events()
 
 
     def _setup_routes(self):
@@ -68,11 +70,61 @@ class ServerAPI:
             return f(*args, **kwargs) 
         return decorated_function
 
+    def _setup_socketio_events(self):
+        @self.socketio.on('connect')
+        def handle_connect():
+            print("socketio handle_connect request")
+            # Validate token for SocketIO connections
+            token = request.args.get('token')
+            if not token:
+                print("no token provided")  # Reject connection if no token
+            try:
+                #self.jwt_key.decode(token, self.secret_key, algorithms=["HS256"])
+                # Send initial open calls data upon successful connection
+                self.emit_open_calls()
+                return True
+            except Exception as e:
+                print(f"SocketIO connection authentication failed: {e}")
+                return False  # Reject connection if invalid token
+        
+        @self.socketio.on('get_open_calls')
+        def handle_get_open_calls():
+            print("got socketio get_opn_calls request")
+            self.emit_open_calls()
+
+        @self.socketio.on_error_default
+        def default_error_handler(e):
+            print(e)
+
+    def emit_open_calls(self):
+        with self.api_lock.gen_rlock():
+            print("socketio emit_open_calls")
+            open_conversations = self.api_cache.get("open_conversations", [])
+        #for d in open_conversations:
+            #print(d.get("GSR"))
+        analyzed_conversations = []
+        for d in open_conversations:
+            #print(d.get("GSR"))
+            if d.get("GSR"):
+                analyzed_conversations.append(d)
+        self.socketio.emit('open_calls_update', {"data": analyzed_conversations})
+    
     def update_api_cache(self):
         while True:
             with self.api_lock.gen_wlock():
+                previous_open_calls = self.api_cache.get("open_conversations", [])
                 self.api_cache["open_conversations"] = ConversationCache().get_json_open_conversations()
                 self.api_cache["closed_conversations"] = ConversationCache().get_closed_conversations()
+                current_open_calls = self.api_cache["open_conversations"]
+                if current_open_calls != previous_open_calls:
+                  #  print("socketio update_api_Cache")
+                    analyzed_conversations = []
+                    for d in current_open_calls:
+                        #print(d.get("GSR"))
+                        if d.get("GSR"):
+                            analyzed_conversations.append(d)
+                    self.socketio.emit('open_calls_update', {"data": analyzed_conversations})
+            #time.sleep(5) TODO: fix it to send just when changed
             time.sleep(self.cache_update_interval)
 
     def login(self):
@@ -174,15 +226,21 @@ class ServerAPI:
             open_conversations = self.api_cache.get("open_conversations", [])
         analyzed_conversations = []
         for d in open_conversations:
-            print(d.get("GSR"))
+            #print(d.get("GSR"))
             if d.get("GSR"):
                 analyzed_conversations.append(d)
         return jsonify({"data": analyzed_conversations})
 
     def run(self):
-         self.app.run(host='127.0.0.1',
-                      ssl_context=('/etc/letsencrypt/live/saharassociation.cs.bgu.ac.il/fullchain.pem', '/etc/letsencrypt/live/saharassociation.cs.bgu.ac.il/privkey.pem'),
-                      port=5000, threaded=True)
+        self.socketio.run(
+             self.app,
+             host='127.0.0.1',
+             ssl_context=('/etc/letsencrypt/live/saharassociation.cs.bgu.ac.il/fullchain.pem',
+                          '/etc/letsencrypt/live/saharassociation.cs.bgu.ac.il/privkey.pem'),
+             port=5000,
+             allow_unsafe_werkzeug=True
+         )
+        #allow_unsafe_werkzeug=True
 
 if __name__ == "__main__":
      #server_api = ServerAPI()
