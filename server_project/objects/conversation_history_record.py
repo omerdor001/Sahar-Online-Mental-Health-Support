@@ -105,7 +105,7 @@ class ConversationHistoryRecord(JsonConvertible):
             self.update_maxGSR(field_value)
         setattr(self, field_name, field_value)
 
-    def update(self, other):
+    def update(self, other, other_last_message_id=None):
 
         # Get fields of the class
         cls_fields = self.__annotations__.keys()
@@ -118,6 +118,9 @@ class ConversationHistoryRecord(JsonConvertible):
                 if field == "GSR":
                     self.update_maxGSR(other_value)
                 setattr(self, field, other_value)
+        if other_last_message_id:
+            if other_last_message_id != self.last_effected_message_id:
+                setattr(self, "need_analyze", True)
 
     def update_maxGSR(self, GSR_value):
         if (self.max_GSR is None) or (self.max_GSR < GSR_value):
@@ -133,3 +136,4 @@ class ConversationType(Enum):
     OPEN = "Open"
     CLOSED = "Closed"
     OVERDUE = "Overdue"
+
