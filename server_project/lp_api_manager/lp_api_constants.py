@@ -13,7 +13,7 @@ class LpApiConstants:
     loginCall = "https://%s/api/account/%s/login?v=1.3"
     messageHistory = "https://%s/messaging_history/api/account/%s/conversations/search"
     getConvByConvId = "https://%s/messaging_history/api/account/%s/conversations/conversation/search"
-
+    validateToken = "https://%s/api/account/%s/configuration/le-users/users/%s"
 
     @staticmethod
     def base_call_uri(account, service):
@@ -30,6 +30,10 @@ class LpApiConstants:
         # account - LivePerson account ID string
         # service - Service name according to the relevant lp_api_manager string
         return LpApiConstants.getConvByConvId % (domain, account_id)
+
+    @staticmethod
+    def validate_token_call_uri(domain, account_id, user_id):
+        return LpApiConstants.validateToken % (domain, account_id, user_id)
 
     @staticmethod
     def message_hist_uri(domain, account_id):

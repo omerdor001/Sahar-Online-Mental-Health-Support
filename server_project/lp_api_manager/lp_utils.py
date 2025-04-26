@@ -47,6 +47,26 @@ class LpUtils:
         self.account_id = config_util.get_config_attribute("accountId")
         self.service_log_in_name = config_util.get_config_attribute("serviceLogInName")
         self.message_hist_name = config_util.get_config_attribute("messageHistName")
+        self.account_config_read_only = config_util.get_config_attribute("accountConfigReadOnly")
+
+    def lp_validate_token(self, user_id, account_id, token):
+        print("starting verify token")
+        domain = self._extract_domain(self.account_config_read_only)
+        headers = {
+            "Authorization": f"Bearer {self.bearer_token}",
+            "Content-Type": "application/json",
+        }
+        if domain:
+            validate_token_uri = LpApiConstants.validate_token_call_uri(domain, account_id, user_id)
+            validate_token_res = LpExecutor.execute(
+                LpApiBuilder(validate_token_uri, type=LpApiType.GET).add_headers(headers)
+            .build_call())
+            print("validate token uri", validate_token_uri)
+            print("validate_token_res", validate_token_res)
+            return validate_token_res
+        else:
+            logging.error(f"Extracting domain from Live-Person failed")
+            return None
 
     def lp_login(self, username, password, account_id, number_of_retries=0):
         domain = self._extract_domain(self.service_log_in_name)
@@ -127,6 +147,7 @@ class LpUtils:
 
 
     def get_conversations_by_conv_id(self, conversations_ids: [str]):
+
         headers = {
             "Authorization": f"Bearer {self.bearer_token}",
             "Content-Type": "application/json",

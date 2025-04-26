@@ -37,6 +37,10 @@ class ServerAPI:
         @self.app.route("/login", methods=['POST', 'OPTIONS'])
         def login():
             return self.login()
+
+        @self.app.route("/validateToken", methods=['POST'])
+        def validate_token():
+            return self.validate_token()
          
         @self.app.route("/get_history_calls", methods=["GET"])
         @self.token_required
@@ -127,6 +131,38 @@ class ServerAPI:
             #time.sleep(5) TODO: fix it to send just when changed
             time.sleep(self.cache_update_interval)
 
+    def validate_token(self):
+        try:
+            print(request.json)
+            #token = request.json.get("token")
+            token = "abcde"
+            account_id = '40920689'
+            user_id = request.json.get("agentId")
+            print("going to validate token")
+            validate_token_res = LpUtils().lp_validate_token(user_id, account_id, token)
+            if validate_token_res is not None:
+                print("validate_token_res before return ", validate_token_res)
+                print("validate token status code" , validate_token_res.status_code)
+                print(type(validate_token_res.status_code))
+            if validate_token_res is not None and validate_token_res.status_code == 200:
+                now = datetime.utcnow()
+                exp = now + timedelta(hours=24)
+                token = self.jwt_key.encode(
+                        {
+                            "sub": user_id,
+                            "iat": int(now.timestamp()),
+                            "exp": int(exp.timestamp()),
+                        },
+                        self.secret_key,
+                    )
+                response = jsonify({"token": token})
+                print("response=", response)
+            else:
+                response = jsonify({"message": "Invalid credentials"}), 401
+            return response
+        except Exception as e:
+            return jsonify({"message": f"An error occurred: {str(e)}"}), 500
+
     def login(self):
         try:
             print(request.json)
@@ -206,7 +242,6 @@ class ServerAPI:
 
         # VERIFY The time 
         time_threshold = int((datetime.utcnow() - timedelta(minutes=minutes)).timestamp() * 1000)
-        print("datetime is ", datetime.utcnow())
         recent_conversations = {}
         for conv_id, record in closed_conversations.items():
             if record.conversationEndTimeL:
@@ -217,7 +252,6 @@ class ServerAPI:
        #     for conv_id, record in closed_conversations.items()
        #     if record.conversationEndTimeL and record.conversationEndTimeL >= time_threshold  # Ensure startTime is a datetime object
        # }
-        print(len(recent_conversations))
 
         return jsonify({"history": recent_conversations})
 
