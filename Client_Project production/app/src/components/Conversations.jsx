@@ -290,20 +290,23 @@ function Conversations({ handleLogout }) {
     
           {/* Main Content */}
           <Box
-            sx={{
-              flexGrow: 1,
-              p: { xs: 2, md: 4 },
-              overflowY: 'auto',
-              backgroundColor: '#ffffff',
-              borderRadius: 2,
-              boxShadow: 3,
-              mx: { xs: 2, md: 4 },
-              mt: { xs: isSidebarOpen ? 10 : 6, md: 0 },
-              marginRight: { xs: 2, md: isSidebarOpen ? 15 : 2 },
-              width: '100%',
-              transition: 'margin-right 0.3s ease',
-            }}
-          >
+  sx={{
+    flexGrow: 1,
+    p: { xs: 2, md: 4 },
+    overflowY: 'auto',
+    backgroundColor: '#ffffff',
+    borderRadius: 2,
+    boxShadow: 3,
+    mx: { xs: 'auto', md: 'auto' }, 
+    mt: { xs: isSidebarOpen ? 6 : 4, md: 0 },
+    marginRight: { xs: 'auto', md: isSidebarOpen ? 12 : 'auto' },
+    marginLeft: { xs: 'auto', md: 'auto' },
+    width: { xs: '90%', md: '80%' },  
+    maxWidth: '1200px',  
+    minHeight: '85vh',  
+    transition: 'margin-right 0.3s ease',
+  }}
+>
             {/* Header with Logout Button */}
             <Box
               sx={{
@@ -355,32 +358,39 @@ function Conversations({ handleLogout }) {
               />
             </Box>
   
-            <Box sx={{ overflowY: 'auto', minWidth: { xs: '100%', md: '25vw' } }}>
+            {/* Conversation List */}
+            <Box sx={{ overflowY: 'auto', width: '100%' }}>
               <Stack spacing={1.5}>
                 {/* Header Row */}
-                <Box sx={{ 
-                  p: { xs: 1, md: 2 }, 
-                  borderRadius: 2, 
-                  backgroundColor: '#f1f8ff', 
-                  width: '100%',
-                }}>
-                  <Stack direction="row" justifyContent="space-between" alignItems="center" flexWrap="wrap">
-                    <Box sx={{ flex: 1, minWidth: 30, textAlign: 'center' }}>
-                      <Typography variant="body1" sx={{ fontWeight: 'bold', m: 0, fontSize: { xs: '0.8rem', md: '1rem' } }}>אחוז גלובלי</Typography>
-                    </Box>
-                    <Box sx={{ flex: 1, minWidth: 30, textAlign: 'center' }}>
-                      <Typography variant="body1" sx={{ fontWeight: 'bold', m: 0, fontSize: { xs: '0.8rem', md: '1rem' } }}>כינוי</Typography>
-                    </Box>
-                    <Box sx={{ flex: 1, minWidth: 30, textAlign: 'center' }}>
-                      <Typography variant="body1" sx={{ fontWeight: 'bold', m: 0, fontSize: { xs: '0.8rem', md: '1rem' } }}>שם הסייעת</Typography>
-                    </Box>
-                    <Box sx={{ flex: 1, minWidth: 30, textAlign: 'center' }}>
-                      <Typography variant="body1" sx={{ fontWeight: 'bold', m: 0, fontSize: { xs: '0.8rem', md: '1rem' } }}>מזהה שיחה</Typography>
-                    </Box>
+                <Box sx={{ p: 2, borderRadius: 2, backgroundColor: '#f1f8ff' }}>
+                  <Stack 
+                    direction="row" 
+                    justifyContent="space-between" 
+                    alignItems="center" 
+                    flexWrap="wrap"
+                    sx={{
+                      '& > div': {
+                        px: { xs: 0.5, sm: 1 }
+                      }
+                    }}
+                  >
+                    {['אחוז גלובלי','כינוי','שם הסייע/ת','מזהה שיחה'].map((header, idx) => (
+                      <Box key={idx} sx={{ flex: 1, minWidth: { xs: 60, sm: 80 }, textAlign: 'center' }}>
+                        <Typography 
+                          variant="body1" 
+                          sx={{ 
+                            fontWeight: 'bold',
+                            fontSize: { xs: '0.8rem', sm: '0.875rem', md: '1rem' } 
+                          }}
+                        >
+                          {header}
+                        </Typography>
+                      </Box>
+                    ))}
                   </Stack>
                 </Box>
-
-                {/* Conversations List */}
+  
+                {/* Conversations */}
                 {conversations.map((conversation, index) => (
                   <Box
                     key={index}
@@ -441,7 +451,7 @@ function Conversations({ handleLogout }) {
                 ))}
               </Stack>
             </Box>
-  
+
             {/* Modal for Conversation Details */}
             <Modal open={modalOpen} onClose={handleCloseModal}>
               <Box

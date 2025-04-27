@@ -99,77 +99,99 @@ function Settings({ handleLogout }) {
           direction: 'rtl',
         }}
       >
-        {/* Sidebar */}
+        {/* Sidebar Menu */}
         {isSidebarOpen && (
-          <Box
-            sx={{
-              width: { xs: '100%', md: 120 },
-              position: { xs: 'relative', md: 'fixed' },
-              top: 0,
-              right: 0,
-              height: { xs: 'auto', md: '100vh' },
-              display: 'flex',
-              flexDirection: { xs: 'row-reverse', md: 'column' }, 
-              alignItems: 'center',
-              justifyContent: { xs: 'space-between', md: 'flex-start' },
-              py: { xs: 1, md: 4 },
-              backgroundColor: '#4fa3f7',
-              boxShadow: 3,
-              borderRadius: { xs: 0, md: '15px 0 0 15px' },
-              zIndex: 1000,
-            }}
-          >
-            {/* Home Button */}
-            <Button
-              onClick={goToHomePage}
-              sx={{
-                ...buttonStyles,
-                flexDirection: { xs: 'row-reverse', md: 'column' }, 
-              }}
-            >
-              <HomeIcon sx={iconStyles} />
-              <Typography sx={textStyles}>דף בית</Typography>
-            </Button>
-  
-            {/* Other buttons */}
-            {[ 
-              { icon: <SettingsIcon sx={iconStyles} />, text: 'הגדרות', onClick: goToSettings },
-              { icon: <ExportIcon sx={iconStyles} />, text: 'היסטוריית שיחות', onClick: goToConversationsHistory },
-              { icon: <HelpOutlineIcon sx={iconStyles} />, text: 'שאלות נפוצות', onClick: goToCommonQuestions },
-            ].map((item, index) => (
-              <Button
-                key={index}
-                onClick={item.onClick}
-                sx={{
-                  ...buttonStyles,
-                  flexDirection: { xs: 'row-reverse', md: 'column' }, 
-                }}
-              >
-                {item.icon}
-                <Typography sx={textStyles}>{item.text}</Typography>
-              </Button>
-            ))}
-  
-            {/* Logout Button */}
-            <Button
-              onClick={() => typeof handleLogout === 'function' && handleLogout()}
-              sx={{
-                ...buttonStyles,
-                flexDirection: { xs: 'row-reverse', md: 'column' },
-                backgroundColor: '#66aaff',
-                '&:hover': {
-                  backgroundColor: '#3381d6',
-                },
-              }}
-            >
-              <LogoutIcon sx={iconStyles} />
-              <Typography sx={textStyles}>התנתק</Typography>
-            </Button>
-          </Box>
-        )}
-  
-        {/* Toggle Button */}
-        <IconButton
+                     <Box
+                       sx={{
+                         width: { xs: '100%', md: 120 },
+                         position: { xs: 'relative', md: 'fixed' },
+                         top: 0,
+                         right: 0,
+                         height: { xs: 'auto', md: '100vh' },
+                         overflowY: 'auto',
+                         display: 'flex',
+                         flexDirection: { xs: 'row', md: 'column' },
+                         alignItems: 'center',
+                         justifyContent: { xs: 'space-around', md: 'flex-start' },
+                         pt: { xs: 2, md: 4 },
+                         pb: { xs: 2, md: 0 },
+                         boxShadow: 3,
+                         backgroundColor: '#4fa3f7',
+                         borderRadius: { xs: 0, md: '15px 0 0 15px' },
+                         zIndex: 1000,
+                         transition: 'transform 0.3s ease',
+                       }}
+                     >
+                       {/* Sidebar buttons */}
+                       {[ 
+                         { icon: <HomeIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />, text: 'דף בית', onClick: goToHomePage },
+                         { icon: <SettingsIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />, text: 'הגדרות', onClick: goToSettings },
+                         { icon: <ExportIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />, text: 'היסטוריית שיחות', onClick: goToConversationsHistory },
+                         { icon: <HelpOutlineIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />, text: 'שאלות נפוצות', onClick: goToCommonQuestions },
+                       ].map((item, index) => (
+                         <Button
+                           key={index}
+                           onClick={item.onClick}
+                           sx={{
+                             mb: { xs: 0, md: 3 },
+                             display: 'flex',
+                             flexDirection: 'column',
+                             alignItems: 'center',
+                             gap: { xs: 0.5, md: 1 },
+                             textTransform: 'none',
+                             py: { xs: 0.5, md: 1 },
+                             px: { xs: 1, md: 2 },
+                             borderRadius: 2,
+                             backgroundColor: 'transparent',
+                             '&:hover': {
+                               backgroundColor: '#0056b3',
+                               boxShadow: 2,
+                             },
+                           }}
+                         >
+                           {item.icon}
+                           <Typography variant="body2" sx={{ 
+                             color: 'white',
+                             fontSize: { xs: '0.7rem', md: '0.875rem' }
+                           }}>
+                             {item.text}
+                           </Typography>
+                         </Button>
+                       ))}
+             
+                       {/* Logout button */}
+                       <Button
+                         onClick={() => typeof handleLogout === 'function' && handleLogout()}
+                         sx={{
+                           mb: { xs: 0, md: 3 },
+                           display: 'flex',
+                           flexDirection: 'column',
+                           alignItems: 'center',
+                           gap: { xs: 0.5, md: 1 },
+                           textTransform: 'none',
+                           py: { xs: 0.5, md: 1 },
+                           px: { xs: 1, md: 2 },
+                           borderRadius: 2,
+                           backgroundColor: '#66aaff',
+                           '&:hover': {
+                             backgroundColor: '#3381d6',
+                             boxShadow: 2,
+                           },
+                         }}
+                       >
+                         <LogoutIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />
+                         <Typography variant="body2" sx={{ 
+                           color: 'white',
+                           fontSize: { xs: '0.7rem', md: '0.875rem' }
+                         }}>
+                           התנתק
+                         </Typography>
+                       </Button>
+                     </Box>
+                   )}
+             
+                   {/* Toggle Button */}
+                   <IconButton
                      onClick={toggleSidebar}
                      sx={{
                        position: 'fixed',
@@ -212,22 +234,26 @@ function Settings({ handleLogout }) {
               mb: 3,
             }}
           >
-            <Typography
-              variant="h4"
-              sx={{
-                textAlign: 'center',
-                fontWeight: 'bold',
-                color: 'white',
-                backgroundColor: '#4fa3f7',
-                width: { xs: '100%', md: 'auto' },
-                borderRadius: 3,
-                p: 2,
-                direction: 'rtl',
-                fontSize: { xs: '1.5rem', md: '2rem' },
-              }}
-            >
-              הגדרות
-            </Typography>
+           <Typography
+  variant="h4"
+  sx={{
+    width: '100%',             
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: 'white',
+    mt: { xs: 2, md: 4 },
+    mb: 4,
+    direction: 'rtl',
+    bgcolor: '#4fa3f7',        
+    borderRadius: '12px',       
+    p: 2,                        
+    fontSize: { xs: '1.3rem', sm: '1.5rem', md: '1.75rem' },
+    mx: { xs: 2, sm: 4, md: 8 }, 
+  }}
+>
+  הגדרות
+</Typography>
+
           </Box>
   
           {/* Settings Content */}
@@ -290,34 +316,8 @@ function Settings({ handleLogout }) {
       </Box>
     </ThemeProvider>
   );
-  
   } 
-  
-  const buttonStyles = {
-    mb: { xs: 0, md: 3 },
-    display: 'flex',
-    alignItems: 'center',
-    gap: { xs: 0.5, md: 1 },
-    textTransform: 'none',
-    py: { xs: 0.5, md: 1 },
-    px: { xs: 1, md: 2 },
-    borderRadius: 2,
-    backgroundColor: 'transparent',
-    '&:hover': {
-      backgroundColor: '#0056b3',
-      boxShadow: 2,
-    },
-  };
-  
-  const iconStyles = {
-    fontSize: { xs: 24, md: 30 },
-    color: 'white',
-  };
-  
-  const textStyles = {
-    color: 'white',
-    fontSize: { xs: '0.7rem', md: '0.875rem' },
-  };
+
   
   const inputLabelStyles = {
     right: 14,
