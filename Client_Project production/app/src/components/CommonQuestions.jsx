@@ -99,129 +99,131 @@ function CommonQuestions({ handleLogout }) {
         }}
       >
            {/* Sidebar Menu */}
-           {isSidebarOpen && (
-          <Box
-            sx={{
-              width: { xs: '100%', md: 120 },
-              position: { xs: 'relative', md: 'fixed' },
-              top: 0,
-              right: 0,
-              height: { xs: 'auto', md: '100vh' },
-              overflowY: 'auto',
-              display: 'flex',
-              flexDirection: { xs: 'row-reverse', md: 'column' },
-              alignItems: 'center',
-              justifyContent: { xs: 'space-around', md: 'flex-start' },
-              pt: { xs: 2, md: 4 },
-              pb: { xs: 2, md: 0 },
-              boxShadow: 3,
-              backgroundColor: '#4fa3f7',
-              borderRadius: { xs: 0, md: '15px 0 0 15px' },
-              zIndex: 1000,
-              transition: 'transform 0.3s ease',
-            }}
-          >
-            {/* Sidebar buttons */}
-            {[ 
-              { icon: <HomeIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />, text: 'דף בית', onClick: goToHomePage },
-              { icon: <SettingsIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />, text: 'הגדרות', onClick: goToSettings },
-              { icon: <ExportIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />, text: 'היסטוריית שיחות', onClick: goToConversationsHistory },
-              { icon: <HelpOutlineIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />, text: 'שאלות נפוצות', onClick: goToCommonQuestions },
-            ].map((item, index) => (
-              <Button
-                key={index}
-                onClick={item.onClick}
-                sx={{
-                  mb: { xs: 0, md: 3 },
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  gap: { xs: 0.5, md: 1 },
-                  textTransform: 'none',
-                  py: { xs: 0.5, md: 1 },
-                  px: { xs: 1, md: 2 },
-                  borderRadius: 2,
-                  backgroundColor: 'transparent',
-                  '&:hover': {
-                    backgroundColor: '#0056b3',
-                    boxShadow: 2,
-                  },
-                }}
-              >
-                {item.icon}
-                <Typography variant="body2" sx={{ 
-                  color: 'white',
-                  fontSize: { xs: '0.7rem', md: '0.875rem' }
-                }}>
-                  {item.text}
-                </Typography>
-              </Button>
-            ))}
-  
-            {/* Logout button */}
-            <Button
-              onClick={() => typeof handleLogout === 'function' && handleLogout()}
-              sx={{
-                mb: { xs: 0, md: 3 },
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: { xs: 0.5, md: 1 },
-                textTransform: 'none',
-                py: { xs: 0.5, md: 1 },
-                px: { xs: 1, md: 2 },
-                borderRadius: 2,
-                backgroundColor: '#66aaff',
-                '&:hover': {
-                  backgroundColor: '#3381d6',
-                  boxShadow: 2,
-                },
-              }}
-            >
-              <LogoutIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />
-              <Typography variant="body2" sx={{ 
-                color: 'white',
-                fontSize: { xs: '0.7rem', md: '0.875rem' }
-              }}>
-                התנתק
-              </Typography>
-            </Button>
-          </Box>
-        )}
-  
-        {/* Toggle Button */}
-        <IconButton
-          onClick={toggleSidebar}
-          sx={{
-            position: 'fixed',
-            top: 16,
-            right: 10,
-            zIndex: 1100,
-            backgroundColor: '#4fa3f7',
-            color: 'white',
-            '&:hover': {
-              backgroundColor: '#3381d6',
-            },
-          }}
-        >
-          <MenuIcon />
-        </IconButton>
+                   {isSidebarOpen && (
+                                <Box
+                                  sx={{
+                                    width: { xs: '100%', md: 120 },
+                                    position: { xs: 'relative', md: 'fixed' },
+                                    top: 0,
+                                    right: 0,
+                                    height: { xs: 'auto', md: '100vh' },
+                                    overflowY: 'auto',
+                                    display: 'flex',
+                                    flexDirection: { xs: 'row', md: 'column' },
+                                    alignItems: 'center',
+                                    justifyContent: { xs: 'space-around', md: 'flex-start' },
+                                    pt: { xs: 2, md: 4 },
+                                    pb: { xs: 2, md: 0 },
+                                    boxShadow: 3,
+                                    backgroundColor: '#4fa3f7',
+                                    borderRadius: { xs: 0, md: '15px 0 0 15px' },
+                                    zIndex: 1000,
+                                    transition: 'transform 0.3s ease',
+                                  }}
+                                >
+                                  {/* Sidebar buttons */}
+                                  {[ 
+                                    { icon: <HomeIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />, text: 'דף בית', onClick: goToHomePage },
+                                    { icon: <SettingsIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />, text: 'הגדרות', onClick: goToSettings },
+                                    { icon: <ExportIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />, text: 'היסטוריית שיחות', onClick: goToConversationsHistory },
+                                    { icon: <HelpOutlineIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />, text: 'שאלות נפוצות', onClick: goToCommonQuestions },
+                                  ].map((item, index) => (
+                                    <Button
+                                      key={index}
+                                      onClick={item.onClick}
+                                      sx={{
+                                        mb: { xs: 0, md: 3 },
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'center',
+                                        gap: { xs: 0.5, md: 1 },
+                                        textTransform: 'none',
+                                        py: { xs: 0.5, md: 1 },
+                                        px: { xs: 1, md: 2 },
+                                        borderRadius: 2,
+                                        backgroundColor: 'transparent',
+                                        '&:hover': {
+                                          backgroundColor: '#0056b3',
+                                          boxShadow: 2,
+                                        },
+                                      }}
+                                    >
+                                      {item.icon}
+                                      <Typography variant="body2" sx={{ 
+                                        color: 'white',
+                                        fontSize: { xs: '0.7rem', md: '0.875rem' }
+                                      }}>
+                                        {item.text}
+                                      </Typography>
+                                    </Button>
+                                  ))}
+                        
+                                  {/* Logout button */}
+                                  <Button
+                                    onClick={() => typeof handleLogout === 'function' && handleLogout()}
+                                    sx={{
+                                      mb: { xs: 0, md: 3 },
+                                      display: 'flex',
+                                      flexDirection: 'column',
+                                      alignItems: 'center',
+                                      gap: { xs: 0.5, md: 1 },
+                                      textTransform: 'none',
+                                      py: { xs: 0.5, md: 1 },
+                                      px: { xs: 1, md: 2 },
+                                      borderRadius: 2,
+                                      backgroundColor: '#66aaff',
+                                      '&:hover': {
+                                        backgroundColor: '#3381d6',
+                                        boxShadow: 2,
+                                      },
+                                    }}
+                                  >
+                                    <LogoutIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />
+                                    <Typography variant="body2" sx={{ 
+                                      color: 'white',
+                                      fontSize: { xs: '0.7rem', md: '0.875rem' }
+                                    }}>
+                                      התנתק
+                                    </Typography>
+                                  </Button>
+                                </Box>
+                              )}
+                        
+                              {/* Toggle Button */}
+                              <IconButton
+                                onClick={toggleSidebar}
+                                sx={{
+                                  position: 'fixed',
+                                  top: 16,
+                                  right: isSidebarOpen ? { xs: 16, md: 140 } : 16,
+                                  zIndex: 1100,
+                                  backgroundColor: '#4fa3f7',
+                                  color: 'white',
+                                  '&:hover': {
+                                    backgroundColor: '#3381d6',
+                                  },
+                                }}
+                              >
+                                <MenuIcon />
+                              </IconButton>
   
           {/* Main Content */}
           <Box
-            sx={{
-              flexGrow: 1,
-              p: { xs: 2, sm: 3, md: 4 },
-              overflowY: 'auto',
-              bgcolor: '#f0f8ff',
-              width: '100%',
-              mt: { xs: 5, md: 0 },
-              mr: { xs: 0, md: isSidebarOpen ? 16 : 0 },
-              transition: 'margin-right 0.3s ease',
-              height: '100vh',
-              paddingBottom: 8,
-            }}
-          >
+  sx={{
+    flexGrow: 1,
+    p: { xs: 2, sm: 3, md: 4 },
+    overflowY: 'auto',
+    bgcolor: '#f0f8ff',
+    width: { xs: '100%', md: isSidebarOpen ? 'calc(100% - 128px)' : '100%' },
+    maxWidth: '1200px', 
+    mx: { xs: 0, md: 'auto' },  
+    mt: { xs: 5, md: 0 },
+    mr: { xs: 0, md: isSidebarOpen ? 16 : 0 },
+    transition: 'all 0.3s ease',
+    height: '100vh',
+    paddingBottom: 8,
+  }}
+>
             <Typography
               variant="h4"
               sx={{

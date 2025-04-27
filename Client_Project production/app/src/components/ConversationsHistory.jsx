@@ -186,7 +186,7 @@ function ConversationsHistory({ handleLogout }) {
                          height: { xs: 'auto', md: '100vh' },
                          overflowY: 'auto',
                          display: 'flex',
-                         flexDirection: { xs: 'row-reverse', md: 'column' },
+                         flexDirection: { xs: 'row', md: 'column' },
                          alignItems: 'center',
                          justifyContent: { xs: 'space-around', md: 'flex-start' },
                          pt: { xs: 2, md: 4 },
@@ -328,7 +328,6 @@ function ConversationsHistory({ handleLogout }) {
               היסטוריית שיחות
             </Typography>
   
-            {/* Rest of the code remains the same */}
             {/* Filters */}
             <Stack
               direction={{ xs: 'column', sm: 'row' }}
@@ -384,7 +383,7 @@ function ConversationsHistory({ handleLogout }) {
                       }
                     }}
                   >
-                    {['מזהה שיחה', 'שם הסייעת', 'כינוי', 'אחוז גלובלי'].map((header, idx) => (
+                    {['מזהה שיחה', 'שם הסייע/ת', 'כינוי', 'אחוז גלובלי'].map((header, idx) => (
                       <Box key={idx} sx={{ flex: 1, minWidth: { xs: 60, sm: 80 }, textAlign: 'center' }}>
                         <Typography 
                           variant="body1" 
