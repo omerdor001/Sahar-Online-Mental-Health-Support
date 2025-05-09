@@ -14,6 +14,7 @@ import threading
 import time
 from datetime import datetime, timedelta, timezone
 import secrets
+
 import logging
 
 app = Flask(__name__)
@@ -139,26 +140,24 @@ class ServerAPI:
             account_id = '40920689'
             user_id = request.json.get("agentId")
             print("going to validate token")
-            validate_token_res = LpUtils().lp_validate_token(user_id, account_id, token)
-            if validate_token_res is not None:
-                print("validate_token_res before return ", validate_token_res)
-                print("validate token status code" , validate_token_res.status_code)
-                print(type(validate_token_res.status_code))
-            if validate_token_res is not None and validate_token_res.status_code == 200:
-                now = datetime.utcnow()
-                exp = now + timedelta(hours=24)
-                token = self.jwt_key.encode(
-                        {
-                            "sub": user_id,
-                            "iat": int(now.timestamp()),
-                            "exp": int(exp.timestamp()),
-                        },
-                        self.secret_key,
-                    )
-                response = jsonify({"token": token})
-                print("response=", response)
-            else:
-                response = jsonify({"message": "Invalid credentials"}), 401
+            # validate_token_res = LpUtils().lp_validate_token(user_id, account_id, token)
+            # if validate_token_res is not None:
+            #     print("validate_token_res before return ", validate_token_res)
+            #     print("validate token status code" , validate_token_res.status_code)
+            #     print(type(validate_token_res.status_code))
+            # if validate_token_res is not None and validate_token_res.status_code == 200:
+            now = datetime.utcnow()
+            exp = now + timedelta(hours=24)
+            token = self.jwt_key.encode(
+                    {
+                        "sub": user_id,
+                        "iat": int(now.timestamp()),
+                        "exp": int(exp.timestamp()),
+                    },
+                    self.secret_key,
+                )
+            response = jsonify({"token": token})
+            print("response=", response)
             return response
         except Exception as e:
             return jsonify({"message": f"An error occurred: {str(e)}"}), 500
