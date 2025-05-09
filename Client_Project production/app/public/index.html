@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suicide Risk App</title>
+    <link rel="icon" href="/icon.png">
+</head>
+<body>
+    <div id="root"></div>
+    <!-- LivePerson Widget Script -->
+    <script src="https://lpcdn.lpsnmedia.net/webagent/client-SDK.min.js"></script>
+    <!-- Check if lpTag is loaded -->
+    <script>
+        window.onload = function() {
+            if (window.lpTag) {
+                console.log("LivePerson widget loaded successfully!");
+            } else {
+                console.log("LivePerson widget not loaded.");
+            }
+        };
+    </script>
+
+    <!-- Your React app script -->
+    <script src="main.js"></script>
+</body>
+</html>
