@@ -6,11 +6,10 @@ import threading
 from datetime import datetime, timedelta, date
 import json
 from zipfile import BadZipFile
-
 from openpyxl.reader.excel import load_workbook
 from openpyxl.utils.exceptions import InvalidFileException
 from openpyxl.workbook import Workbook
-
+from time import sleep
 from DataBase.database_helper import DataBaseHelper
 from dao_object.conversation_prediction_object import ConversationPredictionDAO
 from utils.config_util import ConfigUtil
@@ -50,10 +49,13 @@ class ConversationCache:
                                     yield lst[i:i + chunk_size]
                             
                     for chunk in chunk_list(initial_predictions, 100):
-                        conversation_ids = [prediction.conversationId for prediction in initial_predictions]
-
+                        #conversation_ids = [prediction.conversationId for prediction in initial_predictions]
+                        conversation_ids = [prediction.conversationId for prediction in chunk]    #check
+                        print("going to request converstaions ids ", len(conversation_ids))
                         response = LpUtils().get_conversations_by_conv_id(conversation_ids)
-
+                        print("response status code is : ", response) 
+                        #print(response)
+                        #sleep(5)
                         conversations_records: dict[str, ConversationHistoryRecord] = (
                             LpUtils.extract_conversations(response)
                         )
@@ -141,6 +143,7 @@ class ConversationCache:
                     new_record = conv_record
                 else:
                     new_record.update(conv_record)
+                new_record.update_field("need_analyze", True)    
                 new_record.update_field("lastUpdateTime", currentTime)
                 self.open_conversations[conv_id] = new_record
 
@@ -244,7 +247,6 @@ class ConversationCache:
             conv_record = self.open_conversations.get(conv_id)
             if conv_record:
                 conv_record.update_field("need_analyze", False)
-
     def enrich_conversation(self, conv_id: str, json_str: str, last_message_id: str):
         logging.debug(f"Start enriching conversation: {conv_id}")
         with self._lock.gen_wlock():

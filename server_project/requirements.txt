@@ -9,4 +9,7 @@ SQLAlchemy==2.0.37
 pandas
 flask_cors
 gunicorn==20.1.0
-
+eventlet==0.39.0
+dnspython==2.6.1
+flask-socketio==5.5.1
+requests_oauthlib

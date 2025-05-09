@@ -4,7 +4,7 @@ import time
 
 from lp_api_manager.lp_api_call import LpApiCall
 from utils.config_util import ConfigUtil
-
+from requests_oauthlib import OAuth1
 
 """
     LpExecutor Class
@@ -35,21 +35,41 @@ class LpExecutor:
 
     @staticmethod
     def execute(api_call: LpApiCall, number_of_retries: int = 0, verbose=False):
+        config_util = ConfigUtil()
         if number_of_retries == 0:
-            config_util = ConfigUtil()
             number_of_retries = config_util.get_config_attribute(
                 "numberOfRetriesAPICalls"
             )
+        client_key = config_util.get_config_attribute("APP_KEY")
+        client_secret = config_util.get_config_attribute("APP_SECRET")
+        access_token = config_util.get_config_attribute("ACCESS_TOKEN")
+        access_secret = config_util.get_config_attribute("TOKEN_SECRET")
         for i in range(number_of_retries):
             try:
+                auth = OAuth1(
+                client_key=client_key,
+                client_secret=client_secret,
+                resource_owner_key=access_token,
+                resource_owner_secret=access_secret
+                )
                 # Make the lp_api_manager call
-                prepared_request = requests.Request(
-                    method=api_call.type.value,
-                    url=api_call.url,
-                    headers=api_call.headers if api_call.headers else None,
-                    json=api_call.body if api_call.body else None,
-                    params=api_call.params if api_call.params else None,
-                ).prepare()
+                if api_call.body and "username" in api_call.body:
+                    prepared_request = requests.Request(
+                        method=api_call.type.value,
+                        url=api_call.url,
+                        headers=api_call.headers if api_call.headers  and api_call.headers != {} else None,
+                        json=api_call.body if api_call.body else None,
+                        params=api_call.params if api_call.params else None,
+                    ).prepare()
+                else:
+                    prepared_request = requests.Request(
+                                            method=api_call.type.value,
+                                            url=api_call.url,
+                                            # headers=api_call.headers if api_call.headers  and api_call.headers != {} else None,
+                                            json=api_call.body if api_call.body else None,
+                                            params=api_call.params if api_call.params else None,
+                                            auth=auth
+                                        ).prepare()
                 if verbose:
                     logging.debug(
                         f"lp_api_manager call - "
@@ -60,7 +80,6 @@ class LpExecutor:
                     )
                 session = requests.Session()
                 response = session.send(prepared_request)
-
                 # Check if the request was successful
                 if response.status_code in range(200, 300):
                     logging.debug(

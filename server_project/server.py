@@ -1,3 +1,6 @@
+import eventlet
+eventlet.monkey_patch()
+
 import logging
 
 from AI.analyzer import Analyzer
@@ -11,10 +14,14 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from DataBase import database_helper
+from flask_socketio import SocketIO
+
+
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
-CORS(app)                                             
+CORS(app, support_credentials=True)                                             
+socketio = SocketIO(app, cors_allowed_origin="*", async_mode='eventlet', allow_legacy_requests=True)
 
 def init_system():
     # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'database.db')
@@ -25,7 +32,7 @@ def init_system():
         # print("Database created successfully!")
     database_helper.DataBaseHelper(app)
     ConfigUtil().init()  # Init singleton
-    ServerAPI(app)
+    ServerAPI(app, socketio)
     Logger()
     logging.debug("Start system initiation")
     lp_utils = LpUtils()

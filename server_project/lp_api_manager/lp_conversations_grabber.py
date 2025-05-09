@@ -10,10 +10,10 @@ class LpConversationGrabber:
             self,
             last_grab_time=int((datetime.now() - timedelta(hours=24)).timestamp() * 1000),
     ):
-        live_person_util = LpUtils()
-        self.bearer_token = live_person_util.bearer_token
-        self.message_hist_domain = live_person_util.messageHistDomain
-        self.account_id = live_person_util.account_id
+        self.live_person_util = LpUtils()
+        self.bearer_token = self.live_person_util.bearer_token
+        self.message_hist_domain = self.live_person_util.messageHistDomain
+        self.account_id = self.live_person_util.account_id
         self.last_grab_time = last_grab_time
 
     def grab(self):  # remove conv that not with language = he - IL
@@ -28,9 +28,9 @@ class LpConversationGrabber:
         messages: dict[str, set[MessageRecord]] = {}
 
         while True:
-            response = LpUtils().get_open_conversations(start_time, current_time_ms, offset)
+            print("going to grab and get open conversations")
+            response = self.live_person_util.get_open_conversations(start_time, current_time_ms, offset)
             count = response["_metadata"]["count"]
-
             # Extract conversation records from the response
             conversation_records = LpUtils.extract_conversations(response)
             messages_records = LpUtils.extract_messages(response)
@@ -47,5 +47,6 @@ class LpConversationGrabber:
         catch.update_conversations(current_time_ms, conversations, messages)
 
         self.last_grab_time = current_time_ms
+        print("Finish grabbing successfully")
         logging.info("Finish grabbing successfully")
         return conversations
