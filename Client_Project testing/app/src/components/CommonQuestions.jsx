@@ -91,251 +91,203 @@ function CommonQuestions({ handleLogout }) {
       <Box
         sx={{
           display: 'flex',
+          flexDirection: 'column',
           height: '100vh',
           direction: 'rtl',
           bgcolor: '#f0f8ff',
+          overflow: 'hidden',
         }}
       >
-        {/* Sidebar Menu */}
-        {isSidebarOpen && (
+           {/* Sidebar Menu */}
+                   {isSidebarOpen && (
+                                <Box
+                                  sx={{
+                                    width: { xs: '100%', md: 120 },
+                                    position: { xs: 'relative', md: 'fixed' },
+                                    top: 0,
+                                    right: 0,
+                                    height: { xs: 'auto', md: '100vh' },
+                                    overflowY: 'auto',
+                                    display: 'flex',
+                                    flexDirection: { xs: 'row', md: 'column' },
+                                    alignItems: 'center',
+                                    justifyContent: { xs: 'space-around', md: 'flex-start' },
+                                    pt: { xs: 2, md: 4 },
+                                    pb: { xs: 2, md: 0 },
+                                    boxShadow: 3,
+                                    backgroundColor: '#4fa3f7',
+                                    borderRadius: { xs: 0, md: '15px 0 0 15px' },
+                                    zIndex: 1000,
+                                    transition: 'transform 0.3s ease',
+                                  }}
+                                >
+                                  {/* Sidebar buttons */}
+                                  {[ 
+                                    { icon: <HomeIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />, text: 'דף בית', onClick: goToHomePage },
+                                    { icon: <SettingsIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />, text: 'הגדרות', onClick: goToSettings },
+                                    { icon: <ExportIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />, text: 'היסטוריית שיחות', onClick: goToConversationsHistory },
+                                    { icon: <HelpOutlineIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />, text: 'שאלות נפוצות', onClick: goToCommonQuestions },
+                                  ].map((item, index) => (
+                                    <Button
+                                      key={index}
+                                      onClick={item.onClick}
+                                      sx={{
+                                        mb: { xs: 0, md: 3 },
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'center',
+                                        gap: { xs: 0.5, md: 1 },
+                                        textTransform: 'none',
+                                        py: { xs: 0.5, md: 1 },
+                                        px: { xs: 1, md: 2 },
+                                        borderRadius: 2,
+                                        backgroundColor: 'transparent',
+                                        '&:hover': {
+                                          backgroundColor: '#0056b3',
+                                          boxShadow: 2,
+                                        },
+                                      }}
+                                    >
+                                      {item.icon}
+                                      <Typography variant="body2" sx={{ 
+                                        color: 'white',
+                                        fontSize: { xs: '0.7rem', md: '0.875rem' }
+                                      }}>
+                                        {item.text}
+                                      </Typography>
+                                    </Button>
+                                  ))}
+                        
+                                  {/* Logout button */}
+                                  <Button
+                                    onClick={() => typeof handleLogout === 'function' && handleLogout()}
+                                    sx={{
+                                      mb: { xs: 0, md: 3 },
+                                      display: 'flex',
+                                      flexDirection: 'column',
+                                      alignItems: 'center',
+                                      gap: { xs: 0.5, md: 1 },
+                                      textTransform: 'none',
+                                      py: { xs: 0.5, md: 1 },
+                                      px: { xs: 1, md: 2 },
+                                      borderRadius: 2,
+                                      backgroundColor: '#66aaff',
+                                      '&:hover': {
+                                        backgroundColor: '#3381d6',
+                                        boxShadow: 2,
+                                      },
+                                    }}
+                                  >
+                                    <LogoutIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />
+                                    <Typography variant="body2" sx={{ 
+                                      color: 'white',
+                                      fontSize: { xs: '0.7rem', md: '0.875rem' }
+                                    }}>
+                                      התנתק
+                                    </Typography>
+                                  </Button>
+                                </Box>
+                              )}
+                        
+                              {/* Toggle Button */}
+                              <IconButton
+                                onClick={toggleSidebar}
+                                sx={{
+                                  position: 'fixed',
+                                  top: 16,
+                                  right: isSidebarOpen ? { xs: 16, md: 140 } : 16,
+                                  zIndex: 1100,
+                                  backgroundColor: '#4fa3f7',
+                                  color: 'white',
+                                  '&:hover': {
+                                    backgroundColor: '#3381d6',
+                                  },
+                                }}
+                              >
+                                <MenuIcon />
+                              </IconButton>
+  
+          {/* Main Content */}
           <Box
-            sx={{
-              width: 120,
-              position: 'fixed',
-              top: 0,
-              right: 0,
-              height: '100vh',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              pt: 4,
-              boxShadow: 3,
-              backgroundColor: '#4fa3f7',
-              borderRadius: '15px 0 0 15px',
-              zIndex: 1000,
-              transition: 'transform 0.3s ease',
-            }}
-          >
-            <Typography variant="h6" sx={{ mb: 4, fontWeight: 'bold', color: 'white' }}>
-              תפריט
-            </Typography>
-
-            <Button
-              onClick={goToHomePage}
-              sx={{
-                mb: 3,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: 1,
-                textTransform: 'none',
-                py: 2,
-                px: 3,
-                borderRadius: 2,
-                backgroundColor: 'transparent',
-                '&:hover': {
-                  backgroundColor: '#0056b3',
-                  boxShadow: 2,
-                },
-              }}
-            >
-              <HomeIcon sx={{ fontSize: 30, color: 'white' }} />
-              <Typography variant="body2" sx={{ color: 'white' }}>
-                דף בית
-              </Typography>
-            </Button>
-            <Button
-    onClick={goToSettings}
-    sx={{
-      mb: 3,
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      gap: 1,
-      textTransform: 'none',
-      py: 2,
-      px: 3,
-      borderRadius: 2,
-      backgroundColor: 'transparent',
-      '&:hover': {
-        backgroundColor: '#0056b3',
-        boxShadow: 2,
-      },
-    }}
-  >
-    <SettingsIcon sx={{ fontSize: 30, color: 'white' }} />
-    <Typography variant="body2" sx={{ color: 'white' }}>
-      הגדרות
-    </Typography>
-  </Button>
-
-  <Button
-    onClick={goToConversationsHistory}
-    sx={{
-      mb: 3,
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      gap: 1,
-      textTransform: 'none',
-      py: 2,
-      px: 3,
-      borderRadius: 2,
-      backgroundColor: 'transparent',
-      '&:hover': {
-        backgroundColor: '#0056b3',
-        boxShadow: 2,
-      },
-    }}
-  >
-    <ExportIcon sx={{ fontSize: 30, color: 'white' }} />
-    <Typography variant="body2" sx={{ color: 'white' }}>
-      היסטוריית שיחות
-    </Typography>
-  </Button>
-
-  <Button
-    onClick={goToCommonQuestions}
-    sx={{
-      mb: 3,
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      gap: 1,
-      textTransform: 'none',
-      py: 2,
-      px: 3,
-      borderRadius: 2,
-      backgroundColor: 'transparent',
-      '&:hover': {
-        backgroundColor: '#0056b3',
-        boxShadow: 2,
-      },
-    }}
-  >
-    <HelpOutlineIcon sx={{ fontSize: 30, color: 'white' }} />
-    <Typography variant="body2" sx={{ color: 'white' }}>
-      שאלות נפוצות
-    </Typography>
-  </Button>
-  <Button
-  onClick={() => {
-    if (typeof handleLogout === 'function') {
-      handleLogout();
-    }}}
   sx={{
-    mb: 3,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: 1,
-    textTransform: 'none',
-    py: 2,
-    px: 3,
-    borderRadius: 2,
-    backgroundColor: '#66aaff',
-    '&:hover': {
-      backgroundColor: '#3381d6',
-      boxShadow: 2,
-    },
+    flexGrow: 1,
+    p: { xs: 2, sm: 3, md: 4 },
+    overflowY: 'auto',
+    bgcolor: '#f0f8ff',
+    width: { xs: '100%', md: isSidebarOpen ? 'calc(100% - 128px)' : '100%' },
+    maxWidth: '1200px', 
+    mx: { xs: 0, md: 'auto' },  
+    mt: { xs: 5, md: 0 },
+    mr: { xs: 0, md: isSidebarOpen ? 16 : 0 },
+    transition: 'all 0.3s ease',
+    height: '100vh',
+    paddingBottom: 8,
   }}
 >
-  <LogoutIcon sx={{ fontSize: 30, color: 'white' }} />
-  <Typography variant="body2" sx={{ color: 'white' }}>
-    התנתק
-  </Typography>
-</Button>
-</Box>
-        )}
-        {/* Toggle Button */}
-        <IconButton
-          onClick={toggleSidebar}
-          sx={{
-            position: 'fixed',
-            top: 16,
-            right: isSidebarOpen ? 140 : 16, // Adjust position based on sidebar state
-            zIndex: 1100,
-            backgroundColor: '#4fa3f7',
-            color: 'white',
-            '&:hover': {
-              backgroundColor: '#3381d6',
-            },
-          }}
-        >
-          <MenuIcon />
-        </IconButton>
-
-        {/* FAQ Section */}
-        <Box
-          sx={{
-            flexGrow: 1,
-            ml: 0,
-            mr: isSidebarOpen ? '130px' : 0, // Adjust margin based on sidebar state
-            p: 3,
-            overflowY: 'auto',
-            backgroundColor: '#f0f8ff',
-            zIndex: 1,
-          }}
-        >
-          <Typography
-            variant="h4"
-            sx={{
-              textAlign: 'center',
-              fontWeight: 'bold',
-              color: 'white',
-              mt: 6,
-              mb: 3,
-              direction: 'rtl',
-              backgroundColor: '#4fa3f7',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: 'auto',
-              ml: { xs: 0, md: -15 },
-              flexGrow: 1,
-              borderRadius: 3,
-              p: 2,
-            }}
-          >
-            שאלות נפוצות
-          </Typography>
-
-          <Stack spacing={4}>
-            {faqs.map((faq, index) => {
-              let backgroundColor = index % 2 === 0 ? '#f1f8ff' : '#e3f2fd';
-              return (
+            <Typography
+              variant="h4"
+              sx={{
+                textAlign: 'center',
+                fontWeight: 'bold',
+                color: 'white',
+                mt: { xs: 2, md: 4 },
+                mb: 4,
+                direction: 'rtl',
+                bgcolor: '#4fa3f7',
+                borderRadius: 3,
+                p: 2,
+                mx: { xs: 0, sm: 2, md: 8 },
+                fontSize: { xs: '1.3rem', sm: '1.5rem', md: '1.75rem' },
+              }}
+            >
+              שאלות נפוצות
+            </Typography>
+  
+            <Stack spacing={{ xs: 2, md: 4 }}>
+              {faqs.map((faq, idx) => (
                 <Box
-                  key={index}
+                  key={idx}
                   sx={{
-                    p: 3,
+                    p: { xs: 2, md: 3 },
                     borderRadius: 2,
-                    backgroundColor,
+                    bgcolor: idx % 2 === 0 ? '#f1f8ff' : '#e3f2fd',
                     boxShadow: 1,
                     '&:hover': {
                       boxShadow: 3,
                       cursor: 'pointer',
                     },
                     borderBottom: '1px solid #ddd',
-                    mr: 5,
+                    mx: { xs: 0, sm: 2, md: 5 },
                   }}
                 >
                   <Typography
                     variant="body1"
-                    sx={{ fontWeight: 'bold', mb: 1, color: '#1976d2' }}
+                    sx={{
+                      fontWeight: 'bold',
+                      mb: 1,
+                      color: '#1976d2',
+                      fontSize: { xs: '0.9rem', md: '1rem' },
+                    }}
                   >
                     {faq.question}
                   </Typography>
-                  <Typography variant="body2" sx={{ color: '#555' }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: '#555',
+                      fontSize: { xs: '0.8rem', md: '0.875rem' },
+                    }}
+                  >
                     {faq.answer}
                   </Typography>
                 </Box>
-              );
-            })}
-          </Stack>
+              ))}
+            </Stack>
+          </Box>
         </Box>
-      </Box>
     </ThemeProvider>
   );
+  
 }
 
 CommonQuestions.propTypes = {

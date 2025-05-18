@@ -168,420 +168,418 @@ function Conversations({ handleLogout }) {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <>
-        <Box sx={{ display: 'flex', flexDirection: 'row', height: '100vh', backgroundColor: '#f0f4f8' }}>
-          
-          {/* Sidebar Menu */}
-          {isSidebarOpen && (
-          <Box
-            sx={{
-              width: 120,
-              position: 'fixed',
-              top: 0,
-              right: 0,
-              height: '100vh',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              pt: 4,
-              boxShadow: 3,
-              backgroundColor: '#4fa3f7',
-              borderRadius: '15px 0 0 15px',
-              zIndex: 1000,
-              transition: 'transform 0.3s ease',
-            }}
-          >
-            <Typography variant="h6" sx={{ mb: 4, fontWeight: 'bold', color: 'white' }}>
-              תפריט
-            </Typography>
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <>
+      <Box sx={{
+        display: 'flex',
+        flexDirection: { xs: 'column', md: 'row' },
+        height: { xs: 'auto', md: '100vh' },
+        backgroundColor: '#f0f4f8',
+        overflow: 'hidden',
+      }}>
 
-            <Button
-              onClick={goToHomePage}
-              sx={{
-                mb: 3,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: 1,
-                textTransform: 'none',
-                py: 2,
-                px: 3,
-                borderRadius: 2,
-                backgroundColor: 'transparent',
-                '&:hover': {
-                  backgroundColor: '#0056b3',
-                  boxShadow: 2,
-                },
-              }}
-            >
-              <HomeIcon sx={{ fontSize: 30, color: 'white' }} />
-              <Typography variant="body2" sx={{ color: 'white' }}>
-                דף בית
-              </Typography>
-            </Button>
-            <Button
-    onClick={goToSettings}
-    sx={{
-      mb: 3,
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      gap: 1,
-      textTransform: 'none',
-      py: 2,
-      px: 3,
-      borderRadius: 2,
-      backgroundColor: 'transparent',
-      '&:hover': {
-        backgroundColor: '#0056b3',
-        boxShadow: 2,
-      },
-    }}
-  >
-    <SettingsIcon sx={{ fontSize: 30, color: 'white' }} />
-    <Typography variant="body2" sx={{ color: 'white' }}>
-      הגדרות
-    </Typography>
-  </Button>
-
-  <Button
-    onClick={goToConversationsHistory}
-    sx={{
-      mb: 3,
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      gap: 1,
-      textTransform: 'none',
-      py: 2,
-      px: 3,
-      borderRadius: 2,
-      backgroundColor: 'transparent',
-      '&:hover': {
-        backgroundColor: '#0056b3',
-        boxShadow: 2,
-      },
-    }}
-  >
-    <ExportIcon sx={{ fontSize: 30, color: 'white' }} />
-    <Typography variant="body2" sx={{ color: 'white' }}>
-      היסטוריית שיחות
-    </Typography>
-  </Button>
-
-  <Button
-    onClick={goToCommonQuestions}
-    sx={{
-      mb: 3,
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      gap: 1,
-      textTransform: 'none',
-      py: 2,
-      px: 3,
-      borderRadius: 2,
-      backgroundColor: 'transparent',
-      '&:hover': {
-        backgroundColor: '#0056b3',
-        boxShadow: 2,
-      },
-    }}
-  >
-    <HelpOutlineIcon sx={{ fontSize: 30, color: 'white' }} />
-    <Typography variant="body2" sx={{ color: 'white' }}>
-      שאלות נפוצות
-    </Typography>
-  </Button>
-  <Button
-  onClick={() => {
-    console.log('Logout button clicked');
-    if (typeof handleLogout === 'function') {
-      handleLogout();
-    } else {
-      console.error('handleLogout is not a function');
-    }
-  }}
-  sx={{
-    mb: 3,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: 1,
-    textTransform: 'none',
-    py: 2,
-    px: 3,
-    borderRadius: 2,
-    backgroundColor: '#66aaff',
-    '&:hover': {
-      backgroundColor: '#3381d6',
-      boxShadow: 2,
-    },
-  }}
->
-  <LogoutIcon sx={{ fontSize: 30, color: 'white' }} />
-  <Typography variant="body2" sx={{ color: 'white' }}>
-    התנתק
-  </Typography>
-</Button>
-</Box>
-  )}
-   {/* Toggle Button */}
-   <IconButton
-          onClick={toggleSidebar}
+       {/* Sidebar Menu */}
+                   {isSidebarOpen && (
+                                <Box
+                                  sx={{
+                                    width: { xs: '100%', md: 120 },
+                                    position: { xs: 'relative', md: 'fixed' },
+                                    top: 0,
+                                    left: 0, 
+                                    right: 0, 
+                                    height: { xs: 'auto', md: '100vh' },
+                                    overflowY: 'auto',
+                                    display: 'flex',
+                                    flexDirection: { xs: 'row-reverse', md: 'column' },
+                                    alignItems: 'center',
+                                    justifyContent: { xs: 'space-around', md: 'flex-start' },
+                                    pt: { xs: 2, md: 4 },
+                                    pb: { xs: 2, md: 0 },
+                                    boxShadow: 3,
+                                    backgroundColor: '#4fa3f7',
+                                    borderRadius: { xs: 0, md: '15px 0 0 15px' },
+                                    zIndex: 1000,
+                                    transition: 'transform 0.3s ease',
+                                  }}
+                                >
+                                  {/* Sidebar buttons */}
+                                  {[ 
+                                    { icon: <HomeIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />, text: 'דף בית', onClick: goToHomePage },
+                                    { icon: <SettingsIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />, text: 'הגדרות', onClick: goToSettings },
+                                    { icon: <ExportIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />, text: 'היסטוריית שיחות', onClick: goToConversationsHistory },
+                                    { icon: <HelpOutlineIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />, text: 'שאלות נפוצות', onClick: goToCommonQuestions },
+                                  ].map((item, index) => (
+                                    <Button
+                                      key={index}
+                                      onClick={item.onClick}
+                                      sx={{
+                                        mb: { xs: 0, md: 3 },
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'center',
+                                        gap: { xs: 0.5, md: 1 },
+                                        textTransform: 'none',
+                                        py: { xs: 0.5, md: 1 },
+                                        px: { xs: 1, md: 2 },
+                                        borderRadius: 2,
+                                        backgroundColor: 'transparent',
+                                        '&:hover': {
+                                          backgroundColor: '#0056b3',
+                                          boxShadow: 2,
+                                        },
+                                      }}
+                                    >
+                                      {item.icon}
+                                      <Typography variant="body2" sx={{ 
+                                        color: 'white',
+                                        fontSize: { xs: '0.7rem', md: '0.875rem' }
+                                      }}>
+                                        {item.text}
+                                      </Typography>
+                                    </Button>
+                                  ))}
+                        
+                                  {/* Logout button */}
+                                  <Button
+                                    onClick={() => typeof handleLogout === 'function' && handleLogout()}
+                                    sx={{
+                                      mb: { xs: 0, md: 3 },
+                                      display: 'flex',
+                                      flexDirection: 'column',
+                                      alignItems: 'center',
+                                      gap: { xs: 0.5, md: 1 },
+                                      textTransform: 'none',
+                                      py: { xs: 0.5, md: 1 },
+                                      px: { xs: 1, md: 2 },
+                                      borderRadius: 2,
+                                      backgroundColor: '#66aaff',
+                                      '&:hover': {
+                                        backgroundColor: '#3381d6',
+                                        boxShadow: 2,
+                                      },
+                                    }}
+                                  >
+                                    <LogoutIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />
+                                    <Typography variant="body2" sx={{ 
+                                      color: 'white',
+                                      fontSize: { xs: '0.7rem', md: '0.875rem' }
+                                    }}>
+                                      התנתק
+                                    </Typography>
+                                  </Button>
+                                </Box>
+                              )}
+                        
+                              {/* Toggle Button */}
+                              <IconButton
+                                onClick={toggleSidebar}
+                                sx={{
+                                  position: 'fixed',
+                                  top: 16,
+                                  right: isSidebarOpen ? { xs: 16, md: 140 } : 16,
+                                  zIndex: 1100,
+                                  backgroundColor: '#4fa3f7',
+                                  color: 'white',
+                                  '&:hover': {
+                                    backgroundColor: '#3381d6',
+                                  },
+                                }}
+                              >
+                                <MenuIcon />
+                              </IconButton>
+                   
+        {/* Main Content */}
+        <Box
           sx={{
-            position: 'fixed',
-            top: 16,
-            right: isSidebarOpen ? 140 : 16,
-            zIndex: 1100,
-            backgroundColor: '#4fa3f7',
-            color: 'white',
-            '&:hover': {
-              backgroundColor: '#3381d6',
-            },
-          }}
-        >
-          <MenuIcon />
-        </IconButton>
-
-          {/* Main Content */}
-          <Box
-            sx={{
-              mr: 12,
-              flexGrow: 1,
-              p: 4,
-              overflowY: 'auto',
-              backgroundColor: '#ffffff',
-              borderRadius: 2,
-              boxShadow: 3,
-              marginRight: isSidebarOpen ? 12 : 2
-            }}
-          >
-            {/* Header with Logout Button */}
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                p: 2,
-                borderRadius: 1,
-                mb: 3,
-              }}
-            >
-  
-              {/* Title */}
-              <Typography
-  variant="h4"
-  sx={{
-    textAlign: 'center',
-    fontWeight: 'bold',
-    color: 'white',
-    padding: '16px 32px',
-    direction: 'rtl',
-    backgroundColor: '#4fa3f7',
-    width: '100%',
-    borderRadius: '8px',
-    margin: '20px auto',
-    boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-  }}
->
-  שיחות פעילות
-</Typography>
-            </Box>      
-  
-            {/* Search Input */}
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 3 }}>
-              <TextField
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="חפש לפי כינוי, שם הסייע/ת או מזהה שיחה"
-                variant="outlined"
-                size="small"
-                sx={{ width: 350 }}
-              />
-            </Box>
-  
-            <Box sx={{ overflowY: 'auto', minWidth: '25vw' }}>
-  <Stack spacing={1.5}>
-    {/* Header Row */}
-    <Box sx={{ p: 2, borderRadius: 2, backgroundColor: '#f1f8ff', width: '100%' }}>
-      <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <Box sx={{ flex: 1, minWidth: 30, textAlign: 'center' }}>
-          <Typography variant="body1" sx={{ fontWeight: 'bold', m: 0 }}>אחוז גלובלי</Typography>
-        </Box>
-        <Box sx={{ flex: 1, minWidth: 30, textAlign: 'center' }}>
-          <Typography variant="body1" sx={{ fontWeight: 'bold', m: 0 }}>כינוי</Typography>
-        </Box>
-        <Box sx={{ flex: 1, minWidth: 30, textAlign: 'center' }}>
-          <Typography variant="body1" sx={{ fontWeight: 'bold', m: 0 }}>שם הסייעת</Typography>
-        </Box>
-        <Box sx={{ flex: 1, minWidth: 30, textAlign: 'center' }}>
-          <Typography variant="body1" sx={{ fontWeight: 'bold', m: 0 }}>מזהה שיחה</Typography>
-        </Box>
-      </Stack>
-    </Box>
-
-    {/* Conversations List */}
-    {conversations.map((conversation, index) => {
-  let backgroundColor = getBackgroundColor(conversation.GSR);
-  //let gradientBackground = `linear-gradient(to right,${backgroundColor} ${conversation.GSR * 100}%, white ${conversation.GSR * 100}%)`;
-  return (
-    <Box
-      key={index}
-      sx={{
-        p: 2,
-        borderRadius: 2,
-        background: backgroundColor, 
-        boxShadow: 1,
-        '&:hover': {
-          boxShadow: 3,
-          cursor: 'pointer',
-        },
-        borderBottom: '1px solid #ddd',
-        width: '100%',
-      }}
-      onClick={() => handleSelectConversation(conversation)}
-    >
-      <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <Box sx={{ flex: 1, minWidth: 30, textAlign: 'center' }}>
-        <Typography variant="body2" sx={{ m: 0 }}>
-               {Number(conversation.FEGSR).toPrecision(4)}%
-        </Typography>
-        </Box>
-        <Box sx={{ flex: 1, minWidth: 30, textAlign: 'center' }}>
-          <Typography variant="body2" sx={{ m: 0 }}>{conversation.consumerParticipants.consumerName}</Typography>
-        </Box>
-        <Box sx={{ flex: 1, minWidth: 30, textAlign: 'center' }}>
-          <Typography variant="body2" sx={{ m: 0 }}>{conversation.latestAgentFullName}</Typography>
-        </Box>
-        <Box sx={{ flex: 1, minWidth: 30, textAlign: 'center' }}>
-          <Typography variant="body2" sx={{ m: 0 }}>{conversation.conversationId}</Typography>
-        </Box>
-      </Stack>
-    </Box>
-  );
-})}
-  </Stack>
-</Box>
-  
-            {/* Modal for Conversation Details */}
-            <Modal open={modalOpen} onClose={handleCloseModal}>
-  <Box
-    sx={{
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      width: 350, 
-      maxHeight: '60vh', 
-      bgcolor: 'background.paper',
-      border: '2px solid #1976d2',
-      boxShadow: 24,
-      p: 3,
-      borderRadius: 2,
-      overflow: 'auto', 
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'flex-start',
-      textAlign: 'right',
-    }}
-  >
-    {selectedConversation ? (
-      <>
-        <Typography
-          variant="h5"
-          sx={{
-            fontWeight: 'bold',
-            color: '#1976d2',
-            textAlign: 'center', 
-            width: '100%', 
-          }}
-        >
-          פרטי שיחה
-        </Typography>
-
-        <Box sx={{ mb: 2, width: '100%' }}>
-          <Typography variant="body2" sx={{ fontWeight: 'bold', color: '#333' }}>
-             מזהה שיחה
-          </Typography>
-          <Typography variant="body2" sx={{ color: '#555' }}>
-            {selectedConversation.conversationId}
-          </Typography>
-        </Box>
-
-        <Box sx={{ mb: 2, width: '100%' }}>
-          <Typography variant="body2" sx={{ fontWeight: 'bold', color: '#333' }}>
-             כינוי
-          </Typography>
-          <Typography variant="body2" sx={{ color: '#555' }}>
-            {selectedConversation.consumerParticipants.consumerName}
-          </Typography>
-        </Box>
-
-        <Box sx={{ mb: 2, width: '100%' }}>
-          <Typography variant="body2" sx={{ fontWeight: 'bold', color: '#333' }}>
-             שם הסייע/ת
-          </Typography>
-          <Typography variant="body2" sx={{ color: '#555' }}>
-            {selectedConversation.latestAgentFullName}
-          </Typography>
-        </Box>
-
-        <Box sx={{ mb: 2, width: '100%' }}>
-          <Typography variant="body2" sx={{ fontWeight: 'bold', color: '#333' }}>
-             קטגוריה
-          </Typography>
-          <Typography variant="body2" sx={{ color: '#555' }}>
-            {".כרגע אין קטגוריה זמינה לשיחה זו"}
-          </Typography>
-        </Box>
-
-        <Box sx={{ mb: 2, width: '100%' }}>
-          <Typography variant="body2" sx={{ fontWeight: 'bold', color: '#333' }}>
-             משפטי הסבר
-          </Typography>
-          <Typography variant="body2" sx={{ color: '#555', whiteSpace: 'pre-line' }}>
-  {".כרגע אין משפטים זמינים לשיחה זו"}
-</Typography>
-        </Box>
-
-        <Button
-          onClick={handleCloseModal}
-          sx={{
-            alignSelf: 'flex-end',
-            mt: 3,
-            py: 1.5,
-            px: 4,
-            backgroundColor: '#1976d2', 
-            color: 'white',
-            '&:hover': {
-              backgroundColor: '#1565c0',
-            },
+            flexGrow: 1,
+            p: { xs: 2, md: 4 },
+            backgroundColor: '#ffffff',
             borderRadius: 2,
-            fontWeight: 'bold',
+            boxShadow: 3,
+            mx: { xs: 'auto', md: 'auto' },
+            mt: { xs: isSidebarOpen ? 6 : 4, md: 0 },
+            marginRight: { xs: 'auto', md: isSidebarOpen ? 12 : 'auto' },
+            marginLeft: { xs: 'auto', md: 'auto' },
+            width: { xs: '90%', md: '80%' },
+            maxWidth: '1200px',
+            minHeight: '85vh',
+            transition: 'margin-right 0.3s ease',
+            display: 'flex',
+            flexDirection: 'column',
+            overflow: 'hidden', // Prevent main content from scrolling
           }}
         >
-          סגור
-        </Button>
-      </>
-    ) : (
-      <Typography variant="body2" sx={{ textAlign: 'center', color: '#555' }}>
-        טוען שיחה...
-      </Typography>
-    )}
-  </Box>
-</Modal>
-            {/* Last Update Time */}
-            <Typography variant="body2" sx={{ textAlign: 'center', color: 'black', mt: 4 }}>
-            {formatTimeString(conversationsLastUpdateTime)}
-</Typography>
+          {/* Header with Title */}
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              p: { xs: 1, md: 2 },
+              borderRadius: 1,
+              mb: 3,
+            }}
+          >
+            {/* Title */}
+            <Typography
+              variant="h4"
+              sx={{
+                textAlign: 'center',
+                fontWeight: 'bold',
+                color: 'white',
+                padding: { xs: '12px 16px', md: '16px 32px' },
+                backgroundColor: '#4fa3f7',
+                width: '100%',
+                borderRadius: '8px',
+                margin: { xs: '10px auto', md: '20px auto' },
+                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                direction: 'rtl',
+                fontSize: { xs: '1.5rem', md: '2rem' },
+              }}
+            >
+              שיחות פעילות
+            </Typography>
+          </Box>      
+
+          {/* Search Input */}
+          <Box sx={{
+            display: 'flex',
+            justifyContent: { xs: 'center', md: 'flex-end' },
+            mb: 3,
+          }}>
+            <TextField
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="חפש לפי כינוי, שם הסייע/ת או מזהה שיחה"
+              variant="outlined"
+              size="small"
+              sx={{
+                width: { xs: '100%', sm: 350 },
+              }}
+            />
           </Box>
+
+          {/* Header Row (Outside the scrollable area) */}
+          <Box sx={{ p: 2, borderRadius: 2, backgroundColor: '#f1f8ff' }}>
+            <Stack 
+              direction="row" 
+              justifyContent="space-between" 
+              alignItems="center" 
+              flexWrap="wrap"
+              sx={{
+                '& > div': {
+                  px: { xs: 0.5, sm: 1 }
+                }
+              }}
+            >
+              {['אחוז גלובלי','כינוי','שם הסייע/ת','מזהה שיחה'].map((header, idx) => (
+                <Box key={idx} sx={{ flex: 1, minWidth: { xs: 60, sm: 80 }, textAlign: 'center' }}>
+                  <Typography 
+                    variant="body1" 
+                    sx={{ 
+                      fontWeight: 'bold',
+                      fontSize: { xs: '0.8rem', sm: '0.875rem', md: '1rem' } 
+                    }}
+                  >
+                    {header}
+                  </Typography>
+                </Box>
+              ))}
+            </Stack>
+          </Box>
+
+          {/* Conversation List - Scrollable */}
+          <Box 
+            sx={{ 
+              overflowY: 'auto', 
+              width: '100%', 
+              flex: 1, 
+              mb: 2 
+            }}
+          >
+            <Stack spacing={1.5}>
+              {/* Conversations */}
+              {conversations.map((conversation, index) => (
+                <Box
+                  key={index}
+                  sx={{
+                    p: { xs: 1.5, sm: 2 },
+                    borderRadius: 2,
+                    background: getBackgroundColor(conversation.GSR),
+                    boxShadow: 1,
+                    '&:hover': { boxShadow: 3, cursor: 'pointer' },
+                  }}
+                  onClick={() => handleSelectConversation(conversation)}
+                >
+                  <Stack 
+                    direction="row" 
+                    justifyContent="space-between" 
+                    alignItems="center" 
+                    flexWrap="wrap"
+                    sx={{
+                      '& > div': {
+                        px: { xs: 0.5, sm: 1 }
+                      }
+                    }}
+                  >
+                    <Box sx={{ flex: 1, minWidth: { xs: 60, sm: 80 }, textAlign: 'center' }}>
+                      <Typography 
+                        variant="body2"
+                        sx={{ fontSize: { xs: '0.75rem', sm: '0.8rem' } }}
+                      >
+                        {Number(conversation.FEGSR).toPrecision(2)}%
+                      </Typography>
+                    </Box>
+                    <Box sx={{ flex: 1, minWidth: { xs: 60, sm: 80 }, textAlign: 'center' }}>
+                      <Typography 
+                        variant="body2"
+                        sx={{ fontSize: { xs: '0.75rem', sm: '0.8rem' } }}
+                      >
+                        {conversation.consumerParticipants.consumerName}
+                      </Typography>
+                    </Box>
+                    <Box sx={{ flex: 1, minWidth: { xs: 60, sm: 80 }, textAlign: 'center' }}>
+                      <Typography 
+                        variant="body2"
+                        sx={{ fontSize: { xs: '0.75rem', sm: '0.8rem' } }}
+                      >
+                        {conversation.latestAgentFullName}
+                      </Typography>
+                    </Box>
+                    <Box sx={{ flex: 1, minWidth: { xs: 60, sm: 80 }, textAlign: 'center' }}>
+                      <Typography 
+                        variant="body2"
+                        sx={{ fontSize: { xs: '0.75rem', sm: '0.8rem' } }}
+                      >
+                        {conversation.conversationId}
+                      </Typography>
+                    </Box>
+                  </Stack>
+                </Box>
+              ))}
+            </Stack>
+          </Box>
+
+          {/* Last Update Time - Outside scrollable area */}
+          <Typography variant="body2" sx={{ textAlign: 'center', color: 'black', mt: 1 }}>
+            {formatTimeString(conversationsLastUpdateTime)}
+          </Typography>
         </Box>
-      </>
-    </ThemeProvider>
-  );
+      </Box>
+
+      {/* Modal for Conversation Details */}
+      <Modal open={modalOpen} onClose={handleCloseModal}>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: { xs: '90%', sm: 350 },
+            maxWidth: '90vw',
+            maxHeight: '80vh',
+            bgcolor: 'background.paper',
+            border: '2px solid #1976d2',
+            boxShadow: 24,
+            p: { xs: 2, md: 3 },
+            borderRadius: 2,
+            overflow: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            textAlign: 'right',
+          }}
+        >
+          {selectedConversation ? (
+            <>
+              <Typography
+                variant="h5"
+                sx={{
+                  fontWeight: 'bold',
+                  color: '#1976d2',
+                  textAlign: 'center', 
+                  width: '100%',
+                  fontSize: { xs: '1.25rem', md: '1.5rem' },
+                }}
+              >
+                פרטי שיחה
+              </Typography>
+
+              <Box sx={{ mb: 2, width: '100%' }}>
+                <Typography variant="body2" sx={{ fontWeight: 'bold', color: '#333' }}>
+                  מזהה שיחה
+                </Typography>
+                <Typography variant="body2" sx={{ color: '#555' }}>
+                  {selectedConversation.conversationId}
+                </Typography>
+              </Box>
+
+              <Box sx={{ mb: 2, width: '100%' }}>
+                <Typography variant="body2" sx={{ fontWeight: 'bold', color: '#333' }}>
+                  כינוי
+                </Typography>
+                <Typography variant="body2" sx={{ color: '#555' }}>
+                  {selectedConversation.consumerParticipants.consumerName}
+                </Typography>
+              </Box>
+
+              <Box sx={{ mb: 2, width: '100%' }}>
+                <Typography variant="body2" sx={{ fontWeight: 'bold', color: '#333' }}>
+                  שם הסייע/ת
+                </Typography>
+                <Typography variant="body2" sx={{ color: '#555' }}>
+                  {selectedConversation.latestAgentFullName}
+                </Typography>
+              </Box>
+
+              <Box sx={{ mb: 2, width: '100%' }}>
+                <Typography variant="body2" sx={{ fontWeight: 'bold', color: '#333' }}>
+                  קטגוריה
+                </Typography>
+                <Typography variant="body2" sx={{ color: '#555' }}>
+                  {".כרגע אין קטגוריה זמינה לשיחה זו"}
+                </Typography>
+              </Box>
+
+              <Box sx={{ mb: 2, width: '100%' }}>
+                <Typography variant="body2" sx={{ fontWeight: 'bold', color: '#333' }}>
+                  משפטי הסבר
+                </Typography>
+                <Typography variant="body2" sx={{ color: '#555', whiteSpace: 'pre-line' }}>
+                  {".כרגע אין משפטים זמינים לשיחה זו"}
+                </Typography>
+              </Box>
+
+              <Button
+                onClick={handleCloseModal}
+                sx={{
+                  alignSelf: 'flex-end',
+                  mt: 3,
+                  py: { xs: 1, md: 1.5 },
+                  px: { xs: 3, md: 4 },
+                  backgroundColor: '#1976d2', 
+                  color: 'white',
+                  '&:hover': {
+                    backgroundColor: '#1565c0',
+                  },
+                  borderRadius: 2,
+                  fontWeight: 'bold',
+                }}
+              >
+                סגור
+              </Button>
+            </>
+          ) : (
+            <Typography variant="body2" sx={{ textAlign: 'center', color: '#555' }}>
+              טוען שיחה...
+            </Typography>
+          )}
+        </Box>
+      </Modal>
+    </>
+  </ThemeProvider>
+);
 }
 
 Conversations.propTypes = {
