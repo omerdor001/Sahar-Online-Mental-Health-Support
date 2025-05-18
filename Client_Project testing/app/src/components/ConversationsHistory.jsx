@@ -6,7 +6,6 @@ import {
   TextField,
   IconButton,
   Stack,
-  Modal,
   CssBaseline,
   FormControl,
   InputLabel,
@@ -95,13 +94,15 @@ function ConversationsHistory({ handleLogout }) {
 
   const handleSelectConversation = (conversation) => {
     setSelectedConversation(conversation);
+    console.log(selectedConversation);
     setModalOpen(true);
+    console.log(modalOpen);
   };
 
-  const handleCloseModal = () => {
-    setSelectedConversation(null);
-    setModalOpen(false);
-  };
+  // const handleCloseModal = () => {
+  //   setSelectedConversation(null);
+  //   setModalOpen(false);
+  // };
 
   const goToSettings = () => {
     navigate('/settings');
@@ -162,454 +163,310 @@ function ConversationsHistory({ handleLogout }) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <>
-        <Box sx={{ display: 'flex', flexDirection: 'row', height: '100vh', backgroundColor: '#f0f4f8' }}>
-          {/* Sidebar Menu */}
-          {isSidebarOpen && (
-            <Box
-              sx={{
-                width: 120,
-                position: 'fixed',
-                top: 0,
-                right: 0,
-                height: '100vh',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                pt: 4,
-                boxShadow: 3,
-                backgroundColor: '#4fa3f7',
-                borderRadius: '15px 0 0 15px',
-                zIndex: 1000,
-                transition: 'transform 0.3s ease',
-              }}
-            >
-              <Typography variant="h6" sx={{ mb: 4, fontWeight: 'bold', color: 'white' }}>
-                תפריט
-              </Typography>
-
-              <Button
-                onClick={goToHomePage}
-                sx={{
-                  mb: 3,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  gap: 1,
-                  textTransform: 'none',
-                  py: 2,
-                  px: 3,
-                  borderRadius: 2,
-                  backgroundColor: 'transparent',
-                  '&:hover': {
-                    backgroundColor: '#0056b3',
-                    boxShadow: 2,
-                  },
-                }}
-              >
-                <HomeIcon sx={{ fontSize: 30, color: 'white' }} />
-                <Typography variant="body2" sx={{ color: 'white' }}>
-                  דף בית
-                </Typography>
-              </Button>
-
-              <Button
-                onClick={goToSettings}
-                sx={{
-                  mb: 3,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  gap: 1,
-                  textTransform: 'none',
-                  py: 2,
-                  px: 3,
-                  borderRadius: 2,
-                  backgroundColor: 'transparent',
-                  '&:hover': {
-                    backgroundColor: '#0056b3',
-                    boxShadow: 2,
-                  },
-                }}
-              >
-                <SettingsIcon sx={{ fontSize: 30, color: 'white' }} />
-                <Typography variant="body2" sx={{ color: 'white' }}>
-                  הגדרות
-                </Typography>
-              </Button>
-
-              <Button
-                onClick={goToConversationsHistory}
-                sx={{
-                  mb: 3,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  gap: 1,
-                  textTransform: 'none',
-                  py: 2,
-                  px: 3,
-                  borderRadius: 2,
-                  backgroundColor: 'transparent',
-                  '&:hover': {
-                    backgroundColor: '#0056b3',
-                    boxShadow: 2,
-                  },
-                }}
-              >
-                <ExportIcon sx={{ fontSize: 30, color: 'white' }} />
-                <Typography variant="body2" sx={{ color: 'white' }}>
-                  היסטוריית שיחות
-                </Typography>
-              </Button>
-
-              <Button
-                onClick={goToCommonQuestions}
-                sx={{
-                  mb: 3,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  gap: 1,
-                  textTransform: 'none',
-                  py: 2,
-                  px: 3,
-                  borderRadius: 2,
-                  backgroundColor: 'transparent',
-                  '&:hover': {
-                    backgroundColor: '#0056b3',
-                    boxShadow: 2,
-                  },
-                }}
-              >
-                <HelpOutlineIcon sx={{ fontSize: 30, color: 'white' }} />
-                <Typography variant="body2" sx={{ color: 'white' }}>
-                  שאלות נפוצות
-                </Typography>
-              </Button>
-
-              <Button
-                onClick={() => {
-                  if (typeof handleLogout === 'function') {
-                    handleLogout();
-                  }
-                }}
-                sx={{
-                  mb: 3,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  gap: 1,
-                  textTransform: 'none',
-                  py: 2,
-                  px: 3,
-                  borderRadius: 2,
-                  backgroundColor: '#66aaff',
-                  '&:hover': {
-                    backgroundColor: '#3381d6',
-                    boxShadow: 2,
-                  },
-                }}
-              >
-                <LogoutIcon sx={{ fontSize: 30, color: 'white' }} />
-                <Typography variant="body2" sx={{ color: 'white' }}>
-                  התנתק
-                </Typography>
-              </Button>
-            </Box>
-          )}
-
-          {/* Toggle Button */}
-          <IconButton
-            onClick={toggleSidebar}
-            sx={{
-              position: 'fixed',
-              top: 16,
-              right: isSidebarOpen ? 140 : 16,
-              zIndex: 1100,
-              backgroundColor: '#4fa3f7',
-              color: 'white',
-              '&:hover': {
-                backgroundColor: '#3381d6',
-              },
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-
-          {/* Main Content */}
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
+          minHeight: '100vh',
+          width: '100%',
+          backgroundColor: '#f0f4f8',
+          overflow: 'hidden',
+          position: 'relative',
+          direction: 'rtl',
+        }}
+      >
+            {/* Sidebar Menu */}
+                   {isSidebarOpen && (
+                     <Box
+                       sx={{
+                         width: { xs: '100%', md: 120 },
+                         position: { xs: 'relative', md: 'fixed' },
+                         top: 0,
+                         right: 0,
+                         height: { xs: 'auto', md: '100vh' },
+                         overflowY: 'auto',
+                         display: 'flex',
+                         flexDirection: { xs: 'row', md: 'column' },
+                         alignItems: 'center',
+                         justifyContent: { xs: 'space-around', md: 'flex-start' },
+                         pt: { xs: 2, md: 4 },
+                         pb: { xs: 2, md: 0 },
+                         boxShadow: 3,
+                         backgroundColor: '#4fa3f7',
+                         borderRadius: { xs: 0, md: '15px 0 0 15px' },
+                         zIndex: 1000,
+                         transition: 'transform 0.3s ease',
+                       }}
+                     >
+                       {/* Sidebar buttons */}
+                       {[ 
+                         { icon: <HomeIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />, text: 'דף בית', onClick: goToHomePage },
+                         { icon: <SettingsIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />, text: 'הגדרות', onClick: goToSettings },
+                         { icon: <ExportIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />, text: 'היסטוריית שיחות', onClick: goToConversationsHistory },
+                         { icon: <HelpOutlineIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />, text: 'שאלות נפוצות', onClick: goToCommonQuestions },
+                       ].map((item, index) => (
+                         <Button
+                           key={index}
+                           onClick={item.onClick}
+                           sx={{
+                             mb: { xs: 0, md: 3 },
+                             display: 'flex',
+                             flexDirection: 'column',
+                             alignItems: 'center',
+                             gap: { xs: 0.5, md: 1 },
+                             textTransform: 'none',
+                             py: { xs: 0.5, md: 1 },
+                             px: { xs: 1, md: 2 },
+                             borderRadius: 2,
+                             backgroundColor: 'transparent',
+                             '&:hover': {
+                               backgroundColor: '#0056b3',
+                               boxShadow: 2,
+                             },
+                           }}
+                         >
+                           {item.icon}
+                           <Typography variant="body2" sx={{ 
+                             color: 'white',
+                             fontSize: { xs: '0.7rem', md: '0.875rem' }
+                           }}>
+                             {item.text}
+                           </Typography>
+                         </Button>
+                       ))}
+             
+                       {/* Logout button */}
+                       <Button
+                         onClick={() => typeof handleLogout === 'function' && handleLogout()}
+                         sx={{
+                           mb: { xs: 0, md: 3 },
+                           display: 'flex',
+                           flexDirection: 'column',
+                           alignItems: 'center',
+                           gap: { xs: 0.5, md: 1 },
+                           textTransform: 'none',
+                           py: { xs: 0.5, md: 1 },
+                           px: { xs: 1, md: 2 },
+                           borderRadius: 2,
+                           backgroundColor: '#66aaff',
+                           '&:hover': {
+                             backgroundColor: '#3381d6',
+                             boxShadow: 2,
+                           },
+                         }}
+                       >
+                         <LogoutIcon sx={{ fontSize: { xs: 24, md: 30 }, color: 'white' }} />
+                         <Typography variant="body2" sx={{ 
+                           color: 'white',
+                           fontSize: { xs: '0.7rem', md: '0.875rem' }
+                         }}>
+                           התנתק
+                         </Typography>
+                       </Button>
+                     </Box>
+                   )}
+             
+                   {/* Toggle Button */}
+                   <IconButton
+                     onClick={toggleSidebar}
+                     sx={{
+                       position: 'fixed',
+                       top: 16,
+                       right: isSidebarOpen ? { xs: 16, md: 140 } : 16,
+                       zIndex: 1100,
+                       backgroundColor: '#4fa3f7',
+                       color: 'white',
+                       '&:hover': {
+                         backgroundColor: '#3381d6',
+                       },
+                     }}
+                   >
+                     <MenuIcon />
+                   </IconButton>
+  
+        {/* Main Content */}
+        <Box
+          sx={{
+            flexGrow: 1,
+            p: { xs: 2, sm: 3 },
+            overflowY: 'auto',
+            mt: { xs: isSidebarOpen ? 2 : 8, md: 2 },
+            width: '100%',
+            paddingBottom: { xs: 8, md: 4 },
+            marginRight: { xs: 0, md: isSidebarOpen ? 15 : 2 }, // Removed margin-right for xs
+            marginLeft: { xs: 0, md: isSidebarOpen ? 15 : 2 }, // Removed margin-left for xs
+            transition: 'margin-right 0.3s ease',
+          }}
+        >
+          {/* Header */}
           <Box
             sx={{
-              mr: 12,
-              flexGrow: 1,
-              p: 4,
-              overflowY: 'auto',
+              p: { xs: 2, sm: 4 },
               backgroundColor: '#ffffff',
               borderRadius: 2,
               boxShadow: 3,
-              marginRight: isSidebarOpen ? 12 : 2
+              mt: 2,
+              mx: { xs: 0, sm: 2 }, // Removed margin for xs
             }}
           >
-            {/* Header */}
-            <Box
+            <Typography
+              variant="h4"
               sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                p: 2,
-                borderRadius: 1,
+                fontWeight: 'bold',
+                color: 'white',
+                backgroundColor: '#4fa3f7',
+                borderRadius: 3,
+                px: 3,
+                py: 2,
                 mb: 3,
+                textAlign: 'center',
+                maxWidth: { xs: '100%', sm: 600 }, // Full width on xs
+                mx: 'auto',
+                fontSize: { xs: '1.5rem', md: '2rem' },
               }}
             >
-              <Typography
-            variant="h4"
-            sx={{
-              textAlign: 'center',
-              fontWeight: 'bold',
-              color: 'white',
-              mt: 1,
-              mb: 0,
-              direction: 'rtl',
-              backgroundColor: '#4fa3f7',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: 'auto',
-              ml: { xs: 0, md: -15 },
-              flexGrow: 1,
-              borderRadius: 3,
-              p: 2,
-            }}
-          >
-            היסטוריית שיחות
-          </Typography>
-            </Box>
-
-            {/* Filter Time Container */}
-<Box 
-  sx={{ 
-    display: 'flex', 
-    justifyContent: 'flex-end', 
-    alignItems: 'center', 
-    mb: 3, 
-    flexDirection: { xs: 'column', sm: 'row' }, 
-    width: '100%' 
-  }}
->
-  <FormControl 
-    variant="outlined" 
-    size="small" 
-    sx={{ 
-      minWidth: 200, 
-      mb: { xs: 2, sm: 0 }, 
-      ml: 'auto' 
-    }}
-  >
-    <InputLabel id="time-filter-label">הצג שיחות שהתרחשו עד לפני</InputLabel>
-    <Select
-      labelId="time-filter-label"
-      id="time-filter"
-      value={timeFilter}
-      onChange={handleTimeFilterChange}
-      label="הצג שיחות שהתרחשו עד לפני"
-    >
-      <MenuItem value="15min">15 דקות אחרונות</MenuItem>
-      <MenuItem value="30min">30 דקות אחרונות</MenuItem>
-      <MenuItem value="1hour">שעה אחרונה</MenuItem>
-      <MenuItem value="2hours">שעתיים אחרונות</MenuItem>
-      <MenuItem value="4hours">4 שעות אחרונות</MenuItem>
-    </Select>
-  </FormControl>
-</Box>
-
-            {/* Search Input */}
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 3 }}>
+              היסטוריית שיחות
+            </Typography>
+  
+            {/* Filters */}
+            <Stack
+              direction={{ xs: 'column', sm: 'row' }}
+              spacing={2}
+              mb={3}
+              alignItems="center"
+              justifyContent="center"
+            >
+              <FormControl
+                variant="outlined"
+                size="small"
+                sx={{ width: { xs: '100%', sm: 200 } }}
+              >
+                <InputLabel id="time-filter-label">הצג שיחות שהתרחשו עד לפני</InputLabel>
+                <Select
+                  labelId="time-filter-label"
+                  id="time-filter"
+                  value={timeFilter}
+                  onChange={handleTimeFilterChange}
+                  label="הצג שיחות שהתרחשו עד לפני"
+                >
+                  <MenuItem value="15min">15 דקות אחרונות</MenuItem>
+                  <MenuItem value="30min">30 דקות אחרונות</MenuItem>
+                  <MenuItem value="1hour">שעה אחרונה</MenuItem>
+                  <MenuItem value="2hours">שעתיים אחרונות</MenuItem>
+                  <MenuItem value="4hours">4 שעות אחרונות</MenuItem>
+                </Select>
+              </FormControl>
+  
               <TextField
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="חפש לפי כינוי, שם הסייע/ת או מזהה שיחה"
                 variant="outlined"
                 size="small"
-                sx={{ width: 350 }}
+                sx={{ width: { xs: '100%', sm: 350 } }}
               />
-            </Box>
-
-            {/* Conversations List */}
-            <Box sx={{ overflowY: 'auto', minWidth: '25vw' }}>
+            </Stack>
+  
+            {/* Conversation List */}
+            <Box sx={{ overflowY: 'auto', width: '100%' }}>
               <Stack spacing={1.5}>
                 {/* Header Row */}
-                <Box sx={{ p: 2, borderRadius: 2, backgroundColor: '#f1f8ff', width: '100%' }}>
-                  <Stack direction="row" justifyContent="space-between" alignItems="center">
-                    <Box sx={{ flex: 1, minWidth: 30, textAlign: 'center' }}>
-                      <Typography variant="body1" sx={{ fontWeight: 'bold', m: 0 }}>אחוז גלובלי</Typography>
-                    </Box>
-                    <Box sx={{ flex: 1, minWidth: 30, textAlign: 'center' }}>
-                      <Typography variant="body1" sx={{ fontWeight: 'bold', m: 0 }}>כינוי</Typography>
-                    </Box>
-                    <Box sx={{ flex: 1, minWidth: 30, textAlign: 'center' }}>
-                      <Typography variant="body1" sx={{ fontWeight: 'bold', m: 0 }}>שם הסייעת</Typography>
-                    </Box>
-                    <Box sx={{ flex: 1, minWidth: 30, textAlign: 'center' }}>
-                      <Typography variant="body1" sx={{ fontWeight: 'bold', m: 0 }}>מזהה שיחה</Typography>
-                    </Box>
+                <Box sx={{ p: 2, borderRadius: 2, backgroundColor: '#f1f8ff' }}>
+                  <Stack 
+                    direction="row" 
+                    justifyContent="space-between" 
+                    alignItems="center" 
+                    flexWrap="wrap"
+                    sx={{
+                      '& > div': {
+                        px: { xs: 0.5, sm: 1 }
+                      }
+                    }}
+                  >
+                    {['מזהה שיחה', 'שם הסייע/ת', 'כינוי', 'אחוז גלובלי'].map((header, idx) => (
+                      <Box key={idx} sx={{ flex: 1, minWidth: { xs: 60, sm: 80 }, textAlign: 'center' }}>
+                        <Typography 
+                          variant="body1" 
+                          sx={{ 
+                            fontWeight: 'bold',
+                            fontSize: { xs: '0.8rem', sm: '0.875rem', md: '1rem' } 
+                          }}
+                        >
+                          {header}
+                        </Typography>
+                      </Box>
+                    ))}
                   </Stack>
                 </Box>
-
+  
                 {/* Conversations */}
-                {conversations.map((conversation, index) => {
-                  let backgroundColor = getBackgroundColor(conversation.GSR);
-
-                  return (
-                    <Box
-                      key={index}
+                {conversations.map((conversation, index) => (
+                  <Box
+                    key={index}
+                    sx={{
+                      p: { xs: 1.5, sm: 2 },
+                      borderRadius: 2,
+                      background: getBackgroundColor(conversation.GSR),
+                      boxShadow: 1,
+                      '&:hover': { boxShadow: 3, cursor: 'pointer' },
+                    }}
+                    onClick={() => handleSelectConversation(conversation)}
+                  >
+                    <Stack 
+                      direction="row" 
+                      justifyContent="space-between" 
+                      alignItems="center" 
+                      flexWrap="wrap"
                       sx={{
-                        p: 2,
-                        borderRadius: 2,
-                        background: backgroundColor,
-                        boxShadow: 1,
-                        '&:hover': {
-                          boxShadow: 3,
-                          cursor: 'pointer',
-                        },
-                        borderBottom: '1px solid #ddd',
-                        width: '100%',
+                        '& > div': {
+                          px: { xs: 0.5, sm: 1 }
+                        }
                       }}
-                      onClick={() => handleSelectConversation(conversation)}
                     >
-                      <Stack direction="row" justifyContent="space-between" alignItems="center">
-                        <Box sx={{ flex: 1, minWidth: 30, textAlign: 'center' }}>
-                        <Typography variant="body2" sx={{ m: 0 }}>
-                            {Number(conversation.FEGSR).toPrecision(4)}%
+                      <Box sx={{ flex: 1, minWidth: { xs: 60, sm: 80 }, textAlign: 'center' }}>
+                        <Typography 
+                          variant="body2"
+                          sx={{ fontSize: { xs: '0.75rem', sm: '0.8rem' } }}
+                        >
+                          {conversation.conversationId}
                         </Typography>
-                        </Box>
-                        <Box sx={{ flex: 1, minWidth: 30, textAlign: 'center' }}>
-                          <Typography variant="body2" sx={{ m: 0 }}>{conversation.consumerParticipants.consumerName}</Typography>
-                        </Box>
-                        <Box sx={{ flex: 1, minWidth: 30, textAlign: 'center' }}>
-                          <Typography variant="body2" sx={{ m: 0 }}>{conversation.latestAgentFullName}</Typography>
-                        </Box>
-                        <Box sx={{ flex: 1, minWidth: 30, textAlign: 'center' }}>
-                          <Typography variant="body2" sx={{ m: 0 }}>{conversation.conversationId}</Typography>
-                        </Box>
-                      </Stack>
-                    </Box>
-                  );
-                })}
+                      </Box>
+                      <Box sx={{ flex: 1, minWidth: { xs: 60, sm: 80 }, textAlign: 'center' }}>
+                        <Typography 
+                          variant="body2"
+                          sx={{ fontSize: { xs: '0.75rem', sm: '0.8rem' } }}
+                        >
+                          {conversation.latestAgentFullName}
+                        </Typography>
+                      </Box>
+                      <Box sx={{ flex: 1, minWidth: { xs: 60, sm: 80 }, textAlign: 'center' }}>
+                        <Typography 
+                          variant="body2"
+                          sx={{ fontSize: { xs: '0.75rem', sm: '0.8rem' } }}
+                        >
+                          {conversation.consumerParticipants.consumerName}
+                        </Typography>
+                      </Box>
+                      <Box sx={{ flex: 1, minWidth: { xs: 60, sm: 80 }, textAlign: 'center' }}>
+                        <Typography 
+                          variant="body2"
+                          sx={{ fontSize: { xs: '0.75rem', sm: '0.8rem' } }}
+                        >
+                          {Number(conversation.FEGSR).toPrecision(4)}%
+                        </Typography>
+                      </Box>
+                    </Stack>
+                  </Box>
+                ))}
               </Stack>
             </Box>
-
-            {/* Modal for Conversation Details */}
-            <Modal open={modalOpen} onClose={handleCloseModal}>
-              <Box
-                sx={{
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  width: 350,
-                  maxHeight: '60vh',
-                  bgcolor: 'background.paper',
-                  border: '2px solid #1976d2',
-                  boxShadow: 24,
-                  p: 3,
-                  borderRadius: 2,
-                  overflow: 'auto',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'flex-start',
-                  textAlign: 'right',
-                }}
-              >
-                {selectedConversation ? (
-                  <>
-                    <Typography
-                      variant="h5"
-                      sx={{
-                        fontWeight: 'bold',
-                        color: '#1976d2',
-                        textAlign: 'center',
-                        width: '100%',
-                      }}
-                    >
-                      פרטי שיחה
-                    </Typography>
-
-                    <Box sx={{ mb: 2, width: '100%' }}>
-                      <Typography variant="body2" sx={{ fontWeight: 'bold', color: '#333' }}>
-                        מזהה שיחה
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: '#555' }}>
-                        {selectedConversation.conversationId}
-                      </Typography>
-                    </Box>
-
-                    <Box sx={{ mb: 2, width: '100%' }}>
-                      <Typography variant="body2" sx={{ fontWeight: 'bold', color: '#333' }}>
-                        כינוי
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: '#555' }}>
-                        {selectedConversation.consumerParticipants.consumerName}
-                      </Typography>
-                    </Box>
-
-                    <Box sx={{ mb: 2, width: '100%' }}>
-                      <Typography variant="body2" sx={{ fontWeight: 'bold', color: '#333' }}>
-                        שם הסייע/ת
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: '#555' }}>
-                        {selectedConversation.latestAgentFullName}
-                      </Typography>
-                    </Box>
-
-                    <Box sx={{ mb: 2, width: '100%' }}>
-                      <Typography variant="body2" sx={{ fontWeight: 'bold', color: '#333' }}>
-                        קטגוריה
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: '#555' }}>
-                        {"אין קטגוריה זמינה לשיחה זו."}
-                      </Typography>
-                    </Box>
-
-                    <Box sx={{ mb: 2, width: '100%' }}>
-                      <Typography variant="body2" sx={{ fontWeight: 'bold', color: '#333' }}>
-                        משפטי הסבר
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: '#555', whiteSpace: 'pre-line' }}>
-                        {"אין משפטים זמינים לשיחה זו."}
-                      </Typography>
-                    </Box>
-
-                    <Button
-                      onClick={handleCloseModal}
-                      sx={{
-                        alignSelf: 'flex-end',
-                        mt: 3,
-                        py: 1.5,
-                        px: 4,
-                        backgroundColor: '#1976d2',
-                        color: 'white',
-                        '&:hover': {
-                          backgroundColor: '#1565c0',
-                        },
-                        borderRadius: 2,
-                        fontWeight: 'bold',
-                      }}
-                    >
-                      סגור
-                    </Button>
-                  </>
-                ) : (
-                  <Typography variant="body2" sx={{ textAlign: 'center', color: '#555' }}>
-                    טוען שיחה...
-                  </Typography>
-                )}
-              </Box>
-            </Modal>
           </Box>
         </Box>
-      </>
+      </Box>
     </ThemeProvider>
   );
+  
+  
 }
 
 ConversationsHistory.propTypes = {

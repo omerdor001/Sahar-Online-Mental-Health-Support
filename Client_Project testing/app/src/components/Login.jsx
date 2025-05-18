@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { TextField, Button, Radio, FormControlLabel, CircularProgress, Typography, Box, IconButton } from '@mui/material';
-import { AccountCircle, Lock, Person } from '@mui/icons-material';
+import { TextField, Button, CircularProgress, Typography, Box } from '@mui/material';
+//import { AccountCircle, Lock, Person } from '@mui/icons-material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import PropTypes from 'prop-types';
@@ -16,7 +16,6 @@ function Login({ handleLogin,errorMessage }) {
   const [accountNumber, setAccountNumber] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
   const [loadIcon, setLoadIcon] = useState(false);
 
   useEffect(() => {
@@ -42,7 +41,7 @@ function Login({ handleLogin,errorMessage }) {
   const onSubmit = (event) => {
     event.preventDefault();
     setLoadIcon(true);
-    handleLogin(accountNumber, username, password, role,setLoadIcon);
+    handleLogin(accountNumber, username, password, setLoadIcon);
   };
 
   return (
@@ -90,13 +89,13 @@ function Login({ handleLogin,errorMessage }) {
             value={accountNumber}
             onChange={handleInputChange(setAccountNumber)}
             disabled={loadIcon}
-            InputProps={{
-              startAdornment: (
-                <IconButton>
-                  <AccountCircle style={{ color: '#1976d2' }} />
-                </IconButton>
-              ),
-            }}
+            // InputProps={{
+            //   startAdornment: (
+            //     <IconButton>
+            //       <AccountCircle style={{ color: '#1976d2' }} />
+            //     </IconButton>
+            //   ),
+            // }}
           />
           
           <TextField
@@ -112,13 +111,13 @@ function Login({ handleLogin,errorMessage }) {
             value={username}
             onChange={handleInputChange(setUsername)}
             disabled={loadIcon}
-            InputProps={{
-              startAdornment: (
-                <IconButton>
-                  <Person style={{ color: '#1976d2' }} />
-                </IconButton>
-              ),
-            }}
+            // InputProps={{
+            //   startAdornment: (
+            //     <IconButton>
+            //       <Person style={{ color: '#1976d2' }} />
+            //     </IconButton>
+            //   ),
+            // }}
           />
           
           <TextField
@@ -135,16 +134,16 @@ function Login({ handleLogin,errorMessage }) {
             value={password}
             onChange={handleInputChange(setPassword)}
             disabled={loadIcon}
-            InputProps={{
-              startAdornment: (
-                <IconButton>
-                  <Lock style={{ color: '#1976d2' }} />
-                </IconButton>
-              ),
-            }}
+            // InputProps={{
+            //   startAdornment: (
+            //     <IconButton>
+            //       <Lock style={{ color: '#1976d2' }} />
+            //     </IconButton>
+            //   ),
+            // }}
           />
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+          {/* <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
             <FormControlLabel
               value="driver"
               control={<Radio />}
@@ -159,7 +158,7 @@ function Login({ handleLogin,errorMessage }) {
               checked={role === 'assistant'}
               onChange={(e) => setRole(e.target.value)}
             />
-          </div>
+          </div> */}
 
            {/* Display the error message */}
            {errorMessage && (
