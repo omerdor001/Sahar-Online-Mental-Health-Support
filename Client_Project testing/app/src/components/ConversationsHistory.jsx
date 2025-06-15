@@ -10,7 +10,8 @@ import {
   FormControl,
   InputLabel,
   Select,
-  MenuItem
+  MenuItem,
+  Modal
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -94,15 +95,13 @@ function ConversationsHistory({ handleLogout }) {
 
   const handleSelectConversation = (conversation) => {
     setSelectedConversation(conversation);
-    console.log(selectedConversation);
     setModalOpen(true);
-    console.log(modalOpen);
   };
 
-  // const handleCloseModal = () => {
-  //   setSelectedConversation(null);
-  //   setModalOpen(false);
-  // };
+  const handleCloseModal = () => {
+    setSelectedConversation(null);
+    setModalOpen(false);
+  };
 
   const goToSettings = () => {
     navigate('/settings');
@@ -175,8 +174,8 @@ function ConversationsHistory({ handleLogout }) {
           direction: 'rtl',
         }}
       >
-            {/* Sidebar Menu */}
-                   {isSidebarOpen && (
+ {/* Sidebar Menu */}
+        {isSidebarOpen && (
                      <Box
                        sx={{
                          width: { xs: '100%', md: 120 },
@@ -283,18 +282,17 @@ function ConversationsHistory({ handleLogout }) {
                    >
                      <MenuIcon />
                    </IconButton>
-  
         {/* Main Content */}
         <Box
           sx={{
             flexGrow: 1,
             p: { xs: 2, sm: 3 },
             overflowY: 'auto',
-            mt: { xs: isSidebarOpen ? 2 : 8, md: 2 },
+            mt: { xs: 0, md: 2 },
             width: '100%',
             paddingBottom: { xs: 8, md: 4 },
-            marginRight: { xs: 0, md: isSidebarOpen ? 15 : 2 }, // Removed margin-right for xs
-            marginLeft: { xs: 0, md: isSidebarOpen ? 15 : 2 }, // Removed margin-left for xs
+            marginRight: { xs: 0, md: isSidebarOpen ? 15 : 2 }, 
+            marginLeft: { xs: 0, md: isSidebarOpen ? 15 : 2 }, 
             transition: 'margin-right 0.3s ease',
           }}
         >
@@ -305,8 +303,8 @@ function ConversationsHistory({ handleLogout }) {
               backgroundColor: '#ffffff',
               borderRadius: 2,
               boxShadow: 3,
-              mt: 2,
-              mx: { xs: 0, sm: 2 }, // Removed margin for xs
+              mt: { xs: isSidebarOpen ? 2 : 2, md: 2 },
+              mx: { xs: 0, sm: 2 },
             }}
           >
             <Typography
@@ -320,7 +318,7 @@ function ConversationsHistory({ handleLogout }) {
                 py: 2,
                 mb: 3,
                 textAlign: 'center',
-                maxWidth: { xs: '100%', sm: 600 }, // Full width on xs
+                maxWidth: { xs: '100%', sm: 600 }, 
                 mx: 'auto',
                 fontSize: { xs: '1.5rem', md: '2rem' },
               }}
@@ -337,25 +335,35 @@ function ConversationsHistory({ handleLogout }) {
               justifyContent="center"
             >
               <FormControl
-                variant="outlined"
-                size="small"
-                sx={{ width: { xs: '100%', sm: 200 } }}
-              >
-                <InputLabel id="time-filter-label">הצג שיחות שהתרחשו עד לפני</InputLabel>
-                <Select
-                  labelId="time-filter-label"
-                  id="time-filter"
-                  value={timeFilter}
-                  onChange={handleTimeFilterChange}
-                  label="הצג שיחות שהתרחשו עד לפני"
-                >
-                  <MenuItem value="15min">15 דקות אחרונות</MenuItem>
-                  <MenuItem value="30min">30 דקות אחרונות</MenuItem>
-                  <MenuItem value="1hour">שעה אחרונה</MenuItem>
-                  <MenuItem value="2hours">שעתיים אחרונות</MenuItem>
-                  <MenuItem value="4hours">4 שעות אחרונות</MenuItem>
-                </Select>
-              </FormControl>
+  variant="outlined"
+  size="small"
+  sx={{
+    width: { xs: '100%', sm: 200 },
+    '& .MuiOutlinedInput-root': {
+      height: 30,
+      fontSize: '0.75rem',
+      padding: '0 8px',
+    },
+    '& .MuiSelect-select': {
+      padding: '4px 8px',
+    },
+  }}
+>
+  <InputLabel id="time-filter-label" sx={{ fontSize: '0.75rem' }}>הצג שיחות שהתרחשו עד לפני</InputLabel>
+  <Select
+    labelId="time-filter-label"
+    id="time-filter"
+    value={timeFilter}
+    onChange={handleTimeFilterChange}
+    label="הצג שיחות שהתרחשו עד לפני"
+  >
+    <MenuItem value="15min">15 דקות אחרונות</MenuItem>
+    <MenuItem value="30min">30 דקות אחרונות</MenuItem>
+    <MenuItem value="1hour">שעה אחרונה</MenuItem>
+    <MenuItem value="2hours">שעתיים אחרונות</MenuItem>
+    <MenuItem value="4hours">4 שעות אחרונות</MenuItem>
+  </Select>
+</FormControl>
   
               <TextField
                 value={searchQuery}
@@ -363,103 +371,452 @@ function ConversationsHistory({ handleLogout }) {
                 placeholder="חפש לפי כינוי, שם הסייע/ת או מזהה שיחה"
                 variant="outlined"
                 size="small"
-                sx={{ width: { xs: '100%', sm: 350 } }}
+                sx={{
+    width: { xs: '100%', sm: 300 }, 
+    '& .MuiOutlinedInput-root': {
+      height: 30, 
+      fontSize: '0.75rem',
+      padding: '0 8px',
+    },
+    '& input': {
+      padding: '4px 0', 
+    },
+  }}
               />
             </Stack>
-  
-            {/* Conversation List */}
-            <Box sx={{ overflowY: 'auto', width: '100%' }}>
-              <Stack spacing={1.5}>
-                {/* Header Row */}
-                <Box sx={{ p: 2, borderRadius: 2, backgroundColor: '#f1f8ff' }}>
-                  <Stack 
-                    direction="row" 
-                    justifyContent="space-between" 
-                    alignItems="center" 
-                    flexWrap="wrap"
-                    sx={{
-                      '& > div': {
-                        px: { xs: 0.5, sm: 1 }
-                      }
-                    }}
-                  >
-                    {['מזהה שיחה', 'שם הסייע/ת', 'כינוי', 'אחוז גלובלי'].map((header, idx) => (
-                      <Box key={idx} sx={{ flex: 1, minWidth: { xs: 60, sm: 80 }, textAlign: 'center' }}>
-                        <Typography 
-                          variant="body1" 
-                          sx={{ 
-                            fontWeight: 'bold',
-                            fontSize: { xs: '0.8rem', sm: '0.875rem', md: '1rem' } 
-                          }}
-                        >
-                          {header}
-                        </Typography>
-                      </Box>
-                    ))}
-                  </Stack>
-                </Box>
-  
-                {/* Conversations */}
-                {conversations.map((conversation, index) => (
-                  <Box
-                    key={index}
-                    sx={{
-                      p: { xs: 1.5, sm: 2 },
-                      borderRadius: 2,
-                      background: getBackgroundColor(conversation.GSR),
-                      boxShadow: 1,
-                      '&:hover': { boxShadow: 3, cursor: 'pointer' },
-                    }}
-                    onClick={() => handleSelectConversation(conversation)}
-                  >
-                    <Stack 
-                      direction="row" 
-                      justifyContent="space-between" 
-                      alignItems="center" 
-                      flexWrap="wrap"
-                      sx={{
-                        '& > div': {
-                          px: { xs: 0.5, sm: 1 }
-                        }
+
+          {/* Conversation List */}
+<Box sx={{ p: 1, borderRadius: 2, backgroundColor: '#f1f8ff' }}> {/* Reduced padding */}
+  <Stack 
+    direction="row" 
+    justifyContent="space-between" 
+    alignItems="center" 
+    flexWrap="wrap"
+    sx={{
+      '& > div': {
+        px: { xs: 0.3, sm: 0.5 } // Reduced
+      }
+    }}
+  >
+    {['מזהה שיחה','שם הסייע/ת','כינוי','אחוז גלובלי'].map((header, idx) => (
+      <Box key={idx} sx={{ flex: 1, minWidth: { xs: 50, sm: 70 }, textAlign: 'center' }}> {/* Reduced width */}
+        <Typography 
+          variant="body1" 
+          sx={{ 
+            fontWeight: 'bold',
+            fontSize: { xs: '0.7rem', sm: '0.75rem', md: '0.85rem' } // Reduced
+          }}
+        >
+          {header}
+        </Typography>
+      </Box>
+    ))}
+  </Stack>
+</Box>
+
+{/* Conversation List - Longer and scrollbar on the right */}
+<Box 
+  sx={{ 
+    overflowY: 'auto', 
+    width: '100%', 
+    flex: 1, 
+    mb: 1, // Reduced
+    maxHeight: { xs: '70vh', sm: '75vh', md: '80vh' }, // Increased height
+    height: '100%', 
+    display: 'block',
+    direction: 'ltr', // This forces scrollbar to the right side
+    '& > *': {
+      direction: 'rtl', // This maintains RTL text direction inside the container
+    },
+    '&::-webkit-scrollbar': { 
+      width: '6px', // Reduced
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: 'rgba(0,0,0,0.2)',
+      borderRadius: '4px',
+    },
+  }}
+>
+  <Stack spacing={0.75}> {/* Reduced from 1.5 */}
+    {/* Conversations - More compact items */}
+    {conversations.map((conversation, index) => (
+      <Box
+        key={index}
+        sx={{
+          p: { xs: 0.75, sm: 1 }, // Reduced from 1.5,2
+          borderRadius: 2,
+          background: getBackgroundColor(conversation.GSR),
+          boxShadow: 1,
+          '&:hover': { boxShadow: 3, cursor: 'pointer' },
+        }}
+        onClick={() => handleSelectConversation(conversation)}
+      >
+        <Stack 
+          direction="row" 
+          justifyContent="space-between" 
+          alignItems="center" 
+          flexWrap="wrap"
+          sx={{
+            '& > div': {
+              px: { xs: 0.3, sm: 0.5 } // Reduced
+            }
+          }}
+        >
+          <Box sx={{ flex: 1, minWidth: { xs: 50, sm: 70 }, textAlign: 'center' }}> {/* Reduced */}
+            <Typography 
+              variant="body2"
+              sx={{ fontSize: { xs: '0.65rem', sm: '0.7rem' } }} // Reduced
+            >
+              {conversation.conversationId}
+            </Typography>
+          </Box>
+          <Box sx={{ flex: 1, minWidth: { xs: 50, sm: 70 }, textAlign: 'center' }}> {/* Reduced */}
+            <Typography 
+              variant="body2"
+              sx={{ fontSize: { xs: '0.65rem', sm: '0.7rem' } }} // Reduced
+            >
+               {conversation.latestAgentFullName}
+            </Typography>
+          </Box>
+          <Box sx={{ flex: 1, minWidth: { xs: 50, sm: 70 }, textAlign: 'center' }}> {/* Reduced */}
+            <Typography 
+              variant="body2"
+              sx={{ fontSize: { xs: '0.65rem', sm: '0.7rem' } }} // Reduced
+            >
+              {conversation.consumerParticipants.consumerName}
+            </Typography>
+          </Box>
+          <Box sx={{ flex: 1, minWidth: { xs: 50, sm: 70 }, textAlign: 'center' }}> {/* Reduced */}
+            <Typography 
+              variant="body2"
+              sx={{ fontSize: { xs: '0.65rem', sm: '0.7rem' } }} // Reduced
+            >
+              {Number(conversation.FEGSR).toPrecision(3)}%
+            </Typography>
+          </Box>
+        </Stack>
+      </Box>
+    ))}
+  </Stack>
+</Box>
+         {/* Modal for Conversation Details - More compact */}
+        <Modal open={modalOpen} onClose={handleCloseModal}>
+          <Box
+            sx={{
+              position: 'fixed', 
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: { xs: '85%', sm: 320 },
+              height: 'auto',
+              minWidth: 280,
+              minHeight: 200,
+              maxWidth: '95vw',
+              maxHeight: '90vh',
+              bgcolor: 'background.paper',
+              border: '2px solid #1976d2',
+              boxShadow: 24,
+              borderRadius: 2,
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+              resize: 'both', 
+              cursor: 'auto',
+              zIndex: 1300, 
+              '&::-webkit-resizer': {
+                background: 'linear-gradient(-45deg, transparent 0%, transparent 35%, #1976d2 35%, #1976d2 45%, transparent 45%, transparent 65%, #1976d2 65%, #1976d2 75%, transparent 75%)',
+                width: '16px',
+                height: '16px',
+              }
+            }}
+             ref={(el) => {
+              if (el) {
+                if (el._resizeObserver) {
+                  el._resizeObserver.disconnect();
+                }
+                
+                const resizeObserver = new ResizeObserver((entries) => {
+                  const entry = entries[0];
+                  if (entry) {
+                    const { width } = entry.contentRect;
+                    const scale = Math.max(0.7, Math.min(1.5, width / 320));
+                    el.style.setProperty('--font-scale', scale);
+                  }
+                });
+                resizeObserver.observe(el);
+                
+                el._resizeObserver = resizeObserver;
+              } else {
+                if (el && el._resizeObserver) {
+                  el._resizeObserver.disconnect();
+                  el._resizeObserver = null;
+                }
+              }
+            }}
+          >
+            {/* Header with drag handle */}
+            <Box
+              sx={{
+                p: 1,
+                backgroundColor: '#1976d2',
+                color: 'white',
+                cursor: 'move',
+                userSelect: 'none',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                borderBottom: '1px solid #1565c0',
+              }}
+              onMouseDown={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              
+                const modal = e.currentTarget.parentElement;
+                if (!modal) return;
+                
+                // Get initial positions
+                const startX = e.clientX;
+                const startY = e.clientY;
+                const rect = modal.getBoundingClientRect();
+                
+                // Store initial position
+                const initialLeft = rect.left;
+                const initialTop = rect.top;
+                
+                // Remove transform and set initial position
+                modal.style.transform = 'none';
+                modal.style.left = `${initialLeft}px`;
+                modal.style.top = `${initialTop}px`;
+                modal.style.position = 'fixed';
+                
+                // Add dragging visual feedback
+                document.body.style.cursor = 'grabbing';
+                document.body.style.userSelect = 'none';
+                modal.style.pointerEvents = 'none'; // Prevent interference during drag
+                e.currentTarget.style.pointerEvents = 'auto'; // Keep header clickable
+                
+                const handleMouseMove = (moveEvent) => {
+                  moveEvent.preventDefault();
+                  
+                  const deltaX = moveEvent.clientX - startX;
+                  const deltaY = moveEvent.clientY - startY;
+                  
+                  // Calculate new position
+                  let newLeft = initialLeft + deltaX;
+                  let newTop = initialTop + deltaY;
+                  
+                  // Get viewport dimensions
+                  const viewportWidth = window.innerWidth;
+                  const viewportHeight = window.innerHeight;
+                  const modalWidth = modal.offsetWidth;
+                  const modalHeight = modal.offsetHeight;
+                  
+                  // Constrain to viewport bounds with some padding
+                  newLeft = Math.max(10, Math.min(viewportWidth - modalWidth - 10, newLeft));
+                  newTop = Math.max(10, Math.min(viewportHeight - modalHeight - 10, newTop));
+                  
+                  modal.style.left = `${newLeft}px`;
+                  modal.style.top = `${newTop}px`;
+                };
+                
+                const handleMouseUp = () => {
+                  // Reset cursors and user selection
+                  modal.style.cursor = 'auto';
+                  document.body.style.cursor = 'auto';
+                  document.body.style.userSelect = 'auto';
+                  
+                  // Remove event listeners
+                  document.removeEventListener('mousemove', handleMouseMove);
+                  document.removeEventListener('mouseup', handleMouseUp);
+                };
+                
+                // Add event listeners
+                document.addEventListener('mousemove', handleMouseMove);
+                document.addEventListener('mouseup', handleMouseUp);
+              }}
+            >
+               <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: 'bold',
+                  fontSize: `calc(1rem * var(--font-scale, 1))`,
+                  '@media (min-width: 768px)': {
+                    fontSize: `calc(1.1rem * var(--font-scale, 1))`,
+                  }
+                }}
+              >
+                פרטי שיחה
+              </Typography>
+              
+              {/* Close button in header */}
+              <IconButton
+                onClick={handleCloseModal}
+                sx={{
+                  color: 'white',
+                  p: 0.5,
+                  width: `calc(32px * var(--font-scale, 1))`,
+                  height: `calc(32px * var(--font-scale, 1))`,
+                  fontSize: `calc(14px * var(--font-scale, 1))`,
+                  '&:hover': {
+                    backgroundColor: 'rgba(255,255,255,0.1)',
+                  },
+                }}
+                size="small"
+              >
+                ✕
+              </IconButton>
+            </Box>
+        
+            {/* Scrollable content area */}
+            <Box
+              sx={{
+                p: { xs: 1.5, md: 2 },
+                overflow: 'auto',
+                flex: 1,
+                textAlign: 'right',
+              }}
+            >
+               {selectedConversation ? (
+                <>
+                  <Box sx={{ mb: 1.5, width: '100%' }}>
+                    <Typography 
+                      variant="body2" 
+                      sx={{ 
+                        fontWeight: 'bold', 
+                        color: '#333', 
+                        fontSize: `calc(0.8rem * var(--font-scale, 1))` 
                       }}
                     >
-                      <Box sx={{ flex: 1, minWidth: { xs: 60, sm: 80 }, textAlign: 'center' }}>
-                        <Typography 
-                          variant="body2"
-                          sx={{ fontSize: { xs: '0.75rem', sm: '0.8rem' } }}
-                        >
-                          {conversation.conversationId}
-                        </Typography>
-                      </Box>
-                      <Box sx={{ flex: 1, minWidth: { xs: 60, sm: 80 }, textAlign: 'center' }}>
-                        <Typography 
-                          variant="body2"
-                          sx={{ fontSize: { xs: '0.75rem', sm: '0.8rem' } }}
-                        >
-                          {conversation.latestAgentFullName}
-                        </Typography>
-                      </Box>
-                      <Box sx={{ flex: 1, minWidth: { xs: 60, sm: 80 }, textAlign: 'center' }}>
-                        <Typography 
-                          variant="body2"
-                          sx={{ fontSize: { xs: '0.75rem', sm: '0.8rem' } }}
-                        >
-                          {conversation.consumerParticipants.consumerName}
-                        </Typography>
-                      </Box>
-                      <Box sx={{ flex: 1, minWidth: { xs: 60, sm: 80 }, textAlign: 'center' }}>
-                        <Typography 
-                          variant="body2"
-                          sx={{ fontSize: { xs: '0.75rem', sm: '0.8rem' } }}
-                        >
-                          {Number(conversation.FEGSR).toPrecision(4)}%
-                        </Typography>
-                      </Box>
-                    </Stack>
+                      מזהה שיחה
+                    </Typography>
+                    <Typography 
+                      variant="body2" 
+                      sx={{ 
+                        color: '#555', 
+                        fontSize: `calc(0.8rem * var(--font-scale, 1))`, 
+                        wordBreak: 'break-all' 
+                      }}
+                    >
+                      {selectedConversation.conversationId}
+                    </Typography>
                   </Box>
-                ))}
-              </Stack>
+        
+                  <Box sx={{ mb: 1.5, width: '100%' }}>
+                    <Typography 
+                      variant="body2" 
+                      sx={{ 
+                        fontWeight: 'bold', 
+                        color: '#333', 
+                        fontSize: `calc(0.8rem * var(--font-scale, 1))` 
+                      }}
+                    >
+                      כינוי
+                    </Typography>
+                    <Typography 
+                      variant="body2" 
+                      sx={{ 
+                        color: '#555', 
+                        fontSize: `calc(0.8rem * var(--font-scale, 1))` 
+                      }}
+                    >
+                      {selectedConversation.consumerParticipants.consumerName}
+                    </Typography>
+                  </Box>
+        
+                  <Box sx={{ mb: 1.5, width: '100%' }}>
+                    <Typography 
+                      variant="body2" 
+                      sx={{ 
+                        fontWeight: 'bold', 
+                        color: '#333', 
+                        fontSize: `calc(0.8rem * var(--font-scale, 1))` 
+                      }}
+                    >
+                      שם הסייע/ת
+                    </Typography>
+                    <Typography 
+                      variant="body2" 
+                      sx={{ 
+                        color: '#555', 
+                        fontSize: `calc(0.8rem * var(--font-scale, 1))` 
+                      }}
+                    >
+                      {selectedConversation.latestAgentFullName}
+                    </Typography>
+                  </Box>
+        
+                  <Box sx={{ mb: 2, width: '100%' }}>
+                    <Typography 
+                      variant="body2" 
+                      sx={{ 
+                        fontWeight: 'bold', 
+                        color: '#333', 
+                        fontSize: `calc(0.8rem * var(--font-scale, 1))` 
+                      }}
+                    >
+                      סיכום שיחה
+                    </Typography>
+                    <Typography 
+                      variant="body2" 
+                      sx={{ 
+                        color: '#555', 
+                        fontSize: `calc(0.8rem * var(--font-scale, 1))`,
+                        lineHeight: 1.4,
+                        whiteSpace: 'pre-wrap',
+                      }}
+                    >
+                      כרגע אין סיכום לשיחה זו
+                    </Typography>
+                  </Box>
+                </>
+              ) : (
+                <Typography 
+                  variant="body2" 
+                  sx={{ 
+                    textAlign: 'center', 
+                    color: '#555', 
+                    fontSize: `calc(0.8rem * var(--font-scale, 1))` 
+                  }}
+                >
+                  טוען שיחה...
+                </Typography>
+              )}
             </Box>
+        
+            {/* Footer with resize indicator */}
+           <Box
+              sx={{
+                p: 1,
+                borderTop: '1px solid #e0e0e0',
+                backgroundColor: '#f5f5f5',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                minHeight: '32px',
+              }}
+            >
+              <Typography 
+                variant="caption" 
+                sx={{ 
+                  color: '#666', 
+                  fontSize: `calc(0.7rem * var(--font-scale, 1))` 
+                }}
+              >
+                גרור לזוז • משוך פינה לשנות גודל
+              </Typography>
+              
+              {/* Visual resize handle */}
+               <Box
+                sx={{
+                  width: `calc(12px * var(--font-scale, 1))`,
+                  height: `calc(12px * var(--font-scale, 1))`,
+                  background: 'linear-gradient(-45deg, transparent 0%, transparent 35%, #999 35%, #999 45%, transparent 45%, transparent 65%, #999 65%, #999 75%, transparent 75%)',
+                  cursor: 'nw-resize',
+                }}
+              />
+            </Box>
+          </Box>
+        </Modal>
           </Box>
         </Box>
       </Box>

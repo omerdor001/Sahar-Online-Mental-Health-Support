@@ -37,12 +37,10 @@ export async function fetchLogin(accountNumber, userName, password) {
 export async function fetchConversationsHistory(navigate, setOpenConversationsHistory, handleLogout, timeValue) {
   const token = getToken();
   if (!token) {
-    handleLogout();
-    navigate('/');
+    window.dispatchEvent(new Event('triggerTokenRefresh')); 
     return;
   }
   const url = `${API_BASE_URL}/get_history_calls?minutes_to_fetch=${timeValue}`;
-  console.log(token);
   const response = await fetch(url, {
     method: 'GET',
     headers: {
@@ -51,16 +49,12 @@ export async function fetchConversationsHistory(navigate, setOpenConversationsHi
     },
   });
   if (!response.ok) {
-    // if (response.status === 401 || response.status === 403) {
-    //   setToken(null); 
-    //   dispatchTokenUpdate(undefined); 
-    //   handleLogout();
-    // }
-    navigate('/');
+    if (response.status === 403) {
+       window.dispatchEvent(new Event('triggerTokenRefresh')); 
+       return;
+    }
     return;
   }
-  else{
-    const resData = await response.json();
-    setOpenConversationsHistory(Object.values(resData.history));
-  }
+  const resData = await response.json();
+  setOpenConversationsHistory(Object.values(resData.history));
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Box,
@@ -9,8 +9,6 @@ import {
   IconButton,
   FormControl,
   InputLabel,
-  Switch,
-  FormControlLabel,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -30,27 +28,8 @@ const theme = createTheme({
 
 function Settings({ handleLogout }) {
   const [notificationTime, setNotificationTime] = useState('600');
-  const [isChecked, setIsChecked] = useState(true);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const monitorFocusData = localStorage.getItem('monitorFocus');
-    if (monitorFocusData) {
-      setIsChecked(JSON.parse(monitorFocusData));
-    }
-
-    const handleBackgroundMessage = () => {};
-    document.addEventListener('resizePopup', handleBackgroundMessage);
-    const event = new CustomEvent('resizePopup', {
-      detail: { window: 'Settings' },
-    });
-    document.dispatchEvent(event);
-
-    return () => {
-      document.removeEventListener('resizePopup', handleBackgroundMessage);
-    };
-  }, []);
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
@@ -73,18 +52,17 @@ function Settings({ handleLogout }) {
   };
 
   const selectNotificationTime = (value) => {
-    localStorage.setItem('notificationTime', JSON.stringify(value));
+    if(value == 0){
+      localStorage.setItem('notificationTime', JSON.stringify(9999999999999));
+      localStorage.setItem("lastAlertTime",0);
+    }
+    else{
+      localStorage.setItem('notificationTime', value);
+    }
     document.dispatchEvent(new CustomEvent('NotificationTime_UPDATED'));
     setNotificationTime(value);
   };
-  
 
-  const handleToggle = (event) => {
-    const newValue = event.target.checked;
-    setIsChecked(newValue);
-    localStorage.setItem('monitorFocus', JSON.stringify(newValue));
-    document.dispatchEvent(new CustomEvent('MonitorFocus_UPDATED'));
-  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -217,6 +195,7 @@ function Settings({ handleLogout }) {
             backgroundColor: '#ffffff',
             borderRadius: 2,
             boxShadow: 3,
+            mt: { xs: 2, md: 4 },
             mx: { xs: 2, md: 4 },
             mb: { xs: 2, md: 4 },
             marginRight: { xs: 0, md: isSidebarOpen ? 15 : 0 },
@@ -231,7 +210,7 @@ function Settings({ handleLogout }) {
               alignItems: 'center',
               p: 2,
               borderRadius: 1,
-              mb: 3,
+              mb: 1,
             }}
           >
            <Typography
@@ -241,8 +220,8 @@ function Settings({ handleLogout }) {
     textAlign: 'center',
     fontWeight: 'bold',
     color: 'white',
-    mt: { xs: 2, md: 4 },
-    mb: 4,
+    mt: { xs: 0, md: 2 }, 
+    mb: 2,
     direction: 'rtl',
     bgcolor: '#4fa3f7',        
     borderRadius: '12px',       
@@ -253,26 +232,24 @@ function Settings({ handleLogout }) {
 >
   הגדרות
 </Typography>
-
           </Box>
-  
           {/* Settings Content */}
           <Box
             sx={{
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              gap: 4,
               maxWidth: 600,
               mx: 'auto',
               p: 2,
+              pt: 1,
               backgroundColor: '#f8fafc',
               borderRadius: 3,
               boxShadow: 1,
             }}
           >
             {/* Notification Time */}
-            <FormControl fullWidth sx={{ maxWidth: 400 }} dir="rtl">
+            <FormControl fullWidth sx={{ maxWidth: 400, mt: 1 }} dir="rtl">
               <InputLabel id="notification-time-label" sx={inputLabelStyles}>
                 הגדרת תדירות התרעות
               </InputLabel>
@@ -284,33 +261,13 @@ function Settings({ handleLogout }) {
                 sx={selectStyles}
                 MenuProps={menuProps}
               >
-                <MenuItem value="1">דקה</MenuItem>
-                <MenuItem value="3">3 דקות</MenuItem>
-                <MenuItem value="5">5 דקות</MenuItem>
-                <MenuItem value="10">10 דקות</MenuItem>
-                <MenuItem value="15">15 דקות</MenuItem>
-                <MenuItem value="30">30 דקות</MenuItem>
-                <MenuItem value="45">45 דקות</MenuItem>
-                <MenuItem value="60">60 דקות</MenuItem>
+                <MenuItem value="1">דקה אחת</MenuItem>
+<MenuItem value="3">שלוש דקות</MenuItem>
+<MenuItem value="5">חמש דקות</MenuItem>
+<MenuItem value="10">עשר דקות</MenuItem>
+<MenuItem value="0">ביטול</MenuItem>
               </Select>
             </FormControl>
-  
-            {/* Monitor Focus Toggle */}
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={isChecked}
-                  onChange={handleToggle}
-                  color="primary"
-                />
-              }
-              label="הצמד חלון למסך"
-              labelPlacement="start"
-              sx={{
-                mr: 0,
-                '& .MuiFormControlLabel-label': { fontWeight: 500 },
-              }}
-            />
           </Box>
         </Box>
       </Box>
