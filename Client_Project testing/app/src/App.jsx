@@ -9,7 +9,7 @@ import LogoutModal from "./components/LogoutModal.jsx";
 import './index.css';
 import { fetchLogin } from './http.js';
 import TriggerModal from './components/TriggerModal';
-import io from 'socket.io-client'; 
+import io from 'socket.io-client';
 
 const basename = window.location.pathname.startsWith("/test") ? "/test/" : "/";
 const isTestEnvironment = window.location.pathname.startsWith("/test");
@@ -22,13 +22,14 @@ function App() {
   const [isLogged, setIsLogged] = useState(undefined);
   const [isModalOpen, setModalOpen] = useState(false);
   const [modalMessage,setModalMessage] = useState('');
-  const [notificationTime, setNotificationTime] = useState(2);
+  const [notificationTime, setNotificationTime] = useState(localStorage.getItem("notificationTime")||999999999999);
   const [socket, setSocket] = useState(null); 
   const authToken = localStorage.getItem('token');
   const [ssoStatus, setSsoStatus] = useState('Checking SSO...');
   const [isLivePersonContext, setIsLivePersonContext] = useState(false);
   const [agentSDK, setAgentSDK] = useState(null);
-  let lastAlertTime = 0;
+  let lastAlertTime = localStorage.getItem("lastAlertTime")||0;
+  let agentId;
 
 
   useEffect(() => {
@@ -36,6 +37,7 @@ function App() {
       if(!localStorage.getItem('isLivePerson')){
         handleLogout();
       }
+
       e.preventDefault();
       e.returnValue = '';
     };
@@ -80,32 +82,25 @@ function App() {
       agentSDK.init({});
       console.log(isLivePersonContext);
       try {
-      //   const metadata = await getVarsByBind('metadata', 5000);
-      // if (metadata && metadata.newValue) {
-      //   console.log('Successfully retrieved metadata:', metadata);
-      //   console.log('Connector info:', metadata.newValue.connectorAuthRespons);
-      // } else {
-      //   console.log('No metadata found.');
-      // }
         const agentInfo = await getVars('agentInfo', 5000);
         if (!agentInfo) {
           setSsoStatus('SSO Failed. Using standard login.');
           console.log(ssoStatus);
           setIsLogged(false);
         } else {
-          const agentId=agentInfo.agentId;
+          agentId=agentInfo.agentId;
           setSsoStatus('Authentication successful. Fetching user info...');
-
-          const serverResponse = await fetch(`${API_BASE_URL}/validateToken`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({  agentId:agentId }),
-          });
+          const serverResponse = await getTokenWithData();
           const responseData = await serverResponse.json();
           if (serverResponse.ok) {
             setSsoStatus('SSO successful! User authenticated.');
             localStorage.setItem('token', responseData.token);
-            localStorage.setItem('notificationTime', '2');
+            if(!localStorage.getItem('notificationTime')){
+              localStorage.setItem('notificationTime', '9999999999999999999999');
+            }
+            if(!localStorage.getItem("lastAlertTime")){
+              localStorage.setItem("lastAlertTime",0);
+            }
             localStorage.setItem('isLogged', 'true');
             setIsLogged(true);
             setErrorMessage('');
@@ -157,32 +152,74 @@ function App() {
     }
   }
 
-  // async function getVarsByBind(info_type, timeout = 2000) {
-  //   try {
-  //     const timeoutPromise = new Promise((_, reject) =>
-  //       setTimeout(() => reject(new Error("Request timed out")), timeout)
-  //     );
-  //     const bindPromise = new Promise((resolve, reject) => {
-  //       const callback = function (data) {
-  //         console.log(`Data received by bind:`, data);
-  //         if (data) {
-  //           console.log(`Successfully retrieved ${info_type}`, data);
-  //           resolve(data);
-  //         } else {
-  //           reject(new Error(`No data received for ${info_type}`));
-  //         }
-  //         window.lpTag.agentSDK.unbind(info_type);
-  //       };
-  //       window.lpTag.agentSDK.bind(info_type, callback.bind(window.lpTag.agentSDK));
-  //     });
-  //     const result = await Promise.race([bindPromise, timeoutPromise]);
-  //     return result;
-  //   } catch (e) {
-  //     console.log(`Error: ${e.message}, could not retrieve ${info_type} within timeout ${timeout}`);
-  //     return undefined;
-  //   }
-  // }
-  
+  useEffect(() => {
+  const handler = async () => {
+    if(localStorage.getItem('isLivePerson')){
+    try {
+      let agentInfo = await getVars('agentInfo', 5000);
+      if (!agentInfo) {
+            setSsoStatus('SSO Failed. Using standard login.');
+            console.log(ssoStatus);
+            setIsLogged(false);
+    } else {
+      agentId.current = agentInfo.agentId; 
+      const response = await getTokenWithData();
+      const data = await response.json();
+      if (response.ok) {
+        localStorage.setItem('token', data.token);
+        console.log("Token refreshed on 403");
+      } else {
+        console.error("Token refresh failed (403 handler)");
+      }
+    }
+    } catch (err) {
+      console.error("Error refreshing token after 403:", err);
+      }
+    }
+  };
+  window.addEventListener('triggerTokenRefresh', handler);
+  return () => {
+    window.removeEventListener('triggerTokenRefresh', handler);
+  };
+  }, []);
+
+  useEffect(() => {
+  const REFRESH_INTERVAL = 60 * 60 * 1000; 
+  const GRACE_PERIOD = 5 * 60 * 1000; 
+  const refreshTokenIfNeeded = async () => {
+    if (!localStorage.getItem('isLivePerson')) return;
+    const lastRefreshTime = parseInt(localStorage.getItem('lastTokenRefresh') || '0');
+    const currentTime = Date.now();
+    if (currentTime - lastRefreshTime >= REFRESH_INTERVAL - GRACE_PERIOD) {
+      try {
+        const serverResponse = await getTokenWithData();
+        const responseData = await serverResponse.json();
+        if (serverResponse.ok) {
+          localStorage.setItem('token', responseData.token);
+          localStorage.setItem('lastTokenRefresh', currentTime.toString());
+          console.log("Token refreshed - timestamp updated");
+        } else {
+          console.error("Token refresh failed");
+        }
+      } catch (err) {
+        console.error("Error during token refresh:", err);
+      }
+    }
+  };
+  refreshTokenIfNeeded();
+  const intervalId = setInterval(refreshTokenIfNeeded, 15 * 60 * 1000); 
+  return () => clearInterval(intervalId);
+}, []);
+
+  async function getTokenWithData(){
+    const serverResponse = await fetch(`${API_BASE_URL}/validateToken`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({  agentId:agentId.current }),
+    });
+    return serverResponse;
+  }
+
   useEffect(() => {
     if (isLogged && authToken) {
       const socketURL = `${window.location.origin}/test`;
@@ -202,13 +239,15 @@ function App() {
       newSocket.on('open_calls_update', (data) => {
         const currentTime = Date.now();
         const notificationTimeData = Number(localStorage.getItem('notificationTime'));
-        console.log('Received open conversations:', data);
+        const lastAlertTimeData = Number(localStorage.getItem('lastAlertTime'));
         localStorage.setItem('openConversations', JSON.stringify(data.data));
         localStorage.setItem('conversationsLastUpdateTime', new Date().toISOString());
         window.dispatchEvent(new Event('openConversationsUpdated'));
-        const highRiskConversation = data.data && data.data.find(conv => conv.GSR > 0.8);  
-        if (!localStorage.getItem('isLivePerson') && highRiskConversation && currentTime- lastAlertTime > notificationTimeData * 60 * 1000) {
+        const highRiskConversation = data.data && data.data.find(conv => conv.GSR > 0.8);
+        console.log(currentTime- lastAlertTimeData > notificationTimeData * 60 * 1000);
+        if (highRiskConversation && currentTime- lastAlertTimeData > notificationTimeData * 60 * 1000) {
           lastAlertTime = currentTime;
+          localStorage.setItem("lastAlertTime",lastAlertTime);
           const alertMessage = 'אותרה שיחה ברמת אובדנות גבוהה';
           setModalMessage(alertMessage);
           setModalOpen(true);
@@ -274,15 +313,19 @@ function App() {
     }
     try {
       await fetchLogin(accountNumber, userName, password);
-      //localStorage.setItem('username', userName);
-      localStorage.setItem('notificationTime', '2');
+      if(!localStorage.getItem('notificationTime')){
+        localStorage.setItem('notificationTime', '9999999999999999999');
+      }
+      if(!localStorage.getItem("lastAlertTime")){
+        localStorage.setItem("lastAlertTime",0);
+      }
+      console.log(notificationTime);
       localStorage.setItem('token', localStorage.getItem('token')); 
       localStorage.setItem('isLogged', 'true');
       setIsLogged(true);
       setErrorMessage('');
       const notificationTimeData = Number(localStorage.getItem('notificationTime'));
       setNotificationTime(notificationTimeData);
-      console.log(notificationTime);
       localStorage.setItem("apiBaseURL", API_BASE_URL);
     } catch (error) {
       console.error('Login failed:', error);
