@@ -240,11 +240,11 @@ function App() {
         const currentTime = Date.now();
         const notificationTimeData = Number(localStorage.getItem('notificationTime'));
         const lastAlertTimeData = Number(localStorage.getItem('lastAlertTime'));
-        localStorage.setItem('openConversations', JSON.stringify(data.data));
         localStorage.setItem('conversationsLastUpdateTime', new Date().toISOString());
         window.dispatchEvent(new Event('openConversationsUpdated'));
+        console.log(data.data);
+        localStorage.setItem('openConversations', JSON.stringify(data.data));
         const highRiskConversation = data.data && data.data.find(conv => conv.GSR > 0.8);
-        console.log(currentTime- lastAlertTimeData > notificationTimeData * 60 * 1000);
         if (highRiskConversation && currentTime- lastAlertTimeData > notificationTimeData * 60 * 1000) {
           lastAlertTime = currentTime;
           localStorage.setItem("lastAlertTime",lastAlertTime);
