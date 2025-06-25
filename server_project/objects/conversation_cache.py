@@ -10,10 +10,11 @@ from openpyxl.reader.excel import load_workbook
 from openpyxl.utils.exceptions import InvalidFileException
 from openpyxl.workbook import Workbook
 from time import sleep
+from AI.algorithms.summerization_algorithm import Summarizer
 from DataBase.database_helper import DataBaseHelper
 from dao_object.conversation_prediction_object import ConversationPredictionDAO
 from utils.config_util import ConfigUtil
-from objects.conversation_history_record import ConsumerParticipant, ConversationHistoryRecord
+from objects.conversation_history_record import ConsumerParticipant, ConversationHistoryRecord, ConversationSummary
 from objects.message_record import MessageRecord
 from lp_api_manager.lp_utils import LpUtils
 from readerwriterlock import rwlock
@@ -24,7 +25,8 @@ class ConversationCache:
     closed_conversations: dict[str, ConversationHistoryRecord]
     messages: dict[str, set[MessageRecord]]
     open_conversations: dict[str, ConversationHistoryRecord]
-
+    missing_conversations: dict[str, int]  # Track how many times a conversation has been missing
+    converstaion_summaries: dict[str, ConversationSummary]
 
         
     def __new__(cls, *args, **kwargs):
@@ -33,6 +35,8 @@ class ConversationCache:
             cls._instance.closed_conversations = {}
             cls._instance.messages = {}
             cls._instance.open_conversations = {}
+            cls._instance.missing_conversations = {}  # Initialize missing conversations counter
+            cls._instance.converstaion_summaries = {}
             cls._instance._lock = rwlock.RWLockFair()
             cls._instance._start_cleanup_thread()
             cls._instance._start_log_thread()
@@ -49,27 +53,14 @@ class ConversationCache:
                                     yield lst[i:i + chunk_size]
                             
                     for chunk in chunk_list(initial_predictions, 100):
-                        #conversation_ids = [prediction.conversationId for prediction in initial_predictions]
                         conversation_ids = [prediction.conversationId for prediction in chunk]    #check
-                        print("going to request converstaions ids ", len(conversation_ids))
                         response = LpUtils().get_conversations_by_conv_id(conversation_ids)
-                        print("response status code is : ", response) 
-                        #print(response)
-                        #sleep(5)
                         conversations_records: dict[str, ConversationHistoryRecord] = (
                             LpUtils.extract_conversations(response)
                         )
+
                         messages_records = LpUtils.extract_messages(response)
 
-
-                        # conversationId =  db.Column(db.String, primary_key=True)
-                        # basic_algorithm_result = db.Column(db.String)
-                        # GSR = db.Column(db.Float)
-                        # IMSR = db.Column(db.Boolean)
-                        # max_GSR = db.Column(db.Float)
-                        # status = db.Column(db.String)
-                        # last_message_id = db.Column(db.String, primary_key=True)
-                        # created_at = db.Column(db.DateTime, default=datetime.utcnow)
                         for prediction in chunk:
                             conv_id = prediction.conversationId
                             conv_record = conversations_records[conv_id]
@@ -77,7 +68,10 @@ class ConversationCache:
                             conv_record.basic_algorithm_result = prediction.basic_algorithm_result
                             conv_record.IMSR = prediction.IMSR
                             conv_record.max_GSR = prediction.max_GSR
-                            self.closed_conversations[conv_id] = conv_record
+                            if conv_record.status == "CLOSE" or conv_record.status == "closed" or conv_record.status == "CLOSED" or conv_record.status == "Closed":
+                                self.closed_conversations[conv_id] = conv_record
+                            else:
+                                self.open_conversations[conv_id] = conv_record
 
 
                         for conv_id, message_list in messages_records.items():
@@ -104,10 +98,25 @@ class ConversationCache:
         logging.info("Start cache update")
         move_to_close: [str] = []
         with self._lock.gen_wlock():
-            # moving all new conversation that closed
+            # Reset missing counter for conversations that are present
+            for conv_id in conversation.keys():
+                if conv_id in self.missing_conversations:
+                    del self.missing_conversations[conv_id]
+
+            # Check for missing conversations
             for conv_id, conv_record in self.open_conversations.items():
                 if conv_id not in conversation.keys() and conv_record.brandId != 'testing':
-                    move_to_close.append(conv_id)
+                    # Increment missing counter
+                    self.missing_conversations[conv_id] = self.missing_conversations.get(conv_id, 0) + 1
+                    
+                    # Only move to close if missing for 3 consecutive times
+                    if self.missing_conversations[conv_id] >= 5:
+                        logging.info(f"conversation {conv_id} has been missing for {self.missing_conversations[conv_id]} times, moving to closed")
+                        move_to_close.append(conv_id)
+                        del self.missing_conversations[conv_id]
+                    else:
+                        logging.info(f"conversation {conv_id} is temporarily missing (count: {self.missing_conversations[conv_id]})")
+
             self._move_conv_to_close(currentTime, move_to_close)
 
             # updating open conversations dict
@@ -233,20 +242,85 @@ class ConversationCache:
         return conversations
 
     def get_open_conversations(self) -> dict[str, ConversationHistoryRecord]:
-        return self.open_conversations
+        with self._lock.gen_rlock():
+            return self.open_conversations
+
+    def extract_hebrew_messages(self, messages: list[MessageRecord]) -> list[MessageRecord]:
+        return [msg for msg in messages if msg.messageData['msg']['text']]
+
+    def extract_hebrew_test(
+        self, conversation : ConversationHistoryRecord
+    ) -> str:
+        messages = self.messages.get(conversation.conversationId)
+        lines = []
+        if not messages:
+            return ""
+        messages = sorted(messages, key=lambda m: (m.timeL is None, m.timeL))
+        for msg in messages:
+            if hasattr(msg, "messageId") and msg.messageId:
+                msg_id_str = msg.messageId.split(":")[-1]
+        for msg in messages:
+            # Check for RICH_CONTENT type
+            if getattr(msg, "type", None) == "RICH_CONTENT":
+                rich_content = msg.messageData.get("richContent") if msg.messageData else None
+                if rich_content and "content" in rich_content:
+                    content = rich_content["content"]
+                    if isinstance(content, str) and "גילך" in content:
+                        lines.append("מה טווח גילך?")
+                # Ignore all other RICH_CONTENT messages
+                continue
+            # Regular messages with text
+            text = None
+            if msg.messageData and "msg" in msg.messageData:
+                msg_obj = msg.messageData["msg"]
+                if isinstance(msg_obj, dict):
+                    text = msg_obj.get("text")
+            if text:
+                prefix = "נציג:" if msg.sentBy == "Agent" else "פונה:"
+                lines.append(f"{prefix} {text}")
+        text = "\n".join(lines)
+        return text
+
+
+    def get_summary(self, conversation_id: str):
+        
+        summary = None
+        last_message_id = ""
+        with self._lock.gen_rlock():
+            conversation = self.get_conversation_by_Id(conversation_id)
+            last_message_id = conversation.last_effected_message_id
+            if conversation:
+                if conversation_id in self.converstaion_summaries and conversation.last_effected_message_id == self.converstaion_summaries[conversation_id].last_message_id:
+                    return self.converstaion_summaries[conversation_id]
+                messages = self.messages.get(conversation_id)
+                if messages:
+                    text = self.extract_hebrew_test(conversation)
+                    if text != "":
+                        summarizer = Summarizer()
+                        summary = summarizer.get_summary(text)
+        with self._lock.gen_wlock():
+            if summary:
+                self.converstaion_summaries[conversation_id] = ConversationSummary(last_message_id, summary)
+        if summary:
+            return self.converstaion_summaries[conversation_id] 
+
 
     def get_json_open_conversations(self) -> list[ConversationHistoryRecord]:
         json_open_conversations = ConversationCache().get_open_conversations()
+        for c in json_open_conversations.values():
+            logging.info(f"conversation {c.conversationId} inside get_json_open_conversations")
         json_open_conversations = [
             conv.to_dict() for conv in json_open_conversations.values()
         ]
         return json_open_conversations
 
     def update_need_analyze(self, data):
-        for conv_id in data:
-            conv_record = self.open_conversations.get(conv_id)
-            if conv_record:
-                conv_record.update_field("need_analyze", False)
+        with self._lock.gen_wlock():
+            for conv_id in data:
+                conv_record = self.open_conversations.get(conv_id)
+                if conv_record:
+                    conv_record.update_field("need_analyze", False)
+    
     def enrich_conversation(self, conv_id: str, json_str: str, last_message_id: str):
         logging.debug(f"Start enriching conversation: {conv_id}")
         with self._lock.gen_wlock():
@@ -263,29 +337,37 @@ class ConversationCache:
                     logging.warning(f"Conversation {conv_id} not found.")
                     return
 
-                data = json.loads(json_str)
-
+                try:
+                    data = json.loads(json_str)
+                except json.JSONDecodeError as e:
+                    logging.error(f"JSON decode error for {conv_id}: {e}")
+                    return
                 # Add last_effected_message_id to json_data
                 data['last_effected_message_id'] = last_message_id
 
 
                 push_to_db = False
                 if from_open:
+                    
                     if self.open_conversations[conv_id].last_effected_message_id != last_message_id:
                         push_to_db = True
                 else:
-                    if self.closed_conversations[conv_id].last_effected_message_id != last_message_id:
-                        push_to_db = True
+                    push_to_db = True
 
 
                 # Update the conversation record with the fields from the JSON
                 for key, value in data.items():
+                    if key == "GSR":
+                        logging.info(f"Updating GSR for conversation {conv_id} to {value}")
+                        logging.info(f"type of value is {type(value)}")
                     conv_record.update_field(key, value)
 
                 # Update the cache with the modified conversation record
                 if from_open:
+                    logging.info(f"enrich conversation {conv_id} open")
                     self.open_conversations[conv_id] = conv_record
                 else:
+                    logging.info(f"enrich conversation {conv_id} closed")
                     conv_record.update_field("need_analyze", False)
                     self.closed_conversations[conv_id] = conv_record
 
@@ -295,8 +377,8 @@ class ConversationCache:
                                                     GSR=conv_record.GSR,IMSR=conv_record.IMSR,
                                                     max_GSR=conv_record.max_GSR, status=conv_record.status,last_message_id=conv_record.last_effected_message_id))
 
-            except json.JSONDecodeError as e:
-                logging.error(f"Error decoding JSON: {e}")
+            except Exception as e:
+                logging.error(f"Unexpected error enriching conversation {conv_id}: {e}")
         
         logging.debug(f"End enriching conversation: {conv_id}, successfully")
 

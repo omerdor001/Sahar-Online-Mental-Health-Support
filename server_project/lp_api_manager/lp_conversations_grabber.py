@@ -28,11 +28,11 @@ class LpConversationGrabber:
         messages: dict[str, set[MessageRecord]] = {}
 
         while True:
-            print("going to grab and get open conversations")
             response = self.live_person_util.get_open_conversations(start_time, current_time_ms, offset)
             count = response["_metadata"]["count"]
             # Extract conversation records from the response
             conversation_records = LpUtils.extract_conversations(response)
+            logging.info(f"conversation_records ids from LivePerson: {conversation_records.keys()}" )
             messages_records = LpUtils.extract_messages(response)
             # Update the conversations dictionary with the new records
             conversations.update(conversation_records)
@@ -47,6 +47,5 @@ class LpConversationGrabber:
         catch.update_conversations(current_time_ms, conversations, messages)
 
         self.last_grab_time = current_time_ms
-        print("Finish grabbing successfully")
         logging.info("Finish grabbing successfully")
         return conversations

@@ -1,7 +1,6 @@
 from enum import Enum
 from dataclasses import dataclass, asdict
 from typing import Optional, List, Type, TypeVar, Dict, Any
-
 from DataBase.database_helper import DataBaseHelper
 from dao_object.conversation_prediction_object import ConversationPredictionDAO
 T = TypeVar('T')
@@ -47,6 +46,12 @@ class ConsumerParticipant(JsonConvertible):
     consumerName: Optional[str] = None
     dialogId: Optional[str] = None
 
+
+
+@dataclass
+class ConversationSummary(JsonConvertible):
+    last_message_id: Optional[str] = None
+    summary: Optional[str] = None
 
 @dataclass
 class ConversationHistoryRecord(JsonConvertible):
