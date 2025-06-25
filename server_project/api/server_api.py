@@ -47,6 +47,11 @@ class ServerAPI:
         @self.token_required
         def get_history_calls():
             return self.get_history_calls()
+        
+        @self.app.route("/summarize_conversation", methods=["POST"])
+        # @self.token_required
+        def summarize_conversation():
+            return self.summarize_conversation()
 
         @self.app.route("/test/add_conversations", methods=["POST"])
         def add_open_conversations():
@@ -125,9 +130,9 @@ class ServerAPI:
                   #  print("socketio update_api_Cache")
                     analyzed_conversations = []
                     for d in current_open_calls:
-                        #print(d.get("GSR"))
                         if d.get("GSR"):
                             analyzed_conversations.append(d)
+
                     self.socketio.emit('open_calls_update', {"data": analyzed_conversations})
             #time.sleep(5) TODO: fix it to send just when changed
             time.sleep(self.cache_update_interval)
@@ -140,12 +145,6 @@ class ServerAPI:
             account_id = '40920689'
             user_id = request.json.get("agentId")
             print("going to validate token")
-            # validate_token_res = LpUtils().lp_validate_token(user_id, account_id, token)
-            # if validate_token_res is not None:
-            #     print("validate_token_res before return ", validate_token_res)
-            #     print("validate token status code" , validate_token_res.status_code)
-            #     print(type(validate_token_res.status_code))
-            # if validate_token_res is not None and validate_token_res.status_code == 200:
             now = datetime.utcnow()
             exp = now + timedelta(hours=24)
             token = self.jwt_key.encode(
@@ -228,6 +227,11 @@ class ServerAPI:
         
         return jsonify({"successfully added closed converstaions" : "lalala"}), 200
     
+    def summarize_conversation(self):
+        conversation_id = request.json.get("conversationId")
+        conversation_summray = ConversationCache().get_summary(conversation_id)
+        return jsonify({"conversation" : conversation_summray}), 200
+    
     def get_history_calls(self):
         minutes = 60
         try:
@@ -246,12 +250,6 @@ class ServerAPI:
             if record.conversationEndTimeL:
                 if (int(datetime.now(timezone.utc).timestamp()*1000) - int(record.conversationEndTimeL)) /60000 <= int(minutes):
                     recent_conversations[conv_id] = record
-       # recent_conversations = {
-       #     conv_id: record
-       #     for conv_id, record in closed_conversations.items()
-       #     if record.conversationEndTimeL and record.conversationEndTimeL >= time_threshold  # Ensure startTime is a datetime object
-       # }
-
         return jsonify({"history": recent_conversations})
 
     def get_open_calls(self):
@@ -259,7 +257,6 @@ class ServerAPI:
             open_conversations = self.api_cache.get("open_conversations", [])
         analyzed_conversations = []
         for d in open_conversations:
-            #print(d.get("GSR"))
             if d.get("GSR"):
                 analyzed_conversations.append(d)
         return jsonify({"data": analyzed_conversations})

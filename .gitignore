@@ -1,2 +1,7 @@
 /sahar_git/AI
 /sahar_git/python_env
+server_project/logs
+*.pyc
+*.bak
+*.xlsx
+app.log.*

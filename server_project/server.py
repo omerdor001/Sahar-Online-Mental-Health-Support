@@ -4,6 +4,7 @@ eventlet.monkey_patch()
 import logging
 
 from AI.analyzer import Analyzer
+from AI.algorithms.summerization_algorithm import Summarizer
 from objects.conversation_cache import *
 from lp_api_manager.lp_conversations_grabber import LpConversationGrabber
 from lp_api_manager.lp_utils import LpUtils
@@ -15,6 +16,7 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from DataBase import database_helper
 from flask_socketio import SocketIO
+from services.db_cleanup_service import set_flask_app_for_cleanup, start_daily_cleanup_scheduler
 
 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -31,16 +33,20 @@ def init_system():
         # db.create_all()
         # print("Database created successfully!")
     database_helper.DataBaseHelper(app)
+    
     ConfigUtil().init()  # Init singleton
     ServerAPI(app, socketio)
     Logger()
     logging.debug("Start system initiation")
     lp_utils = LpUtils()
     conversation_cache = ConversationCache() # Ni Change
+    set_flask_app_for_cleanup(app)
+
+    start_daily_cleanup_scheduler()
+    
     conversation_predictions = database_helper.DataBaseHelper.get() # Nir Add
-    print("total conversation predictions")
-    print(len(conversation_predictions))
     conversation_cache.initialize(conversation_predictions) #Nir Add
+    Summarizer()
     Analyzer()
     logging.info("Finished system initiation successfully")
     lp_conversation_grabber=  LpConversationGrabber()

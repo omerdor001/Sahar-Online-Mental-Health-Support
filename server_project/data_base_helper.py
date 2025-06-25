@@ -5,17 +5,12 @@ class DatabaseHelper:
     @staticmethod
     def add_instance(instance):
         """Add and commit an instance to the database."""
-        #print("starting to add instance")
         with current_app.app_context():
-            #print("inside with current_app")
             db.session.add(instance)
             try:
                 db.session.commit()
-                #print(f"Successfully added: {instance}")
             except Exception as e:
                 db.session.rollback()
-                #print(f"Error committing to the database: {e}")
-        #print("done with current_app")
 
 
     @staticmethod

@@ -1,7 +1,8 @@
 # Engagement History lp_api_manager (Chat)
 import logging
 import os
-
+import subprocess
+import time
 from DataBase.database_helper import DataBaseHelper
 from utils.config_util import ConfigUtil
 from lp_api_manager.lp_executor import LpExecutor
@@ -110,11 +111,6 @@ class LpUtils:
 
 
     def get_open_conversations(self, start_time, end_time, offset):
-        print("getting_open_converstaions started")
-        # headers = {
-        #     "Authorization": f"Bearer {self.bearer_token}",
-        #     "Content-Type": "application/json",
-        # }
 
         body = {
             "start": {"from": start_time, "to": end_time},
@@ -123,7 +119,6 @@ class LpUtils:
         }
         params = {"offset": offset, "limit": 100, "source": "sahar_AI_openConv"}
 
-        print("get open conversation done")
         return self.check_response(LpExecutor.execute(
             LpApiBuilder(
                 LpApiConstants.message_hist_uri(
@@ -187,13 +182,51 @@ class LpUtils:
 
         if len(conversations_ids) > 100:
             logging.error("conversationsIds size > 100, data lost")
-        response=self.check_response(LpExecutor.execute(
-            LpApiBuilder(URI)
-            # .add_headers(headers)
-            .add_body(body)
-            .add_params(params)
-            .build_call()
-        ), True)
+
+        
+        def do_request():
+            return self.check_response(LpExecutor.execute(
+                LpApiBuilder(URI)
+                .add_body(body)
+                .add_params(params)
+                .build_call()
+            ), True)
+
+        response = do_request()
+        if isinstance(response, dict) and any('oauth_problem=timestamp_refused' in str(value) for value in response.values()):
+            print("trying to sync clock")
+            try:
+                subprocess.run(["sudo", "ntpdate", "ntp.ubuntu.com"], check=True)
+                print("Clock resynchronized. Retrying request...")
+                time.sleep(1)  # optional: allow the clock to settle
+                response = do_request()
+            except subprocess.CalledProcessError as sync_error:
+                logging.error(f"Failed to resync clock: {sync_error}")
+                raise
+
+        # except Exception as e:
+        #     print("Exception is : ", e)
+        #     error_msg = str(e)
+        #     print("error_msg is ", error_msg)
+        #     if "oauth_problem=timestamp_refused" in error_msg:
+        #         print("Timestamp error detected. Resyncing system clock...")
+        #         try:
+        #             subprocess.run(["sudo", "ntpdate", "ntp.ubuntu.com"], check=True)
+        #             print("Clock resynchronized. Retrying request...")
+        #             time.sleep(1)  # optional: allow the clock to settle
+        #             response = do_request()
+        #         except subprocess.CalledProcessError as sync_error:
+        #             logging.error(f"Failed to resync clock: {sync_error}")
+        #             raise
+        #     else:
+        #         raise    
+        # response=self.check_response(LpExecutor.execute(
+        #     LpApiBuilder(URI)
+        #     # .add_headers(headers)
+        #     .add_body(body)
+        #     .add_params(params)
+        #     .build_call()
+        # ), True)
         # count = response["_metadata"]["count"]
         print("successfuly get conversatins by id")
         # if 'debugMessage' in response and 'The server will not process the request' in response['debugMessage']:
@@ -207,7 +240,7 @@ class LpUtils:
         #     .add_params(params)
         #     .build_call()
         # ), True)
-        print("response from get_conversation_by_id = ", response)
+        # print("response from get_conversation_by_id = ", response)
         return response
     
    
@@ -255,6 +288,7 @@ class LpUtils:
     @staticmethod
     def extract_conversations(response) -> dict[str, ConversationHistoryRecord]:
         conversations: dict[str, ConversationHistoryRecord] = {}
+        #print("DEBUG: Response received in extract_conversations:", response)
         for item in response["conversationHistoryRecords"]:
             conversation_info = item.get("info")
             conversation_id = conversation_info.get("conversationId")
