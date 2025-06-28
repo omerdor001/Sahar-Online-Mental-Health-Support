@@ -7,3 +7,5 @@ server_project/logs
 app.log.*
 server_project/instance
 server_project/config.json
+server_project/old_permissions
+*.pem
