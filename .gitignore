@@ -5,3 +5,5 @@ server_project/logs
 *.bak
 *.xlsx
 app.log.*
+server_project/instance
+server_project/config.json
