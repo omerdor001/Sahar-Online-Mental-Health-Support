@@ -209,7 +209,7 @@ npm run dev
 sudo apt-get install nginx
 
 # Configure Gunicorn
-gunicorn --workers 4 --bind 0.0.0.0:8000 app:app
+gunicorn --workers 4 --bind 0.0.0.0:8000 server:app
 
 # Configure Nginx (see nginx.conf in repo)
 sudo systemctl restart nginx
