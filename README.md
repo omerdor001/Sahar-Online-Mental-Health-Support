@@ -171,7 +171,7 @@ cd Sahar-Online-Mental-Health-Support
 #### 2️⃣ Backend Setup (ServerProject)
 
 ```bash
-cd ServerProject
+cd server_project
 
 # Create virtual environment
 python -m venv venv
@@ -181,21 +181,19 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt 
 
 # Set environment variables
-export FLASK_APP=app.py
+export FLASK_APP=server.py
 export FLASK_ENV=development
 export LIVEPERSON_API_KEY=your_api_key_here
 
-# Initialize database
-python init_db.py
 
 # Run Flask development server
-flask run
+python server.py
 ```
 
 #### 3️⃣ Frontend Setup (ClientProject)
 
 ```bash
-cd ../ClientProject
+cd ../Client_Project production/app
 
 # Install dependencies
 npm install
