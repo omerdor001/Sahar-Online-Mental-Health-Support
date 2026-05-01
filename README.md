@@ -171,7 +171,7 @@ cd Sahar-Online-Mental-Health-Support
 #### 2️⃣ Backend Setup (ServerProject)
 
 ```bash
-cd server_project
+cd server
 
 # Create virtual environment
 python -m venv venv
@@ -193,7 +193,7 @@ python server.py
 #### 3️⃣ Frontend Setup (ClientProject)
 
 ```bash
-cd ../Client_Project production/app
+cd ../client/production/app
 
 # Install dependencies
 npm install
