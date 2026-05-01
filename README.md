@@ -28,13 +28,62 @@ The system supports several key use cases for managing and analyzing conversatio
 
 ---
 
-**🏛️ System Architecture**
+## 🏗️ System Architecture
 
-The system consists of a `ServerProject` (backend) and a `ClientProject` (frontend) hosted on a BGU server.
+The system is composed of two main components:
 
-* **ServerProject**: This backend project handles server-side logic, AI processing, and API communication. It is built with a **Flask Python** application, a **Gunicorn** server, and an **Nginx** web server. It uses a single **SQLite database** to save relevant persistence information, primarily for tracking conversation predictions.
-* **ClientProject**: The frontend is a **React.js** application that uses the **Material UI** library. Nginx serves these static web pages via HTTPS.
-* **🧩 LLM Models**: Large language models are deployed on the server for conversation analysis. Different models are used for specific tasks, including a **GSR/IMSR model** for general and immediate suicidal risk, a **summarization model** to summarize conversations, and an **explanation model** to explain why a high-risk prediction was made.
-* **📜 Logs**: The system uses two types of logs: system logs to report on actions taken within the system and cache logs for debugging purposes.
+### 🖥️ ServerProject (Backend)
+- **Framework:** Flask (Python)  
+- **Server:** Gunicorn  
+- **Web Server:** Nginx  
+- **Database:** SQLite  
+
+Handles:
+- AI processing  
+- Risk analysis  
+- API communication  
+- Data persistence  
 
 ---
+
+### 🌐 ClientProject (Frontend)
+- **Framework:** React.js  
+- **UI Library:** Material UI  
+- Served via **Nginx over HTTPS**
+
+---
+
+## 🧩 AI Models
+
+The system uses multiple specialized models:
+
+- **GSR / IMSR Model**  
+  Detects general and immediate suicidal risk  
+
+- **Summarization Model**  
+  Generates concise conversation summaries  
+
+- **Explanation Model**  
+  Explains why a conversation was classified as high risk  
+
+---
+
+## 📜 Logging System
+
+- **System Logs**  
+  Track system actions and events  
+
+- **Cache Logs**  
+  Used for debugging and performance monitoring  
+
+---
+
+## 🚀 Getting Started
+
+### Clone the Repository
+```bash
+git clone https://github.com/omerdor001/Sahar-Online-Mental-Health-Support.git
+cd Sahar-Online-Mental-Health-Support
+cd server_project
+pip install -r requirements.txt
+
