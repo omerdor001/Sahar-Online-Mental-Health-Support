@@ -107,7 +107,7 @@ The system currently supports **~200 daily users** and helps save lives by enabl
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                        CLIENT (React.js)                     │
+│                    CLIENT (React.js)                         │
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐     │
 │  │  Settings    │  │Conversations │  │ History Panel│     │
 │  └──────────────┘  └──────────────┘  └──────────────┘     │
@@ -115,7 +115,7 @@ The system currently supports **~200 daily users** and helps save lives by enabl
                              │ HTTPS (Nginx)
                              ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                    SERVER (Flask + Gunicorn)                 │
+│                SERVER (Flask + Gunicorn)                     │
 │  ┌──────────────────────────────────────────────────────┐  │
 │  │              REST API Endpoints                       │  │
 │  └──────────────────────────────────────────────────────┘  │
@@ -124,7 +124,7 @@ The system currently supports **~200 daily users** and helps save lives by enabl
 │  │  (PyTorch)   │  │    Model     │                        │
 │  └──────────────┘  └──────────────┘                        │
 │  ┌──────────────────────────────────────────────────────┐  │
-│  │            SQLite Database (Predictions)              │  │
+│  │         SQLite Database (Predictions)                 │  │
 │  └──────────────────────────────────────────────────────┘  │
 └────────────────────────────┬────────────────────────────────┘
                              │
