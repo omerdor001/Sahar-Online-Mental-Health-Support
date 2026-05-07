@@ -16,21 +16,6 @@
 
 ---
 
-## 📋 Table of Contents
-
-- [About The Project](#about-the-project)
-- [Key Features](#key-features)
-- [Tech Stack](#tech-stack)
-- [System Architecture](#system-architecture)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [API Endpoints](#api-endpoints)
-- [Project Impact](#project-impact)
-- [Contact](#contact)
-- [Acknowledgments](#acknowledgments)
-
----
 ## 🎯 About The Project
 
 **Sahar** is a production-grade mental health support system developed for the Sahar Organization (Israel's national suicide prevention hotline). The platform assists volunteers and administrators in managing conversations with help-seekers by leveraging advanced AI/NLP algorithms to provide:
