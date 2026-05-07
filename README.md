@@ -91,7 +91,7 @@ The system currently supports **~200 daily users** and helps save lives by enabl
 - **Framework**: React.js 18+
 - **UI Library**: Material-UI (MUI)
 - **State Management**: React Hooks
-- **HTTP Client**: Axios
+- **HTTP Client**: Fetch API
 - **Build Tool**: Webpack
 
 ### **DevOps & Infrastructure**
